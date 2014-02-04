@@ -41,7 +41,9 @@ def main():
 #    print 'dist=%.2f, angle1=%.2f, angle2=%.2f' % (distance, angle1, angle2)
 
     movements.turn(robot, angle1)
+    sleep(1)
     movements.move_straight(robot, distance)
+    sleep(1)
     movements.turn(robot, angle2)
 
 main()
