@@ -8,7 +8,7 @@ def move_straight(robot, distance):
     it's supposed to be getting. Adjust if neccesary.
     """
 
-    power = copysign(50, distance)
+    power = copysign(50, 1)
     t = distance / (power/50)
     robot.motors[0].m0.power
     robot.motors[0].m1.power
