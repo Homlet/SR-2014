@@ -8,7 +8,7 @@ def move_straight(robot, distance):
     it's supposed to be getting. Adjust if neccesary.
     """
     power = copysign(50, distance)
-    t = distance / (power/50)
+    t = distance / (power/40)
     robot.motors[0].m0.power = power
     robot.motors[0].m1.power = power
     sleep(abs(t))
@@ -19,7 +19,7 @@ def turn(robot, angle=0.524):
     0.524 rad = 30 degrees
     """
     power = copysign(45, angle)
-    t = 0.3 * (angle/0.524)
+    t = 0.4 * (angle/0.524)
     robot.motors[0].m0.power = -power
     robot.motors[0].m1.power =  power
     sleep(abs(t))
