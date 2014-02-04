@@ -31,7 +31,7 @@ def compute_directions(marker, d=1):
 def main():
     robot = Robot()
     markersInSight = robot.see()
-    while markersInSight == []:
+    while not markersInSight:
         movements.turn(robot)
         sleep(0.5)
         markersInSight = robot.see()
