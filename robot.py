@@ -2,6 +2,7 @@ from sr import *
 
 import movements
 from math import sin, cos, atan, radians, degrees, sqrt
+from time import sleep
 
 def compute_directions(marker, d=1):
     """
@@ -31,6 +32,7 @@ def main():
     markersInSight = robot.see()
     while markersInSight == []:
         movements.turn(robot)
+        sleep(0.5)
         markersInSight = robot.see()
 
     marker = markersInSight[0]
