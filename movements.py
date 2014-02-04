@@ -12,7 +12,7 @@ def move_straight(robot, distance):
     t = distance / (power/50)
     robot.motors[0].m0.power
     robot.motors[0].m1.power
-    sleep(t)
+    sleep(abs(t))
     stop_motors(robot)
 
 def turn(robot, angle=0.524):
@@ -23,7 +23,7 @@ def turn(robot, angle=0.524):
     t = 0.3 * (angle/0.524)
     robot.motors[0].m0.power = -power
     robot.motors[0].m1.power =  power
-    sleep(t)
+    sleep(abs(t))
     stop_motors(robot)
 
 def stop_motors(robot):
