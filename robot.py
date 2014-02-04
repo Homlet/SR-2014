@@ -29,7 +29,7 @@ def compute_directions(marker, d=1):
 def main():
     robot = Robot()
     markersInSight = robot.see()
-    while markersInSight is []:
+    while markersInSight == []:
         movements.turn(robot)
         markersInSight = robot.see()
 
