@@ -25,7 +25,7 @@ def compute_directions(marker, d=1):
     y = Y - d*cos(beta)
     gamma = atan(x / y)
     distance = sqrt(x*x+ y*y)
-    print 'distance=%.2f, alpha=%.2f, beta=%.2f' % (distance, alpha, beta)
+    print 'distance=%.2f, alpha=%.2f, beta=%.2f' % (distance, degrees(alpha), degrees(beta))
     return distance, gamma, alpha - gamma
 
 def main():
