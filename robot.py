@@ -1,7 +1,7 @@
 from sr import *
 
 import movements
-from math import sin, cos, atan, radians, degrees
+from math import sin, cos, atan, radians, degrees, sqrt
 
 def compute_directions(marker, d=1):
     """
@@ -20,9 +20,9 @@ def compute_directions(marker, d=1):
     beta = radians(marker.orientation.rot_y)
     X = marker.dist * sin(alpha)
     Y = marker.dist * cos(alpha)
-    gamma = atan(x / y)
     x = X - d*sin(beta)
     y = Y - d*cos(beta)
+    gamma = atan(x / y)
     distance = sqrt(x*x+ y*y)
     return distance, gamma, alpha - gamma
 
@@ -36,8 +36,8 @@ def main():
     marker = markersInSight[0]
     distance, angle1, angle2 = compute_directions(marker)
 
-    movements.turn(angle1)
-    movements.move_straight(distance)
-    movements.turn(angle2)
+    movements.turn(robot, angle1)
+    movements.move_straight(robot, distance)
+    movements.turn(robot, angle2)
 
 main()
