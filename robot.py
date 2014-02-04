@@ -38,7 +38,7 @@ def main():
 
     marker = markersInSight[0]
     distance, angle1, angle2 = compute_directions(marker)
-    print 'dist=%.2f, angle1=%.2f, angle2=%.2f' % (distance, angle1, angle2)
+#    print 'dist=%.2f, angle1=%.2f, angle2=%.2f' % (distance, angle1, angle2)
 
     movements.turn(robot, angle1)
     movements.move_straight(robot, distance)
