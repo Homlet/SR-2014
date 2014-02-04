@@ -30,7 +30,7 @@ def main():
     robot = Robot()
     markersInSight = robot.see()
     while markersInSight is []:
-        movements.turn()
+        movements.turn(robot)
         markersInSight = robot.see()
 
     marker = markersInSight[0]
