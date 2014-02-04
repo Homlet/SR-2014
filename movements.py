@@ -7,7 +7,6 @@ def move_straight(robot, distance):
     i.e while moving, trying to see if robot is getting to a point where
     it's supposed to be getting. Adjust if neccesary.
     """
-    print distance
     power = copysign(50, distance)
     t = distance / (power/50)
     robot.motors[0].m0.power = power
