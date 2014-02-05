@@ -1,4 +1,4 @@
-from time import clock
+from time import clock, sleep
 from math import copysign
 
 NOTHES_PER_WHEEL = 9
@@ -66,7 +66,7 @@ class Journey:
     def start(self):
         for each in [self.m1, self.m2]: each.start()
 
-        while (m1.notchesPassed // NOTHES_PER_WHEEL) < self.turnsToDo:
+        while (self.m1.notchesPassed // NOTHES_PER_WHEEL) < self.turnsToDo:
             self.m1.count_notches()
             self.m2.count_notches()
             self.sync_power()
@@ -83,4 +83,4 @@ class Journey:
         # 10 is just very rough estimate and should be properly worked out.
         base_notch_dt = self.m1.time_a_switch()
         notch_dt = self.m2.time_a_switch()
-        m2.set_power(m2.power + (notch_dt-base_notch_dt)*10*m2.k)
+        self.m2.set_power(self.m2.power + (notch_dt-base_notch_dt)*10*self.m2.k)
