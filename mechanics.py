@@ -7,7 +7,7 @@ M_SWITCH_LEFT  = 12
 M_SWITCH_RIGHT = 2
 WHEEL_CIRCUMFERENCE = 0.31
 
-class Motor():
+class Motor:
     def __init__(self, motor, switchID, rduino, k):
         self.motor = motor
         self.power = 50 * k
