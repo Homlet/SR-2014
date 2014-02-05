@@ -45,5 +45,6 @@ def main():
     movements.move_straight(robot, distance)
     sleep(1)
     movements.turn(robot, angle2)
+    movements.move_straight(robot, robot.see()[0].dist)
 
 main()
