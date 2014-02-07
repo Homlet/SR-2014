@@ -10,7 +10,7 @@ def main0():
     robot = Robot()
     markersInSight = robot.see()
     while not markersInSight:
-        movements.turn(robot)
+        turn(robot)
         sleep(0.5)
         markersInSight = robot.see()
 
@@ -18,14 +18,14 @@ def main0():
     dist, angle1, angle2 = compute_directions_for(marker)
 #    print 'dist=%.2f, angle1=%.2f, angle2=%.2f' % (distance, angle1, angle2)
 
-    movements.turn(robot, angle1)
+    turn(robot, angle1)
     sleep(1)
-    movements.move_straight(robot, dist)
+    move_straight(robot, dist)
     sleep(1)
-    movements.turn(robot, angle2)
+    turn(robot, angle2)
 
 def main():
     robot = Robot()
-    movements.move_straight(robot, 10)  # 10 meters :D
+    move_straight(robot, 10)  # 10 meters :D
 
 main()
