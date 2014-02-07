@@ -30,7 +30,7 @@ class Motor:
         while self.ruggeduino.digital_read(self.switchID) is False:
             pass
         dt = clock() - start
-        print 'Time for a notch:%.4f' % (dt)
+        print 'Time for a notch:%.8f' % (dt)
         return dt
         # return clock() - start
 
@@ -76,7 +76,7 @@ class Journey:
             a = clock()
             self.m0.count_notches()
             self.m1.count_notches()
-            print 'Time delay due to timing (loop): %.4f' % (clock() - a)
+            print 'Time delay due to timing (loop): %.8f' % (clock() - a)
             self.sync_power()
             sleep(2)  # Sync every 0.05 seconds?
 
@@ -93,7 +93,7 @@ class Journey:
         notch_dt = self.m1.time_a_switch()
 
         dt = notch_dt - base_notch_dt
-        print 'difference between notch_dt and base_notch_dt %.4f' % (dt)
+        print 'difference between notch_dt and base_notch_dt %.8f' % (dt)
         self.m1.set_power(self.m1.power + dt*1*self.m1.k)
 
         # m1.set_power(m1.power + (notch_dt-base_notch_dt)*10*m1.k)
