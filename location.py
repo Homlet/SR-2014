@@ -1,6 +1,6 @@
-from math import sin, cos, radians, degrees, pi
+from math import sin, cos, atan, radians, degrees, sqrt, pi
 
-class Zone():
+class Zone:
     def __init__(self, zoneNumber):
         #                   x1  y1    x2   y2
         zoneBoundaries = [(291, 250, 409, 400),
@@ -62,6 +62,6 @@ def compute_directions_for(marker, d=1):
     y = Y - d*cos(beta)
     gamma = atan(x / y)
     distance = sqrt(x*x + y*y)
-    print 'distance=%.2f, alpha=%.2f, beta=%.2f' %
+    print 'distance=%.2f, alpha=%.2f, beta=%.2f' %\
     (distance, degrees(alpha), degrees(beta))
     return distance, gamma, alpha - gamma
