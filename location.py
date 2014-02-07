@@ -40,3 +40,28 @@ def compute_position(marker):
     dy = marker.dist * sin(bearing - alpha)
     # print(ix, iy, dx, dy)
     return ix - dy, iy + dx, degrees(bearing)
+
+def compute_directions_for(marker, d=1):
+    """
+    The function provides neccesary information to line up for marker
+    'd' metres away from it
+
+    Returns angle 'gamma'(radians) for robot to turn
+    and move 'distance'meters forward to get 1m in front of the token
+    and angle to turn towards the marker when it stops moving
+
+    This function assumes angles are positive when marker is to the left
+    of the robot and is turned away from it anti-clockwise
+
+    """
+    alpha = radians(marker.rot_y)
+    beta = radians(marker.orientation.rot_y)
+    X = marker.dist * sin(alpha)
+    Y = marker.dist * cos(alpha)
+    x = X - d*sin(beta)
+    y = Y - d*cos(beta)
+    gamma = atan(x / y)
+    distance = sqrt(x*x + y*y)
+    print 'distance=%.2f, alpha=%.2f, beta=%.2f' %
+    (distance, degrees(alpha), degrees(beta))
+    return distance, gamma, alpha - gamma
