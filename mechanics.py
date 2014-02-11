@@ -45,7 +45,7 @@ class Motor(Thread):
     def __init__(self, motor, switchID, rduino, turns):
         Thread.__init__(self)
         self.motor = motor
-        self.power = 35 * copysign(1, turns)
+        self.power = 50 * copysign(1, turns)
         self.turnsToDo = abs(turns)
         self.switchID = switchID
         self.ruggeduino = rduino
@@ -70,7 +70,7 @@ class Motor(Thread):
         triggersToDo = self.turnsToDo * NOTCHES_ON_WHEEL
         self.motor.power = self.power
         if triggersToDo < 2:
-            sleep(4 * self.turnsToDo * WHEEL_CIRCUMFERENCE)
+            sleep(3 * self.turnsToDo * WHEEL_CIRCUMFERENCE)
         else:
             total_t = 0
             i = 0
@@ -88,6 +88,6 @@ class Motor(Thread):
         self.stop()
 
     def stop(self):
-        self.motor.power = -self.power * 0.3
+        # self.motor.power = -self.power * 0.3
         sleep(0.1)
         self.motor.power = 0
