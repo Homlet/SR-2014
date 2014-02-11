@@ -1,4 +1,4 @@
-from math import sin, cos, atan, radians, degrees, sqrt, pi
+from math import sin, cos, atan, radians, sqrt, pi
 
 class Zone:
     def __init__(self, zoneNumber):
@@ -21,8 +21,8 @@ def in_range(x, l, r):
 
 def compute_token_pos(tokenMarker, x, y, o):
     alpha = radians(tokenMarker.rot_y)
-    X = x + tokenMarker.dist*cos(o-alpha)
-    Y = y - tokenMarker.dist*sin(o-alpha)
+    X = x + tokenMarker.dist*cos(o - alpha)
+    Y = y - tokenMarker.dist*sin(o - alpha)
     return X, Y
 
 def compute_position(marker):
@@ -39,7 +39,7 @@ def compute_position(marker):
     dx = marker.dist * cos(bearing - alpha)
     dy = marker.dist * sin(bearing - alpha)
     # print(ix, iy, dx, dy)
-    return ix - dy, iy + dx, degrees(bearing)
+    return ix - dy, iy + dx, bearing
 
 def compute_directions_for(marker, d=1):
     """
@@ -56,12 +56,11 @@ def compute_directions_for(marker, d=1):
     """
     alpha = radians(marker.rot_y)
     beta = radians(marker.orientation.rot_y)
+    print 'alpha=%.2f, beta=%.2f' % (alpha, beta)
     X = marker.dist * sin(alpha)
     Y = marker.dist * cos(alpha)
     x = X - d*sin(beta)
     y = Y - d*cos(beta)
     gamma = atan(x / y)
     distance = sqrt(x*x + y*y)
-    print 'distance=%.2f, alpha=%.2f, beta=%.2f' %\
-    (distance, degrees(alpha), degrees(beta))
     return distance, gamma, alpha - gamma
