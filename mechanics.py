@@ -1,5 +1,5 @@
 from time import time, sleep
-from math import copysign
+from math import copysign, floor, fmod
 from threading import Thread
 
 from sr import INPUT_PULLUP
@@ -43,7 +43,7 @@ class Journey:
 
 class Motor(Thread):
     def __init__(self, motor, switchID, rduino, turns):
-        super().__init__()
+        Thread.__init__(self)
         self.motor = motor
         self.power = 35 * copysign(1, turns)
         self.turnsToDo = abs(turns)
@@ -56,10 +56,10 @@ class Motor(Thread):
         At exit point of this function switch is pressed.
         It returns time difference between 2 consecutive switch triggers
         """
-        while ruggeduino_input() is False:
+        while self.ruggeduino_input() is False:
             pass
         start = time()
-        while ruggeduino_input() is True:
+        while self.ruggeduino_input() is True:
             pass
         return time() - start
 
@@ -84,7 +84,7 @@ class Motor(Thread):
 
             if start_dt < average_dt:
                 sleep(average_dt - start_dt)
-            sleep(average_dt * fract(triggersToDo))
+            sleep(average_dt * fmod(triggersToDo)[0])
         self.stop()
 
     def stop(self):
