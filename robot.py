@@ -8,7 +8,7 @@ from position import compute_directions_for
 
 def line_up_to(marker, robot):
     dist, angle1, angle2 = compute_directions_for(marker)
-    print 'dist=%.2f, angle1=%.2f, angle2=%.2f' % (distance, angle1, angle2)
+    print 'dist=%.2f, angle1=%.2f, angle2=%.2f' % (dist, angle1, angle2)
     turn(robot, angle1)
     sleep(1)
     move_straight(robot, dist)
