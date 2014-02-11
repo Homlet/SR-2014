@@ -45,10 +45,12 @@ class Journey:
 class Motor(Thread):
     def __init__(self, motor, switchID, rduino, turns):
         Thread.__init__(self)
+        self.switchID = switchID
         self.motor = motor
         self.power = 50 * copysign(1, turns)
+        if self.switchID == 2:
+            self.power *= 1.3
         self.turnsToDo = abs(turns)
-        self.switchID = switchID
         self.ruggeduino = rduino
         self.ruggeduino.pin_mode(switchID, INPUT_PULLUP)
 
