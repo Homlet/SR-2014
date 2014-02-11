@@ -56,10 +56,10 @@ class Motor(Thread):
         At exit point of this function switch is pressed.
         It returns time difference between 2 consecutive switch triggers
         """
-        while ruggeduino_input() is True:
+        while ruggeduino_input() is False:
             pass
         start = time()
-        while ruggeduino_input() is False:
+        while ruggeduino_input() is True:
             pass
         return time() - start
 
