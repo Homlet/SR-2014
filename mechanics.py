@@ -70,7 +70,7 @@ class Motor(Thread):
         triggersToDo = self.turnsToDo * NOTCHES_ON_WHEEL
         self.motor.power = self.power
         if triggersToDo < 2:
-            sleep(3.75 * self.turnsToDo * WHEEL_CIRCUMFERENCE)
+            sleep(4 * self.turnsToDo * WHEEL_CIRCUMFERENCE)
         else:
             total_t = 0
             i = 0
