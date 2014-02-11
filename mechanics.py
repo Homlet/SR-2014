@@ -25,7 +25,7 @@ class Journey:
         if distance != 0:
             self.length = distance
         elif angle != 0:
-            self.length = angle * ROBOT_RADIUS
+            self.length = -angle * ROBOT_RADIUS
 
         turnsToDo = self.length / WHEEL_CIRCUMFERENCE
       
