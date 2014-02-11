@@ -13,7 +13,7 @@ WHEEL_CIRCUMFERENCE = 0.31
 # average dt for right wheel notch at power = 50
         # is 30 ms
 # same thing for left wheel
-        # is 70 ms
+        # is 70 ms 
 
 # Right wheel usually turns a bit quicker, according to notches
 
