@@ -6,7 +6,7 @@ from sr import Robot
 from movements import move_straight, turn
 from position import compute_directions_for
 
-def line_up_to(marker):
+def line_up_to(marker, robot):
     dist, angle1, angle2 = compute_directions_for(marker)
     print 'dist=%.2f, angle1=%.2f, angle2=%.2f' % (distance, angle1, angle2)
     turn(robot, angle1)
@@ -24,7 +24,7 @@ def main():
             turn(robot)
             sleep(0.5)
             markersInSight = robot.see()
-        line_up_to(markersInSight[0])
+        line_up_to(markersInSight[0], robot)
         while robot.see() is not []:
             pass
         sleep(5)
