@@ -20,6 +20,7 @@ def main():
     robot = Robot()
     markersInSight = robot.see()
     while worldExists:
+        markersInSight = robot.see()
         while not markersInSight:
             turn(robot)
             sleep(0.5)
