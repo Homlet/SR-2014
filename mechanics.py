@@ -28,6 +28,7 @@ class Journey:
             self.length = -angle * ROBOT_RADIUS
 
         turnsToDo = self.length / WHEEL_CIRCUMFERENCE
+        # If self.length < 0.15 no switches used
       
         self.m0 = Motor(robot.motors[0].m0, M_SWITCH_LEFT, rduino, turnsToDo)
         if angle != 0:
@@ -70,6 +71,7 @@ class Motor(Thread):
         triggersToDo = self.turnsToDo * NOTCHES_ON_WHEEL
         self.motor.power = self.power
         if triggersToDo < 2:
+            # Probably need different powers for turning/moving forward of the robot
             sleep(3 * self.turnsToDo * WHEEL_CIRCUMFERENCE)
         else:
             total_t = 0
