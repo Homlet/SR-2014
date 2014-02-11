@@ -27,7 +27,7 @@ class Journey:
         elif angle != 0:
             self.length = angle * ROBOT_RADIUS
 
-        turnsToDo = self.length // WHEEL_CIRCUMFERENCE
+        turnsToDo = self.length / WHEEL_CIRCUMFERENCE
       
         self.m0 = Motor(robot.motors[0].m0, M_SWITCH_LEFT, rduino, turnsToDo)
         if angle != 0:
