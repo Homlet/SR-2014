@@ -21,8 +21,6 @@ def line_up_to(marker, robot):
 def main():
     world_exists = True
     robot = Robot()
-    turn(robot, radians(90))
-    return
 
     markers = robot.see(res=res)
     while world_exists:
