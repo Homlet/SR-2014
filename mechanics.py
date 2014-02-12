@@ -36,31 +36,18 @@ class Journey:
         self.m1 = Motor(robot.motors[0].m1, M_SWITCH_RIGHT, rduino, turnsToDo)
 
     def start(self):
-        if abs(self.m0.turnsToDo) >= 0.5:
-            self.m0.start()
-            self.m1.start()
-            self.m0.join()
-            self.m1.join()
-        else:
-            # Need to work out time constant.
-            # Need to find out whether it's neccesary
-            # to have different time constants for turning and moving straight.
-
-            self.m0.power = self.m0.motor.power
-            self.m1.power = self.m1.motor.power
-            sleep(self.length * 3)
+        self.m0.start()
+        self.m1.start()
+        self.m0.join()
+        self.m1.join()
 
 
 class Motor(Thread):
     def __init__(self, motor, switchID, rduino, turns):
-        if turns > 2:
-            Thread.__init__(self)
+        super(Motor, self).__init__()
         self.switchID = switchID
         self.motor = motor
         self.power = 50 * copysign(1, turns)
-        # The code below is add power to right motor, because when the robot
-        # is turning(to the right) right wheel is barely turning
-        # May not need that to turn left
         if self.switchID == 2:
             self.power *= 1.3
         self.turnsToDo = abs(turns)
@@ -68,6 +55,10 @@ class Motor(Thread):
         self.ruggeduino.pin_mode(switchID, INPUT_PULLUP)
 
     def time_a_switch(self):
+        """
+        At exit point of this function switch is pressed.
+        It returns time difference between 2 consecutive switch triggers
+        """
         while self.ruggeduino_input() is False:
             pass
         start = time()
@@ -81,19 +72,23 @@ class Motor(Thread):
     def run(self):
         triggersToDo = self.turnsToDo * NOTCHES_ON_WHEEL
         self.motor.power = self.power
-        total_t = 0
-        i = 0
+        if triggersToDo < 2:
+            # Probably need different powers for turning/moving forward of the robot
+            sleep(3 * self.turnsToDo * WHEEL_CIRCUMFERENCE)
+        else:
+            total_t = 0
+            i = 0
 
-        start_dt = self.time_a_switch()
-        for i in range(1, int(floor(triggersToDo))):
-            total_t += self.time_a_switch()
+            start_dt = self.time_a_switch()
+            for i in range(1, int(floor(triggersToDo))):
+                total_t += self.time_a_switch()
 
-        if i != 0:
-            average_dt = total_t / i
+            if i != 0:
+                average_dt = total_t / i
 
-        if start_dt < average_dt:
-            sleep(average_dt - start_dt)
-        sleep(average_dt * modf(triggersToDo)[0])
+            if start_dt < average_dt:
+                sleep(average_dt - start_dt)
+            sleep(average_dt * modf(triggersToDo)[0])
         self.stop()
 
     def stop(self):
