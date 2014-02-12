@@ -1,4 +1,4 @@
-from math import sin, cos, atan, radians, degrees, sqrt
+from math import sin, cos, atan, radians, degrees, sqrt, pi
 from time import sleep
 
 from sr import Robot
@@ -21,7 +21,7 @@ def line_up_to(marker, robot):
 def main():
     world_exists = True
     robot = Robot()
-    turn(robot, 180)
+    turn(robot, pi)
     return
 
     markers = robot.see(res=res)
