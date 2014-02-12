@@ -1,4 +1,4 @@
-from math import sin, cos, atan, radians, degrees, sqrt, pi
+from math import sin, cos, atan, radians, degrees, sqrt, pi, copysign
 from time import sleep
 
 from sr import Robot
