@@ -28,7 +28,6 @@ class Journey:
             self.length = -angle * ROBOT_RADIUS
 
         turnsToDo = self.length / WHEEL_CIRCUMFERENCE
-        # If self.length < 0.15 no switches used
       
         self.m0 = Motor(robot.motors[0].m0, M_SWITCH_LEFT, rduino, turnsToDo)
         if angle != 0:
@@ -47,7 +46,7 @@ class Motor(Thread):
         super(Motor, self).__init__()
         self.switchID = switchID
         self.motor = motor
-        self.power = 50 * copysign(1, turns)
+        self.power = 35 * copysign(1, turns)
         if self.switchID == 2:
             self.power *= 1.3
         self.turnsToDo = abs(turns)
