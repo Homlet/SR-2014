@@ -74,8 +74,10 @@ class Motor(Thread):
         self.motor.power = self.power
         if triggersToDo < 2:
             # Probably need different powers for turning/moving forward of the robot
+            print "Approximating distance... ", self.turnsToDo
             sleep(3 * self.turnsToDo * WHEEL_CIRCUMFERENCE)
         else:
+            print "Using microswitches... ", self.turnsToDo
             total_t = 0
             i = 0
 
@@ -92,6 +94,6 @@ class Motor(Thread):
         self.stop()
 
     def stop(self):
-        # self.motor.power = -self.power * 0.3
+        self.motor.power = -self.power * 0.3
         sleep(0.1)
         self.motor.power = 0
