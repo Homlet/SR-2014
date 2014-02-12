@@ -59,8 +59,12 @@ def compute_directions_for(marker, d=1):
     print 'alpha=%.2f, beta=%.2f' % (alpha, beta)
     X = marker.dist * sin(alpha)
     Y = marker.dist * cos(alpha)
-    x = X - d*sin(beta)
-    y = Y - d*cos(beta)
+    i = d*sin(beta)
+    j = d*cos(beta)
+    x = X - i
+    y = Y - j
     gamma = atan2(x, y)
+    delta = atan2(i, j)
     distance = sqrt(x*x + y*y)
-    return distance, gamma, alpha - gamma
+    return distance, gamma, copysign(pi / 2, delta) - delta
+    
