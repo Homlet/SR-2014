@@ -41,7 +41,7 @@ def compute_position(marker):
     # print(ix, iy, dx, dy)
     return ix - dy, iy + dx, bearing
 
-def compute_directions_for(marker, d=1):
+def compute_directions_for(marker, y=1):
     """
     New implementation that may or may not work, using cosine rule.
     
@@ -59,30 +59,9 @@ def compute_directions_for(marker, d=1):
     print 'alpha=%.2f, beta=%.2f' % (alpha, beta)
     
     theta = beta - alpha
-    x = sqrt(d**2 + marker.dist**2 - 2*d*cos(theta))
-    gamma = acos((marker.dist**2 + x**2 - d**2) / (2*marker.dist*x))
+    x = sqrt(y**2 + marker.dist**2 - 2*y*cos(theta))
+    gamma = acos((marker.dist**2 + x**2 - y**2) / (2*marker.dist*x))
     delta = theta + alpha - gamma
     
     return x, gamma, delta
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
