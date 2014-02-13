@@ -56,12 +56,12 @@ def compute_directions_for(marker, y=1):
     """
     alpha = radians(marker.rot_y)
     beta = radians(marker.orientation.rot_y)
-    print 'alpha=%.2f, beta=%.2f' % (alpha, beta)
     
     theta = beta - alpha
     x = sqrt(y**2 + marker.dist**2 - 2*y*cos(theta))
     gamma = acos((marker.dist**2 + x**2 - y**2) / (2*marker.dist*x))
     delta = theta + alpha - gamma
     
+    print 'x=%.0f, gamma=%.0f, delta=%.0f' % (x, gamma, delta)
     return x, gamma, delta
     
