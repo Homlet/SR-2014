@@ -1,4 +1,4 @@
-from math import sin, cos, atan2, radians, sqrt, pi, copysign
+from math import *
 
 class Zone:
     def __init__(self, zoneNumber):
@@ -43,28 +43,46 @@ def compute_position(marker):
 
 def compute_directions_for(marker, d=1):
     """
-    The function provides neccesary information to line up for marker
-    'd' metres away from it
-
-    Returns angle 'gamma'(radians) for robot to turn
-    and move 'distance'meters forward to get 1m in front of the token
-    and angle to turn towards the marker when it stops moving
-
-    This function assumes angles are positive when marker is to the left
-    of the robot and is turned away from it anti-clockwise
-
+    New implementation that may or may not work, using cosine rule.
+    
+    It assumes clockwise angles are positive, but I don't know where
+    the provided angles are measured from, so it may need some sign
+    tweaking.
+    
+    If it doesn't work, we can go back to Nikita's code and work
+    from there.
+    
+    http://i.imgur.com/YiAnxK4.jpg
     """
     alpha = radians(marker.rot_y)
     beta = radians(marker.orientation.rot_y)
     print 'alpha=%.2f, beta=%.2f' % (alpha, beta)
-    X = marker.dist * sin(alpha)
-    Y = marker.dist * cos(alpha)
-    i = d*sin(beta)
-    j = d*cos(beta)
-    x = X - i
-    y = Y - j
-    gamma = atan2(x, y)
-    delta = atan2(i, j)
-    distance = sqrt(x*x + y*y)
-    return distance, gamma, copysign(pi / 2, delta) - delta
+    
+    theta = beta - alpha
+    x = sqrt(d**2 + marker.dist**2 - 2*d*cos(theta))
+    gamma = acos((marker.dist**2 + x**2 - d**2) / (2*marker.dist*x))
+    delta = theta + alpha - gamma
+    
+    return x, gamma, delta
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
