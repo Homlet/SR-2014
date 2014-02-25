@@ -1,7 +1,7 @@
 from math import sin, cos, atan, radians, degrees, sqrt, pi, copysign
 from time import sleep
 
-from sr import Robot
+from sr import *
 
 from movements import move_straight, turn
 from position import compute_directions_for
