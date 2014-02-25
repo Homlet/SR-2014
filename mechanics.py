@@ -93,6 +93,22 @@ class Motor(Thread):
         self.stop()
 
     def stop(self):
-        self.motor.power = -self.power * 0.3
-        sleep(0.1)
+        # self.motor.power = -self.power * 0.3
+        # sleep(0.1)
         self.motor.power = 0
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
