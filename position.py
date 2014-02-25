@@ -58,6 +58,7 @@ def compute_directions_for(marker, y=1):
     beta = radians(marker.orientation.rot_y)
     
     theta = beta - alpha
+    print y, theta # debug
     x = sqrt(y**2 + marker.dist**2 - 2*y*cos(theta))
     gamma = acos((marker.dist**2 + x**2 - y**2) / (2*marker.dist*x))
     delta = theta + alpha - gamma
