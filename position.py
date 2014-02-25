@@ -63,4 +63,4 @@ def compute_directions_for(marker, d=0.5):
     y = Y - d*cos(beta)
     gamma = atan(x / y)
     distance = sqrt(x*x + y*y)
-    return distance, gamma, alpha - gamma
+    return distance, gamma, beta - gamma
