@@ -1,4 +1,4 @@
-from math import sin, cos, acos, radians, pi, sqrt
+from math import *
 
 class Zone:
     def __init__(self, zoneNumber):
@@ -41,7 +41,7 @@ def compute_position(marker):
     # print(ix, iy, dx, dy)
     return ix - dy, iy + dx, bearing
 
-def compute_directions_for(marker, y=1):
+def compute_directions_for(marker, d=1):
     """
     New implementation that may or may not work, using cosine rule.
     
@@ -56,13 +56,37 @@ def compute_directions_for(marker, y=1):
     """
     alpha = radians(marker.rot_y)
     beta = radians(marker.orientation.rot_y)
+    print 'alpha=%.2f, beta=%.2f' % (alpha, beta)
+    X = marker.dist * sin(alpha)
+    Y = marker.dist * cos(alpha)
+    i = d*sin(beta)
+    j = d*cos(beta)
+    x = X - i
+    y = Y - j
+    gamma = atan2(x, y)
+    delta = atan2(i, j)
+    distance = sqrt(x*x + y*y)
+    return distance, gamma, copysign(pi / 2, delta) - delta
+
     
-    theta = beta - alpha
-    print y, marker.dist, theta # debug
-    x = sqrt(y**2 + marker.dist**2 - 2*y*cos(theta))
-    gamma = acos((marker.dist**2 + x**2 - y**2) / (2*marker.dist*x))
-    delta = theta + alpha - gamma
     
-    print 'x=%.0f, gamma=%.0f, delta=%.0f' % (x, gamma, delta)
-    return x, gamma, delta
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
