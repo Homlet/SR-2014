@@ -24,11 +24,11 @@ def main():
 
     markers = robot.see(res=res)
     while world_exists:
-        markers = robot.see(res=res)
+        markers = robot.see()
         while not markers:
             turn(robot)
             sleep(0.5)
-            markers = robot.see(res=res)
+            markers = robot.see()
         line_up_to(markers[0], robot)
 
 main()
