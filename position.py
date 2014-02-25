@@ -41,7 +41,7 @@ def compute_position(marker):
     # print(ix, iy, dx, dy)
     return ix - dy, iy + dx, bearing
 
-def compute_directions_for(marker, d=1):
+def compute_directions_for(marker, d=0.5):
     """
     The function provides neccesary information to line up for marker
     'd' metres away from it
