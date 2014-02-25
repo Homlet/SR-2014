@@ -30,8 +30,5 @@ def main():
             sleep(0.5)
             markers = robot.see(res=res)
         line_up_to(markers[0], robot)
-        while robot.see(res=res):
-            pass
-        sleep(5)
 
 main()
