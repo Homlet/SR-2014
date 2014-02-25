@@ -30,5 +30,17 @@ def main():
             sleep(0.5)
             markers = robot.see()
         line_up_to(markers[0], robot)
+        
+        touchingMarker = lambda: robot.ruggeduinos[0].digital_read( 11 )
+        robot.motors[0].m0.power = 30
+        robot.motors[0].m1.power = 30
+        robot.ruggeduinos[0].pin_mode( 11, INPUT_PULLUP )
+        while not touchingMarker():
+            print "Not hit anything yet, moving forward"
+        print'Touching Marker'
+        robot.motors[0].m0.power = 0
+        robot.motors[0].m1.power = 0
+        
+        sleep(5)
 
 main()
