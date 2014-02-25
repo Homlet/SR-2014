@@ -48,7 +48,7 @@ class Motor(Thread):
         self.motor = motor
         self.power = 35 * copysign(1, turns)
         if self.switchID == 2:
-            self.power *= 1.3
+            self.power *= 1
         self.turnsToDo = abs(turns)
         self.ruggeduino = rduino
         self.ruggeduino.pin_mode(switchID, INPUT_PULLUP)
