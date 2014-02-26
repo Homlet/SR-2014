@@ -1,4 +1,4 @@
-from math import sin, cos, atan, radians, sqrt, pi
+from math import sin, cos, atan2, radians, sqrt, pi
 
 class Zone:
     def __init__(self, zoneNumber):
