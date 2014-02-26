@@ -44,8 +44,8 @@ class Journey:
         else:
             # different coefficients for moving straight and turning?
 
-            self.m0.power = self.m0.motor.power
-            self.m1.power = self.m1.motor.power
+            self.m0.motor.power = self.m0.power
+            self.m1.motor.power = self.m1.power
             sleep(self.length * 6)
 
 
