@@ -6,7 +6,7 @@ from sr import Robot, INPUT_PULLUP
 from movements import move_straight, turn
 from position import compute_directions_for
 
-def line_up_to(marker, robot, dist=0.3):
+def line_up_to(marker, robot, dist=0.4):
     dist, angle1, angle2 = compute_directions_for(marker, d=dist)
     print 'dist=%.2f, angle1=%.2f, angle2=%.2f' % (dist, angle1, angle2)
     turn(robot, angle1)
