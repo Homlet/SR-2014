@@ -1,4 +1,4 @@
-from math import sin, cos, atan, radians, sqrt, pi
+from math import sin, cos, atan2, radians, sqrt, pi
 
 class Zone:
     def __init__(self, zoneNumber):
@@ -61,6 +61,6 @@ def compute_directions_for(marker, d=0.5):
     Y = marker.dist * cos(alpha)
     x = X - d*sin(beta)
     y = Y - d*cos(beta)
-    gamma = atan(x / y)
+    gamma = atan2(x / y)
     distance = sqrt(x*x + y*y)
     return distance, gamma, beta - gamma
