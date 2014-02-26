@@ -46,6 +46,7 @@ def turning_test():
             for i in range(2):
                 angle0 = markersInSight[0].orientation.rot_y
                 turn(robot, a)
+                sleep(1)
                 try:
                     print 'Turned %.1f radians, tried to turn %.1f radians'\
                         % (robot.see()[0].orientation.rot_y - angle0, a)
