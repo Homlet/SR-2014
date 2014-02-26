@@ -64,3 +64,20 @@ def compute_directions_for(marker, d=0.2):
     gamma = atan2(x, y)
     distance = sqrt(x*x + y*y)
     return distance, gamma, beta - gamma
+    
+
+class Tracker:
+    def __init__(self, x, y, angle):
+        self.set(x, y, angle)
+    
+    def move(self, angle, dist):
+        self.angle += angle
+        
+        self.x += dist * sin(angle)
+        self.y += dist * cos(angle)
+        
+    def set(x, y, angle):
+        self.x = x
+        self.y = y
+        self.angle = angle
+        
