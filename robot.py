@@ -24,7 +24,7 @@ def main():
         # sleep(0.5)
         markersInSight = robot.see()
     marker = markersInSight[0]
-    angle = marker.orientation.rot_y
+    angle = radians(marker.orientation.rot_y)
     turn(robot, angle)
     # line_up_to(markersInSight[0], robot)
 
