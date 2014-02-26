@@ -46,7 +46,7 @@ class Journey:
 
             self.m0.motor.power = self.m0.power
             self.m1.motor.power = self.m1.power
-            sleep(self.length * 6)
+            sleep(abs(self.length) * 6)
 
 
 class Motor(Thread):
