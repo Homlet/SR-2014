@@ -43,6 +43,7 @@ class Journey:
             self.m1.join()
         else:
             # different coefficients for moving straight and turning?
+            print 'Here'
 
             self.m0.motor.power = self.m0.power
             self.m1.motor.power = self.m1.power
