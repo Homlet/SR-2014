@@ -17,7 +17,7 @@ def line_up_to(marker, robot):
     
 def main():
     worldExists = True
-    robot = Robot()
+
     markersInSight = robot.see()
     while not markersInSight:
         # turn(robot)
@@ -28,6 +28,7 @@ def main():
     turn(robot, angle)
     # line_up_to(markersInSight[0], robot)
 
+robot = Robot()
 while 1:
     main()
     sleep(10)
