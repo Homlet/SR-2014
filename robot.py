@@ -30,6 +30,6 @@ def main():
     # line_up_to(markersInSight[0], robot)
 
 robot = Robot()
-# while 1:
-main()
-sleep(10)
+while 1:
+    main()
+    sleep(10)
