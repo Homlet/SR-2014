@@ -1,4 +1,4 @@
-from math import sin, cos, atan2, radians, sqrt, pi
+from math import sin, cos, atan, radians, sqrt, pi
 
 class Zone:
     def __init__(self, zoneNumber):
@@ -32,7 +32,7 @@ def compute_position(marker):
     val = [0, d, 8, 8-d, 0]
     alpha = -radians(marker.rot_y)
     beta = -radians(marker.orientation.rot_y)
-    bearing = beta + pi/2*(3-w)
+    bearing = beta + pi / 2 * (3-w)
 
     ix = val[w]
     iy = val[w+1]
@@ -41,7 +41,7 @@ def compute_position(marker):
     # print(ix, iy, dx, dy)
     return ix - dy, iy + dx, bearing
 
-def compute_directions_for(marker, d=0.5):
+def compute_directions_for(marker, d=1):
     """
     The function provides neccesary information to line up for marker
     'd' metres away from it
