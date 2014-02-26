@@ -1,5 +1,5 @@
 from math import sin, cos, atan, radians, degrees, sqrt, pi
-from time import sleep
+from time import sleep, time
 
 from sr import Robot, INPUT_PULLUP
 
@@ -15,6 +15,21 @@ def line_up_to(marker, robot, dist=0.4):
     sleep(1)
     turn(robot, angle2)
     
+def move_till_touch(robot):
+    robot.ruggeduinos[0].pin_mode(11, INPUT_PULLUP)
+    touchingMarker = lambda: robot.ruggeduinos[0].digital_read(11)
+    
+    robot.motors[0].m0.power = 30
+    robot.motors[0].m1.power = 30
+    start = time()
+    print 'Moving Forwards'
+    while not touchingMarker():
+        pass
+    print'Touching Marker'
+    robot.motors[0].m0.power = 0
+    robot.motors[0].m1.power = 0
+    return time() - start
+    
 def main():
     worldExists = True
 
@@ -25,17 +40,9 @@ def main():
         markersInSight = robot.see()
     marker = markersInSight[0]
     line_up_to(marker, robot)
-    touchingMarker = lambda: robot.ruggeduinos[0].digital_read( 11 )
-    robot.motors[0].m0.power = 30
-    robot.motors[0].m1.power = 30
-    robot.ruggeduinos[0].pin_mode( 11, INPUT_PULLUP )
-    while not touchingMarker():
-        print "Not hit anything yet, moving forward"
-    print'Touching Marker'
-    robot.motors[0].m0.power = 0
-    robot.motors[0].m1.power = 0
+    print 5 / move_till_touch(robot)
 
 robot = Robot()
-while 1:
+while True:
     main()
     sleep(10)
