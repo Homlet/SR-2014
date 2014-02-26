@@ -28,6 +28,7 @@ class Journey:
             self.length = -angle * ROBOT_RADIUS
 
         turnsToDo = self.length / WHEEL_CIRCUMFERENCE
+        # If self.length < 0.15 no switches used
       
         self.m0 = Motor(robot.motors[0].m0, M_SWITCH_LEFT, rduino, turnsToDo)
         if angle != 0:
@@ -35,10 +36,17 @@ class Journey:
         self.m1 = Motor(robot.motors[0].m1, M_SWITCH_RIGHT, rduino, turnsToDo)
 
     def start(self):
-        self.m0.start()
-        self.m1.start()
-        self.m0.join()
-        self.m1.join()
+        if abs(self.m0.turnsToDo) >= 0.5:
+            self.m0.start()
+            self.m1.start()
+            self.m0.join()
+            self.m1.join()
+        else:
+            # different coefficients for moving straight and turning?
+
+            self.m0.power = self.m0.motor.power
+            self.m1.power = self.m1.motor.power
+            sleep(self.length * 6)
 
 
 class Motor(Thread):
@@ -46,7 +54,7 @@ class Motor(Thread):
         super(Motor, self).__init__()
         self.switchID = switchID
         self.motor = motor
-        self.power = 35 * copysign(1, turns)
+        self.power = 50 * copysign(1, turns)
         if self.switchID == 2:
             self.power *= 1
         self.turnsToDo = abs(turns)
@@ -54,10 +62,6 @@ class Motor(Thread):
         self.ruggeduino.pin_mode(switchID, INPUT_PULLUP)
 
     def time_a_switch(self):
-        """
-        At exit point of this function switch is pressed.
-        It returns time difference between 2 consecutive switch triggers
-        """
         while self.ruggeduino_input() is False:
             pass
         start = time()
@@ -71,44 +75,22 @@ class Motor(Thread):
     def run(self):
         triggersToDo = self.turnsToDo * NOTCHES_ON_WHEEL
         self.motor.power = self.power
-        if triggersToDo < 2:
-            # Probably need different powers for turning/moving forward of the robot
-            # print "Approximating distance... ", self.turnsToDo
-            sleep(6 * self.turnsToDo * WHEEL_CIRCUMFERENCE)
-        else:
-            # print "Using microswitches... ", self.turnsToDo
-            total_t = 0
-            i = 0
+        total_t = 0
+        i = 0
 
-            start_dt = self.time_a_switch()
-            for i in range(1, int(floor(triggersToDo))):
-                total_t += self.time_a_switch()
+        start_dt = self.time_a_switch()
+        for i in range(1, int(floor(triggersToDo))):
+            total_t += self.time_a_switch()
 
-            if i != 0:
-                average_dt = total_t / i
+        if i != 0:
+            average_dt = total_t / i
 
-            if start_dt < average_dt:
-                sleep(average_dt - start_dt)
-            sleep(average_dt * modf(triggersToDo)[0])
+        if start_dt < average_dt:
+            sleep(average_dt - start_dt)
+        sleep(average_dt * modf(triggersToDo)[0])
         self.stop()
 
     def stop(self):
-        # self.motor.power = -self.power * 0.3
-        # sleep(0.1)
+        self.motor.power = -self.power * 0.3
+        sleep(0.1)
         self.motor.power = 0
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
