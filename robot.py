@@ -54,5 +54,7 @@ def turning_test():
                     print 'Marker lost'
                 sleep(10)
 
+robot = Robot()
+turn(robot)
 # main()
-turning_test()
+# turning_test()
