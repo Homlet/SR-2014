@@ -1,13 +1,10 @@
-from math import sin, cos, atan, radians, degrees, sqrt, pi, copysign
+from math import sin, cos, atan, radians, degrees, sqrt, pi
 from time import sleep
 
-from sr import *
+from sr import Robot
 
 from movements import move_straight, turn
 from position import compute_directions_for
-
-res = (1280, 720)
-
 
 def line_up_to(marker, robot):
     dist, angle1, angle2 = compute_directions_for(marker)
@@ -19,28 +16,42 @@ def line_up_to(marker, robot):
     turn(robot, angle2)
     
 def main():
-    world_exists = True
+    worldExists = True
     robot = Robot()
-
-    markers = robot.see(res=res)
-    while world_exists:
-        markers = robot.see()
-        while not markers:
+    markersInSight = robot.see()
+    while worldExists:
+        markersInSight = robot.see()
+        while not markersInSight:
             turn(robot)
             sleep(0.5)
-            markers = robot.see()
-        line_up_to(markers[0], robot)
-        
-        touchingMarker = lambda: robot.ruggeduinos[0].digital_read( 11 )
-        robot.motors[0].m0.power = 30
-        robot.motors[0].m1.power = 30
-        robot.ruggeduinos[0].pin_mode( 11, INPUT_PULLUP )
-        while not touchingMarker():
-            print "Not hit anything yet, moving forward"
-        print'Touching Marker'
-        robot.motors[0].m0.power = 0
-        robot.motors[0].m1.power = 0
-        
+            markersInSight = robot.see()
+
+        line_up_to(markersInSight[0], robot)
         sleep(5)
 
-main()
+def turning_test():
+    robot = Robot()
+    testNumber = 1
+    if testNumber == 0:
+        angles = [pi/2, pi/2, pi/4, pi/4]
+        for a in angles:
+            turn(robot, a)
+            sleep(5)
+    else:
+        markersInSight = robot.see()
+        while not markersInSight:
+            markersInSight = robot.see()
+        angles = [pi/6, pi/4]
+        for a in angles:
+            for i in range(2):
+                angle0 = markersInSight[0].orientation.rot_y
+                turn(robot, a)
+                try:
+                    print 'Turned %.1f radians, tried to turn %.1f radians'\
+                        % (robot.see()[0].orientation.rot_y - angle0, a)
+                except:
+                    print 'Marker lost'
+                sleep(10)
+
+# main()
+turning_test()
