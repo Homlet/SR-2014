@@ -40,7 +40,7 @@ def main():
         markersInSight = robot.see()
     marker = markersInSight[0]
     line_up_to(marker, robot)
-    print 5 / move_till_touch(robot)
+    print move_till_touch(robot) / 5
 
 robot = Robot()
 while True:
