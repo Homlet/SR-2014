@@ -4,7 +4,7 @@ from time import sleep, time
 from sr import Robot, INPUT_PULLUP
 
 from movements import move_straight, turn
-from position import compute_directions_for
+from position import compute_directions_for, Tracker
 
 def line_up_to(marker, robot, dist=0.4):
     dist, angle1, angle2 = compute_directions_for(marker, d=dist)
@@ -14,6 +14,7 @@ def line_up_to(marker, robot, dist=0.4):
     move_straight(robot, dist)
     sleep(1)
     turn(robot, angle2)
+    return dist, angle1, angle2
     
 def move_till_touch(robot):
     robot.ruggeduinos[0].pin_mode(11, INPUT_PULLUP)
@@ -28,10 +29,13 @@ def move_till_touch(robot):
     print'Touching Marker'
     robot.motors[0].m0.power = 0
     robot.motors[0].m1.power = 0
-    return time() - start
+    # Returns distance moved
+    return (time() - start) / 5
     
 def main():
     worldExists = True
+    
+    tracker = Tracker(0, 0, 0)
 
     markersInSight = robot.see()
     while not markersInSight:
@@ -39,8 +43,14 @@ def main():
         sleep(0.5)
         markersInSight = robot.see()
     marker = markersInSight[0]
-    line_up_to(marker, robot)
-    print move_till_touch(robot) / 5
+    
+    dist1, angle1, angle2 = line_up_to(marker, robot)
+    dist2 = move_till_touch(robot)
+    
+    tracker.move(angle1, dist1)
+    tracker.move(angle2, dist2)
+    
+    print tracker.x, tracker.y
 
 robot = Robot()
 while True:
