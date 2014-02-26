@@ -39,6 +39,3 @@ robot = Robot()
 while 1:
     main()
     sleep(10)
-
-
-main()
