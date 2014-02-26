@@ -68,7 +68,7 @@ def compute_directions_for(marker, d=0.2):
 
 class Tracker:
     def __init__(self, x, y, angle):
-        self.set(x, y, angle)
+        self.reset(x, y, angle)
     
     def move(self, angle, dist):
         self.angle += angle
@@ -76,7 +76,7 @@ class Tracker:
         self.x += dist * sin(angle)
         self.y += dist * cos(angle)
         
-    def set(x, y, angle):
+    def reset(self, x, y, angle):
         self.x = x
         self.y = y
         self.angle = angle
