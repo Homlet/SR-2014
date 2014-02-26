@@ -24,10 +24,10 @@ def main():
         # sleep(0.5)
         markersInSight = robot.see()
     marker = markersInSight[0]
-    angle = radians(marker.orientation.rot_y)
-    print 'turning %.1f radians' % (angle)
-    turn(robot, angle)
-    # line_up_to(markersInSight[0], robot)
+    dist0 = marker.dist
+    move_straight(robot, 1)
+    marker = robot.see()[0]
+    print '%.2f' % (dist0-marker.dist)
 
 robot = Robot()
 while 1:
