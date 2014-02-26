@@ -25,10 +25,11 @@ def main():
         markersInSight = robot.see()
     marker = markersInSight[0]
     angle = radians(marker.orientation.rot_y)
+    print 'turning %.1f radians' % (angle)
     turn(robot, angle)
     # line_up_to(markersInSight[0], robot)
 
 robot = Robot()
-while 1:
-    main()
-    sleep(10)
+# while 1:
+main()
+sleep(10)
