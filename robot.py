@@ -20,15 +20,16 @@ def main():
 
     markersInSight = robot.see()
     while not markersInSight:
-        # turn(robot)
-        # sleep(0.5)
+        turn(robot)
+        sleep(0.5)
         markersInSight = robot.see()
     marker = markersInSight[0]
-    dist0 = marker.dist
-    move_straight(robot, 1)
-    sleep(1)
-    marker = robot.see()[0]
-    print '%.2f' % (dist0-marker.dist)
+    # dist0 = marker.dist
+    # move_straight(robot, 1)
+    # sleep(1)
+    # marker = robot.see()[0]
+    # print '%.2f' % (dist0-marker.dist)
+    line_up_to(marker, robot)
 
 robot = Robot()
 while 1:
