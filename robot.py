@@ -26,6 +26,7 @@ def main():
     marker = markersInSight[0]
     dist0 = marker.dist
     move_straight(robot, 1)
+    sleep(1)
     marker = robot.see()[0]
     print '%.2f' % (dist0-marker.dist)
 
