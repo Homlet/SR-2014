@@ -32,6 +32,7 @@ def compute_position(marker):
     Bearing is angle in radians from upward vertical. Clock-wise is positive.
     """
 
+    print 'Wall marker recognised'
     n = marker.info.code
     w = n // 7
     d = n%7 + 1
@@ -50,6 +51,7 @@ def compute_position(marker):
     return ix - dy, iy + dx, bearing
 
 def position_from_slot(marker):
+    print 'Slot marker recognised'
     xList = [3.5, 3.68]
     yList = [2.65, 3.55, 4.45, 5.35]
     alpha = marker.rot_y
