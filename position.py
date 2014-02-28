@@ -1,4 +1,4 @@
-from math import sin, cos, atan2, radians, sqrt, pi
+from math import sin, cos, atan, radians, sqrt, pi
 
 class Zone:
     def __init__(self, zoneNumber):
@@ -54,7 +54,7 @@ def position_from_slot(marker):
     yList = [2.65, 3.55, 4.45, 5.35]
     alpha = marker.rot_y
     beta = marker.orientation.rot_y
-    n = marker.info.n - 32
+    n = marker.info.code - 32
 
     if (n % 4) < 2:
         bearing = pi/2 - beta
