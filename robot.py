@@ -53,6 +53,6 @@ def main():
     print tracker.x, tracker.y
 
 robot = Robot()
-while True:
+while worldExists:
     main()
     sleep(10)
