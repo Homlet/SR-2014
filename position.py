@@ -1,4 +1,4 @@
-from math import sin, cos, atan2, radians, sqrt, pi
+from math import sin, cos, atan, radians, sqrt, pi
 
 class Zone:
     def __init__(self, zoneNumber):
@@ -26,6 +26,12 @@ def compute_token_pos(tokenMarker, x, y, o):
     return X, Y
 
 def compute_position(marker):
+    """
+    Computes position of the robot on the arena with O(0, 0) being
+    top left corner of the arena.
+    Bearing is angle in radians from upward vertical. Clock-wise is positive.
+    """
+
     n = marker.info.code
     w = n // 7
     d = n%7 + 1
@@ -34,14 +40,39 @@ def compute_position(marker):
     beta = -radians(marker.orientation.rot_y)
     bearing = beta + pi / 2 * (3-w)
 
+    # ix and iy are marker's coordinates on the wall starting from O
     ix = val[w]
     iy = val[w+1]
+    # dx and dy - where robot is relatively to wall marker
     dx = marker.dist * cos(bearing - alpha)
     dy = marker.dist * sin(bearing - alpha)
     # print(ix, iy, dx, dy)
     return ix - dy, iy + dx, bearing
 
-def compute_directions_for(marker, d=0.2):
+def position_from_slot(marker):
+    xList = [3.5, 3.68]
+    yList = [2.65, 3.55, 4.45, 5.35]
+    alpha = marker.rot_y
+    beta = marker.orientation.rot_y
+    n = marker.info.n - 32
+
+    if (n % 4) < 2:
+        bearing = pi/2 - beta
+    else:
+        bearing = 1.5*pi - beta
+
+    dx = marker.dist * cos(bearing - alpha)
+    dy = marker.dist * sin(bearing - alpha)
+
+    slotX = xList[n % 2]
+    if n < 4:
+        slotY = yList[n % 2]
+    else:
+        slotY = yList[n%2 + 2]
+    return slotX - dx, slotY + dy, bearing
+
+
+def compute_directions_for(marker, d=1):
     """
     The function provides neccesary information to line up for marker
     'd' metres away from it
@@ -56,15 +87,13 @@ def compute_directions_for(marker, d=0.2):
     """
     alpha = radians(marker.rot_y)
     beta = radians(marker.orientation.rot_y)
-    print 'alpha=%.2f, beta=%.2f' % (alpha, beta)
     X = marker.dist * sin(alpha)
     Y = marker.dist * cos(alpha)
     x = X - d*sin(beta)
     y = Y - d*cos(beta)
-    gamma = atan2(x, y)
+    gamma = atan2(x / y)
     distance = sqrt(x*x + y*y)
     return distance, gamma, beta - gamma
-    
 
 class Tracker:
     def __init__(self, x, y, angle):
@@ -80,4 +109,3 @@ class Tracker:
         self.x = x
         self.y = y
         self.angle = angle
-        
