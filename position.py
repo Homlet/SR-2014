@@ -71,6 +71,7 @@ def position_from_slot(marker):
         slotY = yList[n % 2]
     else:
         slotY = yList[n%2 + 2]
+    print dy, dx
     return slotX - dx, slotY + dy, bearing
 
 
