@@ -54,8 +54,8 @@ def position_from_slot(marker):
     print 'Slot marker recognised'
     xList = [3.5, 3.68]
     yList = [2.65, 3.55, 4.45, 5.35]
-    alpha = marker.rot_y
-    beta = marker.orientation.rot_y
+    alpha = radians(marker.rot_y)
+    beta = radians(marker.orientation.rot_y)
     n = marker.info.code - 32
 
     if (n % 4) < 2:
