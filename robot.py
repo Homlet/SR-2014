@@ -4,7 +4,8 @@ from time import sleep, time
 from sr import Robot, INPUT_PULLUP
 
 from movements import move_straight, turn
-from position import compute_directions_for, Tracker
+# from position import compute_directions_for, Tracker
+from position import *
 
 def line_up_to(marker, robot, dist=0.4):
     dist, angle1, angle2 = compute_directions_for(marker, d=dist)
@@ -32,7 +33,7 @@ def move_till_touch(robot):
     # Returns distance moved
     return (time() - start) / 5
     
-def main():
+def main0():
     
     tracker = Tracker(0, 0, 0)
 
@@ -51,8 +52,20 @@ def main():
     
     print tracker.x, tracker.y
 
+def main():
+    markers = robot.see()
+    if markers:
+        m = markers[0]
+    else:
+        return
+    n = m.info.code
+    if n == 36:
+        print position_from_slot(m)
+    else:
+        print compute_position(m)
+    
 robot = Robot()
 worldExists = True
 while worldExists:
     main()
-    sleep(10)
+    sleep(5)
