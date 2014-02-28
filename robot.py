@@ -33,7 +33,6 @@ def move_till_touch(robot):
     return (time() - start) / 5
     
 def main():
-    worldExists = True
     
     tracker = Tracker(0, 0, 0)
 
@@ -53,6 +52,7 @@ def main():
     print tracker.x, tracker.y
 
 robot = Robot()
+worldExists = True
 while worldExists:
     main()
     sleep(10)
