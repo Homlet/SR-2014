@@ -106,16 +106,8 @@ def compute_directions_for_point(robot, x, y):
     """
     Returns angle to turn and the distance to move.
     """
-    print 'Calculating motion to point', (x, y)
-    x0, y0, theta = robot.position.x, robot.position.y, robot.position.angle
-    dx = x - x0
-    dy = y - y0
-    dist = sqrt(dx*dx + dy*dy)
-    gamma = atan2(dx, dy)
-    alpha = gamma - theta
-    print '    theta = %.1f' % (theta)
-    print '    turn:%.1f' % (alpha)
-    return dist, alpha
+    pass
 
 def in_range(x, l, r):
     return l <= x <= r
+    
