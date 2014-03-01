@@ -1,5 +1,8 @@
 from math import sin, cos, atan2, radians, sqrt, pi
 
+d = 2.2
+significantPoints = [(d, d), (8-d, d), (8-d, 8-d), (d, 8-d)]
+
 class Zone:
     def __init__(self, zoneNumber):
         #                   x1  y1    x2   y2
@@ -16,23 +19,14 @@ class Zone:
         return in_range(x, self.boundaries[0], self.boundaries[2]) and \
                in_range(y, self.boundaries[1], self.boundaries[3])
 
-def in_range(x, l, r):
-    return l <= x <= r
 
-def compute_token_pos(tokenMarker, x, y, o):
-    alpha = radians(tokenMarker.rot_y)
-    X = x + tokenMarker.dist*cos(o - alpha)
-    Y = y - tokenMarker.dist*sin(o - alpha)
-    return X, Y
-
-def compute_position(marker):
+def get_position_from_wall(marker):
     """
     Computes position of the robot on the arena with O(0, 0) being
     top left corner of the arena.
-    Bearing is angle in radians from upward vertical. Clock-wise is positive.
+    Bearing is angle in radians from upward vertical in clock-wise direction.
     """
 
-    print 'Wall marker recognised'
     n = marker.info.code
     w = n // 7
     d = n%7 + 1
@@ -50,8 +44,7 @@ def compute_position(marker):
     # print(ix, iy, dx, dy)
     return ix - dy, iy + dx, bearing
 
-def position_from_slot(marker):
-    print 'Slot marker recognised'
+def get_position_from_slot(marker):
     xList = [3.5, 3.68]
     yList = [2.65, 3.55, 4.45, 5.35]
     alpha = radians(marker.rot_y)
@@ -71,16 +64,19 @@ def position_from_slot(marker):
         slotY = yList[n % 2]
     else:
         slotY = yList[n%2 + 2]
-    print dy, dx
-    return slotX - dx, slotY + dy, bearing
-    
-    
+    return slotX - dy, slotY + dx, bearing
+
 def position_from_zone(zone_number):
     angle = (135 + (45 * zone_number)) % 360
     x = 0.5 if zone_number in (0, 3) else 7.5
     y = 0.5 if zone_number in (0, 1) else 7.5
     return x, y, angle
 
+def compute_token_pos(tokenMarker, x, y, o):
+    alpha = radians(tokenMarker.rot_y)
+    X = x + tokenMarker.dist*cos(o - alpha)
+    Y = y - tokenMarker.dist*sin(o - alpha)
+    return X, Y
 
 def compute_directions_for(marker, d=1):
     """
@@ -104,3 +100,6 @@ def compute_directions_for(marker, d=1):
     gamma = atan2(x / y)
     distance = sqrt(x*x + y*y)
     return distance, gamma, beta - gamma
+
+def in_range(x, l, r):
+    return l <= x <= r
