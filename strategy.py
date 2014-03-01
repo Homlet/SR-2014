@@ -18,7 +18,7 @@ def scan_corner(robot, zone):
         turn(robot)
         sleep(0.5)
         markers_in_sight = robot.see()
-    marker = markers_in_sight[0]
+    return markers_in_sight[0]
 
 def line_up_to(marker, robot, dist=0.4):
     print 'Lining up to marker:'
