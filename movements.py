@@ -8,6 +8,7 @@ class Tracker:
         self.reset(*position)
     
     def move(self, dist):
+        print "Moving:", dist, self.angle
         self.x += dist * sin(self.angle)
         self.y -= dist * cos(self.angle)
 
