@@ -36,7 +36,7 @@ def main():
     print 'Start position:'
     print '   ', (robot.position.x, robot.position.y), robot.position.angle
     
-    scan_corner(robot)
+    marker = scan_corner(robot, robot.zone)
     line_up_to(marker, robot)
     move_till_touch(robot)
     
