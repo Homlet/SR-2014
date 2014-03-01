@@ -32,7 +32,7 @@ def move_till_touch(robot):
     # Update robot.position with distance moved.
     robot.position.move((time() - start) / 5)
     
-def main0():
+def main():
 
     markersInSight = robot.see()
     while not markersInSight:
@@ -45,24 +45,12 @@ def main0():
     move_till_touch(robot)
     
     print 'End Position: ', (robot.position.x, robot.position.y)
-
-def main():
-    markers = robot.see()
-    if markers:
-        m = markers[0]
-    else:
-        return
-    n = m.info.code
-    if n == 36:
-        print get_position_from_slot(m)
-    else:
-        print get_position_from_wall(m)
     
 robot = Robot()
 robot.position = Tracker(robot.zone)
-print 'Start position,', (robot.position.x, robot.position.y), robot.position.angle
+print 'Start position:', (robot.position.x, robot.position.y), robot.position.angle
 
 worldExists = True
 while worldExists:
-    main0()
+    main()
     sleep(5)
