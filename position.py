@@ -111,7 +111,7 @@ def compute_directions_for_point(robot, x, y):
     """
     target = Vec2(x, y) - robot.position
     theta = atan2(target.x, target.y) - robot.position.angle
-    dist = len(target)
+    dist = target.len()
     return dist, theta
 
 def in_range(x, l, r):

@@ -12,7 +12,7 @@ class Vec2:
     def __sub__(self, other):
         return Vec2(self.x-other.x, self.y-other.y)
     
-    def __len__(self):
+    def len(self):
         return sqrt(self.x**2 + self.y**2)
     
     def dist(self, other):
