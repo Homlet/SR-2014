@@ -33,8 +33,6 @@ def move_till_touch(robot):
     robot.position.move((time() - start) / 5)
     
 def main0():
-    
-    tracker = Tracker(0, 0, 0)
 
     markersInSight = robot.see()
     while not markersInSight:
@@ -46,7 +44,7 @@ def main0():
     line_up_to(marker, robot)
     move_till_touch(robot)
     
-    print tracker.x, tracker.y
+    print robot.tracker.x, robot.tracker.y
 
 def main():
     markers = robot.see()
@@ -61,7 +59,8 @@ def main():
         print compute_position(m)
     
 robot = Robot()
-robot.position = Tracker()
+robot.position = Tracker(robot.zone)
+
 worldExists = True
 while worldExists:
     main()
