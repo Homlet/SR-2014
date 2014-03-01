@@ -9,7 +9,7 @@ class Tracker:
     
     def move(self, dist):
         self.x += dist * sin(self.angle)
-        self.y += dist * cos(self.angle)
+        self.y -= dist * cos(self.angle)
 
     def turn(self, angle):
         self.angle += angle
