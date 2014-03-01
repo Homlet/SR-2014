@@ -97,7 +97,7 @@ def compute_directions_for(marker, d=1):
     Y = marker.dist * cos(alpha)
     x = X - d*sin(beta)
     y = Y - d*cos(beta)
-    gamma = atan2(x / y)
+    gamma = atan2(x, y)
     distance = sqrt(x*x + y*y)
     return distance, gamma, beta - gamma
 
