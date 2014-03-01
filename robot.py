@@ -13,15 +13,6 @@ def get_directions_for_XY(robot, x, y):
     """
     return 0, 0
 
-def nick_main():
-    robot = Robot()
-    d = 2.2
-    significantPoints = [(d, d), (8-d, d), (8-d, 8-d), (d, 8-d)]
-    ourZone = robot.zone
-    robot.position = Tracker(ourZone)
-    dist, alpha = get_directions_for_XY(robot, *significantPoints[ourZone])
-    # turn(robot, alpha)
-    # move_straight(robot, dist)
 
 def main():
     robot.position = Tracker(robot.zone)
