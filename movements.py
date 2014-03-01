@@ -1,7 +1,9 @@
 from mechanics import Journey
-from position import position_from_zone
+
 from math import sin, cos, sqrt
 from time import sleep
+
+from position import *
 
 
 class Vec2:
