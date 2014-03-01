@@ -15,7 +15,7 @@ class Vec2:
         return Vec2(self.x+other.x, self.y+other.y)
     
     def __sub__(self, other):
-        return vec2(self.x-other.x, self.y-other.y)
+        return Vec2(self.x-other.x, self.y-other.y)
     
     def __len__(self):
         return sqrt(self.x**2 + self.y**2)
