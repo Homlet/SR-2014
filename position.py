@@ -1,6 +1,7 @@
 from math import sin, cos, atan2, radians, sqrt, pi
 
-from movements import *
+from geometry import Vec2
+
 
 d = 2.2
 significantPoints = [(d, d), (8-d, d), (8-d, 8-d), (d, 8-d)]
