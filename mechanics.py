@@ -21,7 +21,7 @@ WHEEL_CIRCUMFERENCE = 0.31
 
 class Journey:
     """
-        Handles a forwards or rotational movement using threading.
+    Handles a forwards or rotational movement using threading.
     """
     def __init__(self, robot, distance=0, angle=0):
         self.robot = robot
@@ -48,8 +48,8 @@ class Journey:
 
 class Motor(Thread):
     """
-        Drives a motor a given number of turns using micro-switches or,
-        for small distances, approximation. Runs concurrently.
+    Drives a motor a given number of turns using micro-switches or,
+    for small distances, approximation. Runs concurrently.
     """
     def __init__(self, motor, switchID, rduino, turns):
         super(Motor, self).__init__()

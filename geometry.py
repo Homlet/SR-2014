@@ -3,7 +3,7 @@ from math import sqrt
 
 class Vec2:
     """
-        2D vector for easier storage and manipulation of positions.
+    2D vector for easier storage and manipulation of positions.
     """
     def __init__(self, x, y):
         self.x = x

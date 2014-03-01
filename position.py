@@ -19,7 +19,7 @@ class Zone:
         self.boundaries = zoneBoundaries[zoneNumber]
 
     def is_inside(self, token, x, y):
-        """ Tells whether token is inside the zone"""
+        """Tells whether token is inside the zone"""
         return in_range(x, self.boundaries[0], self.boundaries[2]) and \
                in_range(y, self.boundaries[1], self.boundaries[3])
 
