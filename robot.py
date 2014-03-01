@@ -33,7 +33,6 @@ def move_till_touch(robot):
     robot.position.move((time() - start) / 5)
     
 def main():
-
     markersInSight = robot.see()
     while not markersInSight:
         turn(robot)
