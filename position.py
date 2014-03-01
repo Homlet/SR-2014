@@ -73,6 +73,13 @@ def position_from_slot(marker):
         slotY = yList[n%2 + 2]
     print dy, dx
     return slotX - dx, slotY + dy, bearing
+    
+    
+def position_from_zone(zone_number):
+    angle = (135 + (45 * zone_number)) % 360
+    x = 0.5 if zone_number in (0, 3) else 7.5
+    y = 0.5 if zone_number in (0, 1) else 7.5
+    return x, y, angle
 
 
 def compute_directions_for(marker, d=1):
