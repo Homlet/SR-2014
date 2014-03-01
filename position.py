@@ -1,5 +1,7 @@
 from math import sin, cos, atan2, radians, sqrt, pi
 
+from movements import *
+
 d = 2.2
 significantPoints = [(d, d), (8-d, d), (8-d, 8-d), (d, 8-d)]
 STARTING_DISTANCE = 0.5 + 0.225 * cos(pi/4)
@@ -106,7 +108,10 @@ def compute_directions_for_point(robot, x, y):
     """
     Returns angle to turn and the distance to move.
     """
-    pass
+    target = Vec2(x, y) - robot.position
+    theta = atan2(target.x, target.y) - robot.position.angle
+    dist = len(target)
+    return dist, theta
 
 def in_range(x, l, r):
     return l <= x <= r
