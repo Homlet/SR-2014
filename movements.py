@@ -9,6 +9,7 @@ class Tracker:
     
     def move(self, dist):
         print "Moving:", dist, self.angle
+        print "Before position:", (self.x, self.y)
         self.x += dist * sin(self.angle)
         self.y -= dist * cos(self.angle)
 
