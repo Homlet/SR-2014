@@ -63,5 +63,5 @@ robot.position = Tracker(robot.zone)
 
 worldExists = True
 while worldExists:
-    main()
+    main0()
     sleep(5)
