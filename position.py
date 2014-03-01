@@ -67,7 +67,7 @@ def get_position_from_slot(marker):
     return slotX - dy, slotY + dx, bearing
 
 def position_from_zone(zone_number):
-    angle = (135 + (45 * zone_number)) % 360
+    angle = ((3*pi)/4 + (pi/2 * zone_number)) % (2*pi)
     x = 0.5 if zone_number in (0, 3) else 7.5
     y = 0.5 if zone_number in (0, 1) else 7.5
     return x, y, angle
