@@ -9,9 +9,9 @@ from mechanics import *
 
 
 def scan_corner(robot, zone):
-    target = Vec2(*position_from_zone(zone, STARTING_DISTANCE)[:2])
+    target = Vec2(*position_from_zone(zone, 2.2)[:2])
     if robot.position.dist(target) > 0.5:
-        print "TOO FAR!"
+        move_to_point(robot, target.x, target.y)
     
     markers_in_sight = robot.see()
     while not markers_in_sight:

@@ -1,6 +1,7 @@
 from mechanics import Journey
 from position import position_from_zone
 from math import sin, cos, sqrt
+from time import sleep
 
 
 class Vec2:
@@ -41,5 +42,8 @@ def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
     robot.position.turn(alpha)
     
 def move_to_point(robot, x, y):
-    pass
+    dist, angle = compute_directions_for_point(robot, x, y)
+    turn(robot, angle)
+    sleep(0.7)
+    move_straight(robot, dist)
     

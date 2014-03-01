@@ -102,7 +102,7 @@ def compute_directions_for(marker, d=1):
     distance = sqrt(x*x + y*y)
     return distance, gamma, beta - gamma
     
-def computer_directions_for_point(robot, x, y):
+def compute_directions_for_point(robot, x, y):
     """
     Returns angle to turn and the distance to move.
     """
