@@ -3,7 +3,7 @@ from time import sleep, time
 
 from sr import Robot
 
-from position import Tracker, 
+from movements import Tracker
 from strategy import *
 
 
