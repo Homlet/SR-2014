@@ -1,4 +1,5 @@
 from mechanics import Journey
+from math import sin, cos
 
 def move_straight(robot, dist):
     journey = Journey(robot, distance=dist)
@@ -15,8 +16,8 @@ class Tracker:
         self.reset(x, y, angle)
     
     def move(self, dist):
-        self.x += dist * sin(angle)
-        self.y += dist * cos(angle)
+        self.x += dist * sin(self.angle)
+        self.y += dist * cos(self.angle)
         
     def reset(self, x, y, angle):
         self.x = x
