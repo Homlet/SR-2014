@@ -3,7 +3,7 @@ from mechanics import Journey
 from math import sin, cos, sqrt
 from time import sleep
 
-from position import compute_directions_for_point
+from position import compute_directions_for_point, position_from_zone
 
 
 class Vec2:
