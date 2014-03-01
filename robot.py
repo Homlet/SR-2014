@@ -12,7 +12,7 @@ def main():
     print 'Start position:'
     print '   ', (robot.position.x, robot.position.y), robot.position.angle
     
-	# Main strategy goes here:
+    # Main strategy goes here:
     marker = scan_corner(robot, robot.zone)
     line_up_to(marker, robot)
     move_till_touch(robot)

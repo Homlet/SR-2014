@@ -7,14 +7,14 @@ from position import compute_directions_for_point, position_from_zone
 
 
 class Tracker(Vec2):
-	"""
-		Tracks the robot's current position and angle.
-		
-		Position is stored as a vector, (x, y),
-		where x and y are metres from the origin.
-		
-		Angle is stored as a bearing in RADIANS.
-	"""
+    """
+        Tracks the robot's current position and angle.
+        
+        Position is stored as a vector, (x, y),
+        where x and y are metres from the origin.
+        
+        Angle is stored as a bearing in RADIANS.
+    """
     def __init__(self, zone_number):
         position = position_from_zone(zone_number)
         self.x, self.y, self.angle = position
@@ -31,26 +31,26 @@ class Tracker(Vec2):
 
 
 def move_straight(robot, dist):
-	"""
-		Moves the robot dist metres forward and updates the tracker.
-	"""
+    """
+        Moves the robot dist metres forward and updates the tracker.
+    """
     journey = Journey(robot, distance=dist)
     journey.start()
     robot.position.move(dist)
 
 def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
-	"""
-		Turns the robot alpha RADIANS and updates the tracker.
-	"""
+    """
+        Turns the robot alpha RADIANS and updates the tracker.
+    """
     journey = Journey(robot, angle=alpha)
     journey.start()
     robot.position.turn(alpha)
     
 def move_to_point(robot, x, y):
-	"""
-		Given the robot's current tracked position, moves to point
-		(x, y), where x and y are metres from the origin.
-	"""
+    """
+        Given the robot's current tracked position, moves to point
+        (x, y), where x and y are metres from the origin.
+    """
     dist, angle = compute_directions_for_point(robot, x, y)
     turn(robot, angle)
     sleep(0.7)
