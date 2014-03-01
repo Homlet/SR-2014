@@ -14,6 +14,9 @@ def main():
         sleep(0.5)
         markers_in_sight = robot.see()
     marker = markers_in_sight[0]
+
+    line_up_to(marker, robot)
+    move_till_touch(robot)
     
     print 'End Position:\n   '
     print '   ', (robot.position.x, robot.position.y)
