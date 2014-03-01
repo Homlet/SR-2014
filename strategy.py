@@ -3,6 +3,10 @@ from time import sleep, time
 
 from sr import Robot, INPUT_PULLUP
 
+from position import *
+from movements import *
+from mechanics import *
+
 
 def line_up_to(marker, robot, dist=0.4):
     print 'Lining up to marker:'
