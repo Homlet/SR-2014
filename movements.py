@@ -14,8 +14,8 @@ def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
 
 class Tracker:
     def __init__(self, zone_number):
-        x, y, angle = position_from_zone(zone_number)
-        self.reset(x, y, angle)
+        position = position_from_zone(zone_number)
+        self.reset(*position)
     
     def move(self, dist):
         self.x += dist * sin(self.angle)
