@@ -31,6 +31,29 @@ def move_till_touch(robot):
     robot.motors[0].m1.power = 0
     # Update robot.position with distance moved.
     robot.position.move((time() - start) / 5)
+
+def get_directions_for_XY(robot, x, y):
+    """
+    Returns angle to turn and the distance to move.
+    """
+    x0, y0, theta = robot.position.x, robot.position.y, robot.position.angle
+    dx = x - x0
+    dy = y - y0
+    dist = sqrt(dx*dx + dy*dy)
+    gamma = atan2(dx, dy)
+    alpha = -(theta + gamma)
+    return dist, alpha
+
+def nick_main():
+    robot = Robot()
+    ourZone = robot.zone
+    robot.position = Tracker(ourZone)
+    d = 2.2
+    significantPoints = [(d, d), (8-d, d), (8-d, 8-d), (d, 8-d)]
+    dist, alpha = get_directions_for_XY(robot, *significantPoints[ourZone])
+    turn(robot, alpha)
+    move_straight(robot, dist)
+
     
 def main():
     markersInSight = robot.see()
@@ -45,11 +68,12 @@ def main():
     
     print 'End Position: ', (robot.position.x, robot.position.y)
     
-robot = Robot()
-robot.position = Tracker(robot.zone)
-print 'Start position:', (robot.position.x, robot.position.y), robot.position.angle
+# robot = Robot()
+# robot.position = Tracker(robot.zone)
+# print 'Start position:', (robot.position.x, robot.position.y), robot.position.angle
 
-worldExists = True
-while worldExists:
-    main()
-    sleep(5)
+# worldExists = True
+# while worldExists:
+#     main()
+#     sleep(5)
+nick_main()
