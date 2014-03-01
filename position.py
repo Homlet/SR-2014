@@ -3,9 +3,9 @@ from math import sin, cos, atan2, radians, sqrt, pi
 from geometry import Vec2
 
 
-d = 2.2
-significantPoints = [(d, d), (8-d, d), (8-d, 8-d), (d, 8-d)]
 STARTING_DISTANCE = 0.5 + 0.225 * cos(pi/4)
+D = 2.2
+SCAN_POINTS = [(D, D), (8-D, D), (8-D, 8-D), (D, 8-D)]
 
 class Zone:
     def __init__(self, zoneNumber):

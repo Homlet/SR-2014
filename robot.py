@@ -3,14 +3,8 @@ from time import sleep, time
 
 from sr import Robot
 
-from position import *
+from position import Tracker, 
 from strategy import *
-
-def get_directions_for_XY(robot, x, y):
-    """
-    Returns angle to turn and the distance to move.
-    """
-    return 0, 0
 
 
 def main():
@@ -18,12 +12,13 @@ def main():
     print 'Start position:'
     print '   ', (robot.position.x, robot.position.y), robot.position.angle
     
+	# Main strategy goes here:
     marker = scan_corner(robot, robot.zone)
     line_up_to(marker, robot)
     move_till_touch(robot)
     
-    print 'End Position:\n   '
-    print '   ', (robot.position.x, robot.position.y)
+    print 'End Position:'
+    print '   ', (robot.position.x, robot.position.y), robot.position.angle
 
 robot = Robot()
 

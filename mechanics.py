@@ -4,20 +4,25 @@ from threading import Thread
 
 from sr import INPUT_PULLUP
 
+
 NOTCHES_ON_WHEEL = 4
 ROBOT_RADIUS = 0.185
 M_SWITCH_LEFT  = 12
 M_SWITCH_RIGHT = 2
 WHEEL_CIRCUMFERENCE = 0.31
 
-# average dt for right wheel notch at power = 50
-        # is 30 ms
-# same thing for left wheel
-        # is 70 ms 
-
-# Right wheel usually turns a bit quicker, according to notches
+# Notes on approximation:
+#
+# Average dt for right wheel notch at power = 50 is
+#     30 ms.
+# Same thing for left wheel is
+#     70 ms.
+# Right wheel usually turns a bit quicker, according to notches.
 
 class Journey:
+	"""
+		Handles a forwards or rotational movement using threading.
+	"""
     def __init__(self, robot, distance=0, angle=0):
         self.robot = robot
         rduino = self.robot.ruggeduinos[0]
@@ -42,6 +47,10 @@ class Journey:
 
 
 class Motor(Thread):
+	"""
+		Drives a motor a given number of turns using micro-switches or,
+		for small distances, approximation. Runs concurrently.
+	"""
     def __init__(self, motor, switchID, rduino, turns):
         super(Motor, self).__init__()
         self.switchID = switchID
