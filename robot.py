@@ -55,18 +55,18 @@ def nick_main():
     move_straight(robot, dist)
 
     
-def main():
-    markersInSight = robot.see()
-    while not markersInSight:
-        turn(robot)
-        sleep(0.5)
-        markersInSight = robot.see()
-    marker = markersInSight[0]
+# def main():
+#     markersInSight = robot.see()
+#     while not markersInSight:
+#         turn(robot)
+#         sleep(0.5)
+#         markersInSight = robot.see()
+#     marker = markersInSight[0]
     
-    line_up_to(marker, robot)
-    move_till_touch(robot)
+#     line_up_to(marker, robot)
+#     move_till_touch(robot)
     
-    print 'End Position: ', (robot.position.x, robot.position.y)
+#     print 'End Position: ', (robot.position.x, robot.position.y)
     
 # robot = Robot()
 # robot.position = Tracker(robot.zone)
