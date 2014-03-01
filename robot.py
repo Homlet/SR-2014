@@ -54,9 +54,9 @@ def main():
         return
     n = m.info.code
     if n == 36:
-        print position_from_slot(m)
+        print get_position_from_slot(m)
     else:
-        print compute_position(m)
+        print get_position_from_wall(m)
     
 robot = Robot()
 robot.position = Tracker(robot.zone)
