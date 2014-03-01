@@ -41,7 +41,9 @@ def get_directions_for_XY(robot, x, y):
     dy = y - y0
     dist = sqrt(dx*dx + dy*dy)
     gamma = atan2(dx, dy)
-    alpha = -(theta + gamma)
+    alpha = (theta + gamma)
+    print 'turn:%.1f, move:%.1f' % (alpha, dist)
+    print 'theta = %.1f' % (theta)
     return dist, alpha
 
 def nick_main():
