@@ -44,7 +44,7 @@ def main0():
     line_up_to(marker, robot)
     move_till_touch(robot)
     
-    print robot.tracker.x, robot.tracker.y
+    print robot.position.x, robot.position.y
 
 def main():
     markers = robot.see()
