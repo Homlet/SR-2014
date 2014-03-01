@@ -60,6 +60,7 @@ def main():
     
 robot = Robot()
 robot.position = Tracker(robot.zone)
+print robot.position.x, robot.position.y, robot.position.angle
 
 worldExists = True
 while worldExists:
