@@ -8,6 +8,18 @@ from movements import *
 from mechanics import *
 
 
+def scan_corner(robot, zone):
+    target = Vec2(*position_from_zone(zone, 2.2)[:2])
+    if robot.position.dist(target) > 0.5:
+        print "TOO FAR!"
+    
+    markers_in_sight = robot.see()
+    while not markers_in_sight:
+        turn(robot)
+        sleep(0.5)
+        markers_in_sight = robot.see()
+    marker = markers_in_sight[0]
+
 def line_up_to(marker, robot, dist=0.4):
     print 'Lining up to marker:'
     dist, angle1, angle2 = compute_directions_for(marker, d=dist)
@@ -17,7 +29,6 @@ def line_up_to(marker, robot, dist=0.4):
     move_straight(robot, dist)
     sleep(0.75)
     turn(robot, angle2)
-    
     
 def move_till_touch(robot):
     robot.ruggeduinos[0].pin_mode(11, INPUT_PULLUP)

@@ -67,10 +67,10 @@ def get_position_from_slot(marker):
         slotY = yList[n%2 + 2]
     return slotX - dy, slotY + dx, bearing
 
-def position_from_zone(zone_number):
+def position_from_zone(zone_number, dist=STARTING_DISTANCE):
     angle = ((3*pi)/4 + (pi/2 * zone_number)) % (2*pi)
-    x = STARTING_DISTANCE if zone_number in (0, 3) else 8 - STARTING_DISTANCE
-    y = STARTING_DISTANCE if zone_number in (0, 1) else 8 - STARTING_DISTANCE
+    x = dist if zone_number in (0, 3) else 8 - dist
+    y = dist if zone_number in (0, 1) else 8 - dist
     return x, y, angle
 
 def compute_token_pos(tokenMarker, x, y, o):
@@ -101,6 +101,21 @@ def compute_directions_for(marker, d=1):
     gamma = atan2(x, y)
     distance = sqrt(x*x + y*y)
     return distance, gamma, beta - gamma
+    
+def computer_directions_for_point(robot, x, y):
+    """
+    Returns angle to turn and the distance to move.
+    """
+    print 'Calculating motion to point', (x, y)
+    x0, y0, theta = robot.position.x, robot.position.y, robot.position.angle
+    dx = x - x0
+    dy = y - y0
+    dist = sqrt(dx*dx + dy*dy)
+    gamma = atan2(dx, dy)
+    alpha = gamma - theta
+    print '    theta = %.1f' % (theta)
+    print '    turn:%.1f' % (alpha)
+    return dist, alpha
 
 def in_range(x, l, r):
     return l <= x <= r
