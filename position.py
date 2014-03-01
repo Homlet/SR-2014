@@ -2,6 +2,7 @@ from math import sin, cos, atan2, radians, sqrt, pi
 
 d = 2.2
 significantPoints = [(d, d), (8-d, d), (8-d, 8-d), (d, 8-d)]
+STARTING_DISTANCE = 0.5 + 0.225 * cos(pi/4)
 
 class Zone:
     def __init__(self, zoneNumber):
@@ -68,8 +69,8 @@ def get_position_from_slot(marker):
 
 def position_from_zone(zone_number):
     angle = ((3*pi)/4 + (pi/2 * zone_number)) % (2*pi)
-    x = 0.5 if zone_number in (0, 3) else 7.5
-    y = 0.5 if zone_number in (0, 1) else 7.5
+    x = STARTING_DISTANCE if zone_number in (0, 3) else 8 - STARTING_DISTANCE
+    y = STARTING_DISTANCE if zone_number in (0, 1) else 8 - STARTING_DISTANCE
     return x, y, angle
 
 def compute_token_pos(tokenMarker, x, y, o):

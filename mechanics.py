@@ -96,19 +96,3 @@ class Motor(Thread):
         # self.motor.power = -self.power * 0.3
         # sleep(0.1)
         self.motor.power = 0
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
