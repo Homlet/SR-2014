@@ -1,4 +1,5 @@
 from mechanics import Journey
+from position import position_from_zone
 from math import sin, cos
 
 def move_straight(robot, dist):
@@ -12,7 +13,8 @@ def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
     robot.position.angle += alpha
 
 class Tracker:
-    def __init__(self, x, y, angle):
+    def __init__(self, zone_number):
+        x, y, angle = position_from_zone(zone_number)
         self.reset(x, y, angle)
     
     def move(self, dist):
