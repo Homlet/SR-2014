@@ -110,9 +110,20 @@ def compute_directions_for_point(robot, x, y):
     Returns angle to turn and the distance to move.
     """
     target = Vec2(x, y) - robot.position
-    theta = atan2(target.x, target.y) - robot.position.angle
+    # theta = atan2(target.x, target.y) - robot.position.angle
     dist = target.len()
-    return dist, theta
+    #          -----------
+    x0 = robot.position.x
+    y0 = robot.position.y
+    theta = robot.position.angle
+    alpha = atan2(target.x, target.y)
+    if alpha < 0:
+        alpha = 2*pi - alpha
+    beta = alpha - theta
+    if abs(beta) > pi:
+        beta -= 2*pi
+    
+    return dist, beta
 
 def in_range(x, l, r):
     return l <= x <= r
