@@ -4,7 +4,7 @@ from time import sleep, time
 from sr import INPUT_PULLUP
 
 from geometry import Vec2
-from position import position_from_zone, compute_directions_for
+from position import position_from_zone, compute_directions_for_marker
 from movements import move_straight, turn, move_to_point
 
 
@@ -26,12 +26,12 @@ def scan_corner(robot, zone):
         markers_in_sight = robot.see()
     return markers_in_sight[0]
 
-def line_up_to(marker, robot, dist=0.4):
+def line_up_to_marker(robot, marker, dist=0.4):
     """
     Moves the robot dist metres in front of a given marker.
     """
     print 'Lining up to marker:'
-    dist, angle1, angle2 = compute_directions_for(marker, d=dist)
+    dist, angle1, angle2 = compute_directions_for_marker(marker, d=dist)
     print '    dist=%.2f, angle1=%.2f, angle2=%.2f' % (dist, angle1, angle2)
     turn(robot, angle1)
     sleep(0.75)

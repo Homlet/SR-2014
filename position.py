@@ -24,7 +24,7 @@ class Zone:
                in_range(y, self.boundaries[1], self.boundaries[3])
 
 
-def get_position_from_wall(marker):
+def position_from_wall(marker):
     """
     Computes position of the robot on the arena with O(0, 0) being
     top left corner of the arena.
@@ -48,7 +48,7 @@ def get_position_from_wall(marker):
     # print(ix, iy, dx, dy)
     return ix - dy, iy + dx, bearing
 
-def get_position_from_slot(marker):
+def position_from_slot(marker):
     xList = [3.5, 3.68]
     yList = [2.65, 3.55, 4.45, 5.35]
     alpha = radians(marker.rot_y)
@@ -82,7 +82,7 @@ def compute_token_pos(tokenMarker, x, y, o):
     Y = y - tokenMarker.dist*sin(o - alpha)
     return X, Y
 
-def compute_directions_for(marker, d=1):
+def compute_directions_for_marker(marker, d=1):
     """
     The function provides neccesary information to line up for marker
     'd' metres away from it

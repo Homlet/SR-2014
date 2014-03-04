@@ -14,7 +14,7 @@ def main():
     
     # Main strategy goes here:
     marker = scan_corner(robot, robot.zone)
-    line_up_to(marker, robot)
+    line_up_to_marker(robot, marker)
     move_till_touch(robot)
     
     print 'End Position:'
