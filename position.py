@@ -1,6 +1,6 @@
-from math import sin, cos, atan2, radians, sqrt, pi
+from math import sin, cos, atan2, radians, pi, hypot
 
-from geometry import Vec2
+# from geometry import Vec2
 
 
 STARTING_DISTANCE = 0.6591
@@ -101,31 +101,26 @@ def compute_directions_for_marker(marker, d=1):
     x = X - d*sin(beta)
     y = Y - d*cos(beta)
     gamma = atan2(x, y)
-    distance = sqrt(x*x + y*y)
-    return distance, gamma, beta - gamma
+    return hypot(x, y), gamma, beta - gamma
     
 def compute_directions_for_point(robot, x, y):
     """
     Returns angle to turn and the distance to move.
     """
-    target = Vec2(x, y) - robot.position
-    dist = target.len()
-    #          -----------
-    # x0 = robot.position.x
-    # y0 = robot.position.y
-    # dx = x - x0
-    # dy = y - y0
-    # dist = sqrt(dx*dx + dy*dy)
-    # alpha = atan2(dx, dy)
+    # target = Vec2(x, y) - robot.position
+    # dist = target.len()
+    # alpha = atan2(target.x, target.y)
+    dx = x - robot.position.x
+    dy = y - robot.position.y
+    alpha = atan2(dx, dy)
     theta = robot.position.theta
-    alpha = atan2(target.x, target.y)
     if alpha < 0:
         alpha = 2*pi - alpha
     beta = alpha - theta
     if abs(beta) > pi:
         beta -= 2*pi
     
-    return dist, beta
+    return hypot(dx, dy), beta
 
 def in_range(x, l, r):
     return l <= x <= r
