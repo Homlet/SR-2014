@@ -1,10 +1,9 @@
-from math import sin, cos, atan, radians, degrees, sqrt, pi
 from time import sleep, time
 
 from sr import INPUT_PULLUP
 
-from geometry import Vec2
-from position import *
+# from geometry import Vec2
+from position import position_from_zone, compute_directions_for_marker
 from movements import move_straight, turn
 
 
@@ -25,6 +24,8 @@ def move_to_point(robot, x, y):
     (x, y), where x and y are metres from the origin.
     """
     dist, angle = compute_directions_for_point(robot, x, y)
+    if dist < 0.2:
+        return
     turn(robot, angle)
     sleep(0.7)
     move_straight(robot, dist)
@@ -35,16 +36,17 @@ def scan_corner(robot, zone): #
     If the robot is not, it is moved there.
     Then, the robot rotates and gather as a list of markers.
     """
-    target = Vec2(*position_from_zone(zone, 2.2)[:2])
-    if robot.position.dist(target) > 0.20:
-        move_to_point(robot, target.x, target.y)
+    # target = Vec2(*position_from_zone(zone, 2.2)[:2])
+    zx, zy, theta = position_from_zone(zone, 2.2)
+
+    move_to_point(robot, zx, zy)
     
     print 'Scanning corner for markers...'
-    return whats_around(robot)
+    return whats_around(robot)[0]
 
 def line_up_to_marker(robot, marker, dist=0.4):
     """
-    Moves the robot dist metres in front of a given marker.
+    Moves the robot 'dist' metres in front of a given marker.
     """
     print 'Lining up to marker:'
     dist, angle1, angle2 = compute_directions_for_marker(marker, d=dist)
