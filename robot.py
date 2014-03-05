@@ -8,7 +8,8 @@ from strategy import line_up_to_marker, scan_corner, move_till_touch
 
 def main():
     robot.position = Tracker(robot.zone)
-    print 'Start\n    x = %.1f y = %.1f theta = %.1f' % (*robot.position)
+    with robot.position as p:
+        print 'Start\n    x = %.1f y = %.1f theta = %.1f' % (p.x, p.y, p.theta)
     # print '   ', (robot.position.x, robot.position.y), robot.position.angle
     
     # Main strategy goes here:
@@ -16,7 +17,8 @@ def main():
     line_up_to_marker(robot, marker)
     move_till_touch(robot)
     
-    print 'End\n    x = %.1f y = %.1f theta = %.1f' % (*robot.position)
+    with robot.position as p:
+        print 'End\n    x = %.1f y = %.1f theta = %.1f' % (p.x, p.y, p.theta)
     # print '   ', (robot.position.x, robot.position.y), robot.position.angle
 
 robot = Robot()
