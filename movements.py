@@ -1,4 +1,4 @@
-from math import sin, cos, sqrt
+from math import sin, cos, sqrt, pi
 from time import sleep
 
 from geometry import Vec2
@@ -8,26 +8,27 @@ from position import compute_directions_for_point, position_from_zone
 
 class Tracker(Vec2):
     """
-    Tracks the robot's current position and angle.
+    Tracks the robot's current position and bearing.
     
     Position is stored as a vector, (x, y),
     where x and y are metres from the origin.
     
-    Angle is stored as a bearing in RADIANS.
+    Bearing is stored in RADIANS.
     """
-    def __init__(self, zone_number):
-        position = position_from_zone(zone_number)
-        self.x, self.y, self.angle = position
+    def __init__(self, zoneNumber):
+        position = position_from_zone(zoneNumber)
+        self.x, self.y, self.theta = position
     
     def move(self, dist):
-        print 'Moving tracker:', dist, self.angle
-        print '    Before position:', (self.x, self.y)
-        self.x += dist * sin(self.angle)
-        self.y -= dist * cos(self.angle)
-        print '    After position:', (self.x, self.y)
+        print 'Moving:', dist, self.theta
+        print '    Position before:', (self.x, self.y)
+        self.x += dist * sin(self.theta)
+        self.y -= dist * cos(self.theta)
+        print '    Position after:', (self.x, self.y)
     
     def turn(self, angle):
-        self.angle += angle
+        self.theta += angle
+        self.theta %= 2*pi
 
 
 def move_straight(robot, dist):
@@ -45,14 +46,3 @@ def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
     journey = Journey(robot, angle=alpha)
     journey.start()
     robot.position.turn(alpha)
-    
-def move_to_point(robot, x, y):
-    """
-    Given the robot's current tracked position, moves to point
-    (x, y), where x and y are metres from the origin.
-    """
-    dist, angle = compute_directions_for_point(robot, x, y)
-    turn(robot, angle)
-    sleep(0.7)
-    move_straight(robot, dist)
-    
