@@ -21,7 +21,8 @@ WHEEL_CIRCUMFERENCE = 0.31
 
 class Journey:
     """
-    Handles a forwards or rotational movement using threading.
+    Handles a straight or rotational movement using threading
+    for sufficiently long journeys. Estimation otherwise.
     """
     def __init__(self, robot, distance=0, angle=0):
         self.robot = robot
@@ -31,6 +32,9 @@ class Journey:
             self.length = distance
         elif angle != 0:
             self.length = -angle * ROBOT_RADIUS
+        else:
+            self.length = 0
+            return
 
         turnsToDo = self.length / WHEEL_CIRCUMFERENCE
       
@@ -40,10 +44,17 @@ class Journey:
         self.m1 = Motor(robot.motors[0].m1, M_SWITCH_RIGHT, rduino, turnsToDo)
 
     def start(self):
-        self.m0.start()
-        self.m1.start()
-        self.m0.join()
-        self.m1.join()
+        if abs(self.m0.turnsToDo) >= 0.5:
+            self.m0.start()
+            self.m1.start()
+            self.m0.join()
+            self.m1.join()
+        elif self.length != 0:
+            self.m0.power = self.m0.motor.power
+            self.m1.power = self.m1.motor.power
+            sleep(self.length * 5)
+            self.m0.stop()
+            self.m1.stop()
 
 
 class Motor(Thread):
@@ -80,25 +91,19 @@ class Motor(Thread):
     def run(self):
         triggersToDo = self.turnsToDo * NOTCHES_ON_WHEEL
         self.motor.power = self.power
-        if triggersToDo < 2:
-            # Probably need different powers for turning/moving forward of the robot
-            # print "Approximating distance... ", self.turnsToDo
-            sleep(5 * self.turnsToDo * WHEEL_CIRCUMFERENCE)
-        else:
-            # print "Using microswitches... ", self.turnsToDo
-            total_t = 0
-            i = 0
+        total_t = 0
+        i = 0
 
-            start_dt = self.time_a_switch()
-            for i in range(1, int(floor(triggersToDo))):
-                total_t += self.time_a_switch()
+        start_dt = self.time_a_switch()
+        for i in range(1, int(floor(triggersToDo))):
+            total_t += self.time_a_switch()
 
-            if i != 0:
-                average_dt = total_t / i
+        if i != 0:
+            average_dt = total_t / i
 
-            if start_dt < average_dt:
-                sleep(average_dt - start_dt)
-            sleep(average_dt * modf(triggersToDo)[0])
+        if start_dt < average_dt:
+            sleep(average_dt - start_dt)
+        sleep(average_dt * modf(triggersToDo)[0])
         self.stop()
 
     def stop(self):
