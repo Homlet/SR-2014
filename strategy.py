@@ -3,7 +3,7 @@ from time import sleep, time
 from sr import INPUT_PULLUP
 
 # from geometry import Vec2
-from position import position_from_zone, compute_directions_for_marker
+from position import *
 from movements import move_straight, turn
 
 
