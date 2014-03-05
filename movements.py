@@ -2,6 +2,7 @@ from math import sin, cos, pi
 from time import sleep
 
 from mechanics import Journey
+from position import position_from_zone
 
 class Tracker():
     """
