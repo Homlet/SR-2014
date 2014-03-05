@@ -3,7 +3,7 @@ from math import sin, cos, atan2, radians, sqrt, pi
 from geometry import Vec2
 
 
-STARTING_DISTANCE = 0.5 + 0.225 * cos(pi/4)
+STARTING_DISTANCE = 0.6591
 D = 2.2
 SCAN_POINTS = [(D, D), (8-D, D), (8-D, 8-D), (D, 8-D)]
 
@@ -18,8 +18,8 @@ class Zone:
         self.tokens = []
         self.boundaries = zoneBoundaries[zoneNumber]
 
-    def is_inside(self, token, x, y):
-        """Tells whether token is inside the zone"""
+    def is_inside(self, x, y):
+        """Tells whether x, y is inside the zone"""
         return in_range(x, self.boundaries[0], self.boundaries[2]) and \
                in_range(y, self.boundaries[1], self.boundaries[3])
 
@@ -45,7 +45,6 @@ def position_from_wall(marker):
     # dx and dy - where robot is relatively to wall marker
     dx = marker.dist * cos(bearing - alpha)
     dy = marker.dist * sin(bearing - alpha)
-    # print(ix, iy, dx, dy)
     return ix - dy, iy + dx, bearing
 
 def position_from_slot(marker):
@@ -56,30 +55,30 @@ def position_from_slot(marker):
     n = marker.info.code - 32
 
     if (n % 4) < 2:
-        bearing = pi/2 - beta
+        theta = pi/2 - beta
     else:
-        bearing = 1.5*pi - beta
+        theta = 1.5*pi - beta
 
-    dx = marker.dist * cos(bearing - alpha)
-    dy = marker.dist * sin(bearing - alpha)
+    dx = marker.dist * cos(theta - alpha)
+    dy = marker.dist * sin(theta - alpha)
 
     slotX = xList[n % 2]
     if n < 4:
         slotY = yList[n % 2]
     else:
         slotY = yList[n%2 + 2]
-    return slotX - dy, slotY + dx, bearing
+    return slotX - dy, slotY + dx, theta
 
 def position_from_zone(zone_number, dist=STARTING_DISTANCE):
-    angle = ((3*pi)/4 + (pi/2 * zone_number)) % (2*pi)
+    theta = ((3*pi)/4 + (pi/2 * zone_number)) % (2*pi)
     x = dist if zone_number in (0, 3) else 8 - dist
     y = dist if zone_number in (0, 1) else 8 - dist
-    return x, y, angle
+    return x, y, theta
 
-def compute_token_pos(tokenMarker, x, y, o):
+def compute_token_pos(tokenMarker, x, y, theta):
     alpha = radians(tokenMarker.rot_y)
-    X = x + tokenMarker.dist*cos(o - alpha)
-    Y = y - tokenMarker.dist*sin(o - alpha)
+    X = x + tokenMarker.dist*cos(theta - alpha)
+    Y = y - tokenMarker.dist*sin(theta - alpha)
     return X, Y
 
 def compute_directions_for_marker(marker, d=1):
@@ -87,8 +86,8 @@ def compute_directions_for_marker(marker, d=1):
     The function provides neccesary information to line up for marker
     'd' metres away from it
 
-    Returns angle 'gamma'(radians) for robot to turn
-    and move 'distance'meters forward to get 1m in front of the token
+    Returns angle 'gamma' (radians) for robot to turn
+    and move 'distance' meters forward to get 1m in front of the token
     and angle to turn towards the marker when it stops moving
 
     This function assumes angles are positive when marker is to the left
@@ -110,12 +109,15 @@ def compute_directions_for_point(robot, x, y):
     Returns angle to turn and the distance to move.
     """
     target = Vec2(x, y) - robot.position
-    # theta = atan2(target.x, target.y) - robot.position.angle
     dist = target.len()
     #          -----------
-    x0 = robot.position.x
-    y0 = robot.position.y
-    theta = robot.position.angle
+    # x0 = robot.position.x
+    # y0 = robot.position.y
+    # dx = x - x0
+    # dy = y - y0
+    # dist = sqrt(dx*dx + dy*dy)
+    # alpha = atan2(dx, dy)
+    theta = robot.position.theta
     alpha = atan2(target.x, target.y)
     if alpha < 0:
         alpha = 2*pi - alpha
