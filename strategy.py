@@ -5,26 +5,42 @@ from sr import INPUT_PULLUP
 
 from geometry import Vec2
 from position import position_from_zone, compute_directions_for_marker
-from movements import move_straight, turn, move_to_point
+from movements import move_straight, turn
 
 
-def scan_corner(robot, zone):
+def execute_directions():
+    pass
+
+def whats_around(robot):
+    markers_in_sight = robot.see()
+    while not markers_in_sight:
+        turn(robot)
+        sleep(0.5)
+        markers_in_sight = robot.see()
+    return markers_in_sight
+
+def move_to_point(robot, x, y):
+    """
+    Given the robot's current tracked position, moves to point
+    (x, y), where x and y are metres from the origin.
+    """
+    dist, angle = compute_directions_for_point(robot, x, y)
+    turn(robot, angle)
+    sleep(0.7)
+    move_straight(robot, dist)
+
+def scan_corner(robot, zone): #
     """
     Checks to see if the robot is near the given zone corner.
     If the robot is not, it is moved there.
     Then, the robot rotates and gather as a list of markers.
     """
     target = Vec2(*position_from_zone(zone, 2.2)[:2])
-    if robot.position.dist(target) > 0.5:
+    if robot.position.dist(target) > 0.20:
         move_to_point(robot, target.x, target.y)
     
     print 'Scanning corner for markers...'
-    markers_in_sight = robot.see()
-    while not markers_in_sight:
-        turn(robot)
-        sleep(0.5)
-        markers_in_sight = robot.see()
-    return markers_in_sight[0]
+    return whats_around(robot)
 
 def line_up_to_marker(robot, marker, dist=0.4):
     """
@@ -39,7 +55,7 @@ def line_up_to_marker(robot, marker, dist=0.4):
     sleep(0.75)
     turn(robot, angle2)
     
-def move_till_touch(robot):
+def move_till_touch(robot): #
     """
     Moves the robot forward at a constant rate until a
     switch is triggered.
