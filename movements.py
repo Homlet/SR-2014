@@ -1,12 +1,9 @@
-from math import sin, cos, sqrt, pi
+from math import sin, cos, pi
 from time import sleep
 
-from geometry import Vec2
 from mechanics import Journey
-from position import compute_directions_for_point, position_from_zone
 
-
-class Tracker(Vec2):
+class Tracker():
     """
     Tracks the robot's current position and bearing.
     
@@ -16,8 +13,7 @@ class Tracker(Vec2):
     Bearing is stored in RADIANS.
     """
     def __init__(self, zoneNumber):
-        position = position_from_zone(zoneNumber)
-        self.x, self.y, self.theta = position
+        self.x, self.y, self.theta = position_from_zone(zoneNumber)
     
     def move(self, dist):
         print 'Moving:', dist, self.theta
