@@ -1,10 +1,9 @@
-from math import sin, cos, atan, radians, degrees, sqrt, pi
-from time import sleep, time
+from time import sleep
 
 from sr import Robot
 
 from movements import Tracker
-from strategy import line_up_to_marker, scan_corner
+from strategy import line_up_to_marker, scan_corner, move_till_touch
 
 
 def main():
