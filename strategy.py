@@ -1,4 +1,4 @@
-from time import sleep, time
+from time import time, sleep
 
 from sr import INPUT_PULLUP
 
