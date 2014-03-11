@@ -28,11 +28,16 @@
 #     main()
 #     sleep(5)
 
+from time import sleep
 from sr import Robot
 
 def main():
     robot = Robot()
     robot.motors[0].m0.power = 50
     robot.motors[0].m1.power = 50
+    sleep(10)
+    robot.motors[0].m0.power = 0
+    robot.motors[0].m1.power = 0
+    
 
 main()
