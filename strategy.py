@@ -39,7 +39,7 @@ def scan_corner(robot, zone):
     """
     zx, zy, theta = position_from_zone(zone, 2.2)
     
-    print "Moving to point x=%.1f y=%.1f" % zx, zy
+    print "Moving to point x=%.1f y=%.1f" % (zx, zy)
     move_to_point(robot, zx, zy)
     print "    done."
     
