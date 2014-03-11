@@ -112,15 +112,13 @@ def compute_directions_for_point(robot, x, y):
     # alpha = atan2(target.x, target.y)
     dx = x - robot.position.x
     dy = y - robot.position.y
-    alpha = atan2(dx, dy)
+    alpha = atan2(dy, dx)
     theta = robot.position.theta
-    if alpha < 0:
-        alpha = 2*pi - alpha
-    beta = alpha - theta
-    if abs(beta) > pi:
-        beta -= 2*pi
+    gamma = alpha +theta - 90
+    if abs(gamma) > pi:
+        gamma -= 2*pi
     
-    return hypot(dx, dy), beta
+    return hypot(dx, dy), gamma
 
 def in_range(x, l, r):
     return l <= x <= r
