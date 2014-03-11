@@ -30,7 +30,7 @@ def move_to_point(robot, x, y):
     sleep(0.7)
     move_straight(robot, dist)
 
-def scan_corner(robot, zone): #
+def scan_corner(robot, zone):
     """
     Checks to see if the robot is near the given zone corner.
     If the robot is not, it is moved there.
