@@ -38,8 +38,10 @@ def scan_corner(robot, zone): #
     """
     # target = Vec2(*position_from_zone(zone, 2.2)[:2])
     zx, zy, theta = position_from_zone(zone, 2.2)
-
+    
+    print "Moving to point x=%.1f y=%.1f" % zx, zy
     move_to_point(robot, zx, zy)
+    print "    done."
     
     print 'Scanning corner for markers...'
     return whats_around(robot)[0]
