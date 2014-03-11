@@ -27,8 +27,10 @@ def move_to_point(robot, x, y):
     print "dist=%.1f angle=%.1f" % (dist, angle)
     if dist < 0.2:
         return
+    print "    Turning..."
     turn(robot, angle)
     sleep(0.7)
+    print "    Forwardsing..."
     move_straight(robot, dist)
 
 def scan_corner(robot, zone):
