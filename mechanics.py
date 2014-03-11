@@ -7,8 +7,8 @@ from sr import INPUT_PULLUP
 
 NOTCHES_ON_WHEEL = 4
 ROBOT_RADIUS = 0.185
-M_SWITCH_LEFT  = 13
-M_SWITCH_RIGHT = 12
+M_SWITCH_LEFT  = 12
+M_SWITCH_RIGHT = 2
 WHEEL_CIRCUMFERENCE = 0.31
 
 # Notes on approximation:
@@ -21,8 +21,7 @@ WHEEL_CIRCUMFERENCE = 0.31
 
 class Journey:
     """
-    Handles a straight or rotational movement using threading
-    for sufficiently long journeys. Estimation otherwise.
+    Handles a forwards or rotational movement using threading.
     """
     def __init__(self, robot, distance=0, angle=0):
         self.robot = robot
@@ -32,9 +31,6 @@ class Journey:
             self.length = distance
         elif angle != 0:
             self.length = -angle * ROBOT_RADIUS
-        else:
-            self.length = 0
-            return
 
         turnsToDo = self.length / WHEEL_CIRCUMFERENCE
       
@@ -44,17 +40,10 @@ class Journey:
         self.m1 = Motor(robot.motors[0].m1, M_SWITCH_RIGHT, rduino, turnsToDo)
 
     def start(self):
-        if abs(self.m0.turnsToDo) >= 0.5:
-            self.m0.start()
-            self.m1.start()
-            self.m0.join()
-            self.m1.join()
-        elif self.length != 0:
-            self.m0.power = self.m0.motor.power
-            self.m1.power = self.m1.motor.power
-            sleep(self.length * 5)
-            self.m0.stop()
-            self.m1.stop()
+        self.m0.start()
+        self.m1.start()
+        self.m0.join()
+        self.m1.join()
 
 
 class Motor(Thread):
@@ -63,8 +52,7 @@ class Motor(Thread):
     for small distances, approximation. Runs concurrently.
     """
     def __init__(self, motor, switchID, rduino, turns):
-        if abs(turns) >= 0.5:
-            super(Motor, self).__init__()
+        super(Motor, self).__init__()
         self.switchID = switchID
         self.motor = motor
         self.power = 35 * copysign(1, turns)
@@ -92,19 +80,25 @@ class Motor(Thread):
     def run(self):
         triggersToDo = self.turnsToDo * NOTCHES_ON_WHEEL
         self.motor.power = self.power
-        total_t = 0
-        i = 0
+        if triggersToDo < 2:
+            # Probably need different powers for turning/moving forward of the robot
+            # print "Approximating distance... ", self.turnsToDo
+            sleep(5 * self.turnsToDo * WHEEL_CIRCUMFERENCE)
+        else:
+            # print "Using microswitches... ", self.turnsToDo
+            total_t = 0
+            i = 0
 
-        start_dt = self.time_a_switch()
-        for i in range(1, int(floor(triggersToDo))):
-            total_t += self.time_a_switch()
+            start_dt = self.time_a_switch()
+            for i in range(1, int(floor(triggersToDo))):
+                total_t += self.time_a_switch()
 
-        if i != 0:
-            average_dt = total_t / i
+            if i != 0:
+                average_dt = total_t / i
 
-        if start_dt < average_dt:
-            sleep(average_dt - start_dt)
-        sleep(average_dt * modf(triggersToDo)[0])
+            if start_dt < average_dt:
+                sleep(average_dt - start_dt)
+            sleep(average_dt * modf(triggersToDo)[0])
         self.stop()
 
     def stop(self):
