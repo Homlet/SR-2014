@@ -9,7 +9,7 @@ from strategy import line_up_to_marker, scan_corner, move_till_touch
 def main():
     robot.position = Tracker(robot.zone)
     p = robot.position
-    print 'Start\n    x = %.1f y = %.1f theta = %.1f' % p.x, p.y, p.theta
+    print 'Start\n    x = %.1f y = %.1f theta = %.1f' % (p.x, p.y, p.theta)
     
     # Main strategy goes here:
     marker = scan_corner(robot, robot.zone)
@@ -17,7 +17,7 @@ def main():
     move_till_touch(robot)
     
     p = robot.position
-    print 'End\n    x = %.1f y = %.1f theta = %.1f' % p.x, p.y, p.theta
+    print 'End\n    x = %.1f y = %.1f theta = %.1f' % (p.x, p.y, p.theta)
 
 robot = Robot()
 
