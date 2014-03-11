@@ -70,7 +70,7 @@ def position_from_slot(marker):
     return slotX - dy, slotY + dx, theta
 
 def position_from_zone(zone_number, dist=STARTING_DISTANCE):
-    theta = ((3*pi)/4 + (pi/2 * zone_number)) % (2*pi)
+    theta = ((3*pi)/4 + (pi/2 * (zone_number+1))) % (2*pi)
     x = dist if zone_number in (0, 3) else 8 - dist
     y = dist if zone_number in (0, 1) else 8 - dist
     return x, y, theta
