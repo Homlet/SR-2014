@@ -24,6 +24,7 @@ def move_to_point(robot, x, y):
     (x, y), where x and y are metres from the origin.
     """
     dist, angle = compute_directions_for_point(robot, x, y)
+    print "dist=%.1f angle=%.1f" % dist, angle
     if dist < 0.2:
         return
     turn(robot, angle)
