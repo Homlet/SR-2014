@@ -63,7 +63,7 @@ class Motor(Thread):
     for small distances, approximation. Runs concurrently.
     """
     def __init__(self, motor, switchID, rduino, turns):
-        if turns > 0.5:
+        if abs(turns) >= 0.5:
             super(Motor, self).__init__()
         self.switchID = switchID
         self.motor = motor
