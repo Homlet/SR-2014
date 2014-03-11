@@ -36,7 +36,6 @@ def scan_corner(robot, zone): #
     If the robot is not, it is moved there.
     Then, the robot rotates and gather as a list of markers.
     """
-    # target = Vec2(*position_from_zone(zone, 2.2)[:2])
     zx, zy, theta = position_from_zone(zone, 2.2)
     
     print "Moving to point x=%.1f y=%.1f" % zx, zy
