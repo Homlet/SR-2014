@@ -107,9 +107,9 @@ def compute_directions_for_point(robot, x, y):
     """
     dx = x - robot.position.x
     dy = y - robot.position.y
-    alpha = atan2(dy, dx)
+    alpha = atan2(dx, dy)
     theta = robot.position.theta
-    gamma = alpha +theta - pi/2
+    gamma = alpha - theta
     if abs(gamma) > pi:
         gamma -= 2*pi
     
