@@ -1,7 +1,5 @@
 from math import sin, cos, atan2, radians, pi, hypot
 
-# from geometry import Vec2
-
 
 STARTING_DISTANCE = 0.6591
 D = 2.2
@@ -107,9 +105,6 @@ def compute_directions_for_point(robot, x, y):
     """
     Returns angle to turn and the distance to move.
     """
-    # target = Vec2(x, y) - robot.position
-    # dist = target.len()
-    # alpha = atan2(target.x, target.y)
     dx = x - robot.position.x
     dy = y - robot.position.y
     alpha = atan2(dy, dx)

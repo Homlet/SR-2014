@@ -2,7 +2,6 @@ from time import time, sleep
 
 from sr import INPUT_PULLUP
 
-# from geometry import Vec2
 from position import *
 from movements import move_straight, turn
 
