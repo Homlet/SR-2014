@@ -42,7 +42,7 @@ def f2(robot, x, y):
 
 def use_functions_for(func, x, y, robot):
     for f in func:
-        print(f(robot, x, y))
+        print f(robot, x, y)
 def main():
     robotX = 4
     robotY = 4
