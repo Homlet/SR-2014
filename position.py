@@ -105,15 +105,20 @@ def compute_directions_for_point(robot, x, y):
     """
     Returns angle to turn and the distance to move.
     """
-    dx = x - robot.position.x
-    dy = y - robot.position.y
-    alpha = atan2(dx, dy)
-    theta = robot.position.theta
-    gamma = alpha - theta
-    if abs(gamma) > pi:
-        gamma -= 2*pi
-    
-    return hypot(dx, dy), gamma
+    dx = x - robot.x
+    dy = y - robot.y
+    alpha = atan2(dx, -dy)
+    # alpha is bearing robot needs to have to look at the point
+    theta = robot.theta
+    if alpha < 0:
+        alpha += pi+pi
+    beta = alpha - theta
+    # beta is angle for robot to turn clock-wise
+    if beta < -pi:
+        beta += pi+pi
+    if beta > pi:
+        beta -= pi+pi    
+    return hypot(dx, dy), beta
 
 def in_range(x, l, r):
     return l <= x <= r
