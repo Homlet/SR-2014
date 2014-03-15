@@ -23,6 +23,13 @@ def main():
 
 robot = Robot()
 
+def failsafe_main():
+    """I sold my soul to write this function."""
+    try:
+        main()
+    except:
+        failsafe_main()
+
 world_exists = True
 while world_exists:
     main()
