@@ -62,7 +62,7 @@ class Motor(Thread):
         super(Motor, self).__init__()
         self.switchID = switchID
         self.motor = motor
-        self.turnsToDo = abs(turns)
+        self.turns = turns
         self.ruggeduino = rduino
         self.ruggeduino.pin_mode(switchID, INPUT_PULLUP)
 
@@ -82,18 +82,18 @@ class Motor(Thread):
         return self.ruggeduino.digital_read(self.switchID)
 
     def run(self):
-        triggersToDo = self.turnsToDo * NOTCHES_ON_WHEEL
-        if triggersToDo < 2:
+        triggers = abs(self.turns) * NOTCHES_ON_WHEEL
+        if triggers < 2:
             # Probably need different powers for turning/moving forward of the robot
-            self.motor.power = 35 * copysign(1, turns)
-            sleep(5 * self.turnsToDo * WHEEL_CIRCUMFERENCE)
+            self.motor.power = copysign(35, self.turns)
+            sleep(5 * abs(self.turns) * WHEEL_CIRCUMFERENCE)
         else:
-            self.motor.power = 60 * copysign(1, turns)
+            self.motor.power = copysign(60, self.turns)
             total_t = 0
             i = 0
 
             start_dt = self.time_a_switch()
-            for i in range(1, int(floor(triggersToDo))):
+            for i in range(1, int(floor(triggers))):
                 total_t += self.time_a_switch()
 
             if i != 0:
@@ -101,7 +101,7 @@ class Motor(Thread):
 
             if start_dt < average_dt:
                 sleep(average_dt - start_dt)
-            sleep(average_dt * modf(triggersToDo)[0])
+            sleep(average_dt * modf(triggers)[0])
         self.stop()
 
     def stop(self):
