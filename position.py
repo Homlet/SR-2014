@@ -109,7 +109,7 @@ def compute_directions_for_point(robot, x, y):
     dy = y - robot.position.y
     alpha = atan2(dx, -dy)
     # alpha is bearing robot needs to have to look at the point
-    theta = robot.theta
+    theta = robot.position.theta
     if alpha < 0:
         alpha += pi+pi
     beta = alpha - theta
