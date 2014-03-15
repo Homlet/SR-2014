@@ -85,10 +85,10 @@ class Motor(Thread):
         triggers = abs(self.turns) * NOTCHES_ON_WHEEL
         if triggers < 2:
             # Probably need different powers for turning/moving forward of the robot
-            self.motor.power = copysign(35, self.turns)
+            self.motor.power = copysign(45, self.turns)
             sleep(5 * abs(self.turns) * WHEEL_CIRCUMFERENCE)
         else:
-            self.motor.power = copysign(50, self.turns)
+            self.motor.power = copysign(55, self.turns)
             total_t = 0
             i = 0
 
