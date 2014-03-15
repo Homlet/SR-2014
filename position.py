@@ -105,8 +105,8 @@ def compute_directions_for_point(robot, x, y):
     """
     Returns angle to turn and the distance to move.
     """
-    dx = x - robot.x
-    dy = y - robot.y
+    dx = x - robot.position.x
+    dy = y - robot.position.y
     alpha = atan2(dx, -dy)
     # alpha is bearing robot needs to have to look at the point
     theta = robot.theta
