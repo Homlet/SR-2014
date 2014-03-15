@@ -6,13 +6,7 @@ from movements import Tracker
 from strategy import (line_up_to_marker, scan_corner, move_till_touch,
     move_to_point)
 
-def main():
-    # TEST CODE ---------------------------
-    robot.position = Tracker(robot.zone)
-    move_to_point(robot, 2, 0)
-    return
-    # END TEST CODE -----------------------
-    
+def main():    
     p = robot.position
     print 'Start\n    x = %.1f y = %.1f theta = %.1f' % (p.x, p.y, p.theta)
     
