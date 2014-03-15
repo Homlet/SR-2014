@@ -27,10 +27,14 @@ class Journey:
         self.robot = robot
         rduino = self.robot.ruggeduinos[0]
 
+        self.run = True
         if distance != 0:
             self.length = distance
         elif angle != 0:
             self.length = -angle * ROBOT_RADIUS
+        else:
+            self.run = False
+            return
 
         turnsToDo = self.length / WHEEL_CIRCUMFERENCE
       
@@ -40,10 +44,13 @@ class Journey:
         self.m1 = Motor(robot.motors[0].m1, M_SWITCH_RIGHT, rduino, turnsToDo)
 
     def start(self):
-        self.m0.start()
-        self.m1.start()
-        self.m0.join()
-        self.m1.join()
+        if self.run:
+            self.m0.start()
+            self.m1.start()
+            self.m0.join()
+            self.m1.join()
+        else:
+            print "Warning: cannot run zero-length journey."
 
 
 class Motor(Thread):
