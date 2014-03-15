@@ -6,6 +6,9 @@ from position import *
 from movements import move_straight, turn
 
 
+M_SWITCH_FRONT = 11
+
+
 def execute_directions():
     pass
 
@@ -65,8 +68,8 @@ def move_till_touch(robot): #
     Moves the robot forward at a constant rate until a
     switch is triggered.
     """
-    robot.ruggeduinos[0].pin_mode(11, INPUT_PULLUP)
-    touching_marker = lambda: robot.ruggeduinos[0].digital_read(11)
+    robot.ruggeduinos[0].pin_mode(M_SWITCH_FRONT, INPUT_PULLUP)
+    touching_marker = lambda: robot.ruggeduinos[0].digital_read(M_SWITCH_FRONT)
     
     robot.motors[0].m0.power = 30
     robot.motors[0].m1.power = 30
