@@ -17,10 +17,9 @@ def move_to_point(robot, x, y):
     Given the robot's current tracked position, moves to point
     (x, y), where x and y are metres from the origin.
     """
+    print "Moving to point x=%.1f y=%.1f ..." % (x, y)
     dist, angle = compute_directions_for_point(robot, x, y)
-    print "dist=%.1f angle=%.1f" % (dist, angle)
-    if dist < 0.2:
-        return
+    print "    dist=%.1f angle=%.1f" % (dist, angle)
     print "    Turning..."
     turn(robot, angle)
     sleep(0.7)
