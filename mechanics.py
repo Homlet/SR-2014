@@ -88,7 +88,7 @@ class Motor(Thread):
             self.motor.power = copysign(35, self.turns)
             sleep(5 * abs(self.turns) * WHEEL_CIRCUMFERENCE)
         else:
-            self.motor.power = copysign(60, self.turns)
+            self.motor.power = copysign(50, self.turns)
             total_t = 0
             i = 0
 
@@ -105,6 +105,6 @@ class Motor(Thread):
         self.stop()
 
     def stop(self):
-        # self.motor.power = -self.power * 0.3
-        # sleep(0.1)
+        self.motor.power = -copysign(20, self.turns)
+        sleep(0.1)
         self.motor.power = 0
