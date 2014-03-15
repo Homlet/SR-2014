@@ -9,7 +9,7 @@ from strategy import (line_up_to_marker, scan_corner, move_till_touch,
 def main():
     # TEST CODE ---------------------------
     robot.position = Tracker(robot.zone)
-    move_to_point(robot, 2, 2)
+    move_to_point(robot, 2, 0)
     return
     # END TEST CODE -----------------------
     
