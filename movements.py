@@ -17,11 +17,8 @@ class Tracker():
         self.x, self.y, self.theta = position_from_zone(zoneNumber)
     
     def move(self, dist):
-        print 'Moving:', dist, self.theta
-        print '    Position before:', (self.x, self.y)
         self.x += dist * sin(self.theta)
         self.y -= dist * cos(self.theta)
-        print '    Position after:', (self.x, self.y)
     
     def turn(self, angle):
         self.theta += angle
