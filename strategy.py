@@ -32,7 +32,7 @@ def move_to_point(robot, x, y):
     print "    Turning..."
     turn(robot, angle)
     sleep(0.7)
-    print "    Forwardsing..."
+    print "    Moving forwards..."
     move_straight(robot, dist)
 
 def scan_corner(robot, zone):
