@@ -88,7 +88,7 @@ class Motor(Thread):
             self.motor.power = copysign(35, self.turns)
             sleep(5 * abs(self.turns) * WHEEL_CIRCUMFERENCE)
         else:
-            self.motor.power = copysign(50, self.turns)
+            self.motor.power = copysign(35, self.turns)
             total_t = 0
             i = 0
 
