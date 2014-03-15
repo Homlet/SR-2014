@@ -33,7 +33,4 @@ def failsafe_main():
     except:
         failsafe_main()
 
-world_exists = True
-while world_exists:
-    main()
-    sleep(30)
+main()
