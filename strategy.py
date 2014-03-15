@@ -12,14 +12,6 @@ M_SWITCH_FRONT = 11
 def execute_directions():
     pass
 
-def whats_around(robot):
-    markers_in_sight = robot.see()
-    while not markers_in_sight:
-        turn(robot)
-        sleep(0.5)
-        markers_in_sight = robot.see()
-    return markers_in_sight
-
 def move_to_point(robot, x, y):
     """
     Given the robot's current tracked position, moves to point
@@ -48,7 +40,12 @@ def scan_corner(robot, zone):
     print "    done."
     
     print 'Scanning corner for markers...'
-    return whats_around(robot)[0]
+    markers_in_sight = robot.see()
+    while not markers_in_sight:
+        turn(robot)
+        sleep(0.5)
+        markers_in_sight = robot.see()
+    return markers_in_sight[0]
 
 def line_up_to_marker(robot, marker, dist=0.4):
     """
