@@ -10,6 +10,9 @@ ROBOT_RADIUS = 0.185
 M_SWITCH_LEFT  = 13
 M_SWITCH_RIGHT = 12
 WHEEL_CIRCUMFERENCE = 0.31
+RIGHT_ARM = 0
+LEFT_ARM = 1
+ARMS_LIFT = 2
 
 # Notes on approximation:
 #
@@ -108,3 +111,25 @@ class Motor(Thread):
         self.motor.power = -copysign(20, self.turns)
         sleep(0.1)
         self.motor.power = 0
+
+
+def open_arms(robot):
+    robot.servos[0][LEFT_ARM] = 50
+    robot.servos[0][RIGHT_ARM] = 50
+
+def close_arms(robot):
+    pos = 85
+    robot.servos[0][LEFT_ARM] = pos
+    robot.servos[0][RIGHT_ARM] = 100 - pos
+
+def raise_arms(robot):
+    robot.servos[0][ARMS_LIFT] = 0
+
+def lower_arms(robot):
+    robot.servos[0][ARMS_LIFT] = 100
+
+def extend_arms(robot):
+    pass
+
+def retract_arms(robot):
+    pass
