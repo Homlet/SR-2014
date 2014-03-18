@@ -20,7 +20,7 @@ def main():
         turn(robot)
         sleep(2)
     
-    move_straight(1)
+    move_straight(robot, 1)
     
     p = robot.position
     print 'End\n    x = %.1f y = %.1f theta = %.1f' % (p.x, p.y, p.theta)
