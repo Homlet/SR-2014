@@ -39,12 +39,15 @@ def scan_corner(robot, zone):
     print "    done."
     
     print 'Scanning corner for markers...'
+    return whats_around(robot)[0]
+
+def whats_around(robot):
     markers_in_sight = robot.see()
     while not markers_in_sight:
         turn(robot)
         sleep(0.5)
         markers_in_sight = robot.see()
-    return markers_in_sight[0]
+    return markers_in_sight
 
 def line_up_to_marker(robot, marker, dist=0.4):
     """
