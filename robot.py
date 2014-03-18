@@ -22,11 +22,11 @@ def main():
 
 robot = Robot()
 
-def failsafe_main():
-    """I sold my soul to write this function."""
-    try:
-        main()
-    except:
-        failsafe_main()
+# def failsafe_main():
+#     """I sold my soul to write this function."""
+#     try:
+#         main()
+#     except:
+#         failsafe_main()
 
 main()
