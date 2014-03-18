@@ -2,7 +2,7 @@ from time import sleep
 
 from sr import Robot
 
-from movements import Tracker
+from movements import Tracker, turn, move_straight
 from strategy import (line_up_to_marker, scan_corner, move_till_touch,
     move_to_point)
 
@@ -13,9 +13,14 @@ def main():
     print 'Start\n    x = %.1f y = %.1f theta = %.1f' % (p.x, p.y, p.theta)
     
     # Main strategy goes here:
-    marker = scan_corner(robot, robot.zone)
-    line_up_to_marker(robot, marker)
-    move_till_touch(robot)
+    # marker = scan_corner(robot, robot.zone)
+    # line_up_to_marker(robot, marker)
+    # move_till_touch(robot)
+    for i in range(2):
+        turn(robot)
+        sleep(2)
+    
+    move_straight(1)
     
     p = robot.position
     print 'End\n    x = %.1f y = %.1f theta = %.1f' % (p.x, p.y, p.theta)
