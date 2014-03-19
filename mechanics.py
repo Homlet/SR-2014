@@ -131,8 +131,8 @@ def lower_arms(robot):
     robot.servos[0][ARMS_LIFT] = 100 # TODO
 
 def init_arms_pins(robot):
-    robot.ruggeduino.pin_mode(ARMS_FORWARDS_STOP, INPUT_PULLUP)
-    robot.ruggeduino.pin_mode(ARMS_BACKWARDS_STOP, INPUT_PULLUP)
+    robot.ruggeduinos[0].pin_mode(ARMS_FORWARDS_STOP, INPUT_PULLUP)
+    robot.ruggeduinos[0].pin_mode(ARMS_BACKWARDS_STOP, INPUT_PULLUP)
 
 def extend_arms(robot, power):
     stop_pin = ARMS_FORWARDS_STOP if power >= 0 else ARMS_BACKWARDS_STOP
@@ -143,6 +143,6 @@ def extend_arms(robot, power):
     start = time()
     robot.motors[1].m0.power = power
     while not (hit_stop or beyond_time_limit):
-        hit_stop = robot.ruggeduino.digital_read(stop_pin)
+        hit_stop = robot.ruggeduinos[0].digital_read(stop_pin)
         beyond_time_limit = time() > start + 5 # TODO
     robot.motors[1].m0.power = 0
