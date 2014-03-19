@@ -5,7 +5,7 @@ from sr import Robot
 from movements import Tracker, turn, move_straight, prepare_for_grab, grab
 from strategy import (line_up_to_marker, scan_corner, move_till_touch,
     move_to_point)
-from mechanics import raise_arms, lower_arms
+from mechanics import raise_arms, lower_arms, open_arms, close_arms
 
 def main():
     robot.position = Tracker(robot.zone)
@@ -39,5 +39,7 @@ robot = Robot()
 
 
 while True:
-    lower_arms(robot)
-    raise_arms(robot)
+    sleep(2)
+    open_arms(robot)
+    sleep(2)
+    close_arms(robot)
