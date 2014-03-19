@@ -134,16 +134,15 @@ def init_arms_pins(robot):
     robot.ruggeduino.pin_mode(ARMS_FORWARDS_STOP, INPUT_PULLUP)
     robot.ruggeduino.pin_mode(ARMS_BACKWARDS_STOP, INPUT_PULLUP)
 
-def extend_arms(robot):
-    robot.motors[1].m0.power = 50 # TODO
-    t = time()
-    while not (robot.ruggeduino.digital_read(ARMS_FORWARDS_STOP) or
-        time() > t + 5): pass # TODO
-    robot.motors[1].m0.power = 0 # TODO
-
-def retract_arms(robot):
-    robot.motors[1].m0.power = 50 # TODO
-    t = time()
-    while not (robot.ruggeduino.digital_read(ARMS_BACKWARDS_STOP) or
-        time() > t + 5): pass # TODO
+def extend_arms(robot, power):
+    stop_pin = ARMS_FORWARDS_STOP if power >= 0 else ARMS_BACKWARDS_STOP
+    
+    hit_stop = False
+    beyond_time_limit = False
+    
+    start = time()
+    robot.motors[1].m0.power = power # TODO
+    while not (hit_stop or beyond_time_limit):
+        hit_stop = robot.ruggeduino.digital_read(stop_pin)
+        beyond_time_limit = time() > start + 5 # TODO
     robot.motors[1].m0.power = 0 # TODO
