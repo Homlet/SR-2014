@@ -13,6 +13,8 @@ WHEEL_CIRCUMFERENCE = 0.31
 RIGHT_ARM = 0
 LEFT_ARM = 1
 ARMS_LIFT = 2
+ARMS_FORWARDS_STOP = 0 # TODO
+ARMS_BACKWARDS_STOP = 0 # TODO
 
 # Notes on approximation:
 #
@@ -123,13 +125,25 @@ def close_arms(robot):
     robot.servos[0][RIGHT_ARM] = 100 - pos
 
 def raise_arms(robot):
-    robot.servos[0][ARMS_LIFT] = 0
+    robot.servos[0][ARMS_LIFT] = 0 # TODO
 
 def lower_arms(robot):
-    robot.servos[0][ARMS_LIFT] = 100
+    robot.servos[0][ARMS_LIFT] = 100 # TODO
+
+def init_arms_pins(robot):
+    robot.ruggeduino.pin_mode(ARMS_FORWARDS_STOP, INPUT_PULLUP)
+    robot.ruggeduino.pin_mode(ARMS_BACKWARDS_STOP, INPUT_PULLUP)
 
 def extend_arms(robot):
-    pass
+    robot.motors[1].m0.power = 50 # TODO
+    t = time()
+    while not (robot.ruggeduino.digital_read(ARMS_FORWARDS_STOP) or
+        time() > t + 5): pass # TODO
+    robot.motors[1].m0.power = 0 # TODO
 
 def retract_arms(robot):
-    pass
+    robot.motors[1].m0.power = 50 # TODO
+    t = time()
+    while not (robot.ruggeduino.digital_read(ARMS_BACKWARDS_STOP) or
+        time() > t + 5): pass # TODO
+    robot.motors[1].m0.power = 0 # TODO
