@@ -62,7 +62,7 @@ def line_up_to_marker(robot, marker, dist=0.4):
     sleep(0.75)
     turn(robot, angle2)
     
-def move_till_touch(robot, limit=30): # TODO: Experiment with limit default.
+def move_till_touch(robot, time_limit=30): # TODO: Experiment with limit default.
     """
     Moves the robot forward at a constant rate until a
     switch is triggered or if it has been moving for longer
@@ -75,12 +75,12 @@ def move_till_touch(robot, limit=30): # TODO: Experiment with limit default.
     robot.motors[0].m1.power = 30
     
     touching_marker = False
-    beyond_limit = False
+    beyond_time_limit = False
     start = time()
     print 'Moving into marker...'
-    while not (touching_marker or beyond_limit):
+    while not (touching_marker or beyond_time_limit):
         touching_marker = robot.ruggeduinos[0].digital_read(M_SWITCH_FRONT)
-        beyond_limit = time() > start + limit
+        beyond_time_limit = time() > start + time_limit
     print '    marker touched.'
     
     robot.motors[0].m0.power = 0
@@ -89,4 +89,4 @@ def move_till_touch(robot, limit=30): # TODO: Experiment with limit default.
     # Update robot.position with distance moved.
     robot.position.move((time() - start) / 5)
     
-    return not beyond_limit
+    return not beyond_time_limit
