@@ -70,21 +70,20 @@ def move_till_touch(robot, time_limit=30): # TODO: Experiment with limit default
     anything within the limit.
     """
     robot.ruggeduinos[0].pin_mode(M_SWITCH_FRONT, INPUT_PULLUP)
-    
-    robot.motors[0].m0.power = 30
-    robot.motors[0].m1.power = 30
-    
+        
     touching_marker = False
     beyond_time_limit = False
-    start = time()
+    
     print 'Moving into marker...'
+    start = time()
+    robot.motors[0].m0.power = 30
+    robot.motors[0].m1.power = 30
     while not (touching_marker or beyond_time_limit):
         touching_marker = robot.ruggeduinos[0].digital_read(M_SWITCH_FRONT)
         beyond_time_limit = time() > start + time_limit
-    print '    marker touched.'
-    
     robot.motors[0].m0.power = 0
     robot.motors[0].m1.power = 0
+    print '    marker touched.'
     
     # Update robot.position with distance moved.
     robot.position.move((time() - start) / 5)
