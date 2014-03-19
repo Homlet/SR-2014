@@ -4,7 +4,7 @@ from time import sleep
 from mechanics import Journey, open_arms, close_arms, raise_arms, lower_arms, init_arms_pins, extend_arms
 from position import position_from_zone
 
-ARMS_POWER = 50
+ARMS_POWER = 15
 
 class Tracker():
     """
