@@ -1,7 +1,7 @@
 from math import sin, cos, pi
 from time import sleep
 
-from mechanics import Journey, open_arms, close_arms, raise_arms, lower_arms, extend_arms, retract_arms
+from mechanics import Journey, open_arms, close_arms, raise_arms, lower_arms, init_arms_pins, extend_arms, retract_arms
 from position import position_from_zone
 
 class Tracker():
@@ -43,12 +43,14 @@ def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
     robot.position.turn(alpha)
 
 def prepare_for_grab(robot):
+    init_arms_pins(robot)
     close_arms(robot)
     lower_arms(robot)
     extend_arms(robot)
     open_arms(robot)
 
 def grab(robot):
+    init_arms_pins(robot)
     close_arms(robot)
     raise_arms(robot)
     retract_arms(robot)
