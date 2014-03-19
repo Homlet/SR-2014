@@ -1,8 +1,10 @@
 from math import sin, cos, pi
 from time import sleep
 
-from mechanics import Journey, open_arms, close_arms, raise_arms, lower_arms, init_arms_pins, extend_arms, retract_arms
+from mechanics import Journey, open_arms, close_arms, raise_arms, lower_arms, init_arms_pins, extend_arms
 from position import position_from_zone
+
+ARMS_POWER = 50
 
 class Tracker():
     """
@@ -46,11 +48,11 @@ def prepare_for_grab(robot):
     init_arms_pins(robot)
     close_arms(robot)
     lower_arms(robot)
-    extend_arms(robot)
+    extend_arms(robot, ARMS_POWER)
     open_arms(robot)
 
 def grab(robot):
     init_arms_pins(robot)
     close_arms(robot)
     raise_arms(robot)
-    retract_arms(robot)
+    extend_arms(robot, -ARMS_POWER)
