@@ -2,7 +2,7 @@ from time import sleep
 
 from sr import Robot
 
-from movements import Tracker, turn, move_straight
+from movements import Tracker, turn, move_straight, prepare_for_grab, grab
 from strategy import (line_up_to_marker, scan_corner, move_till_touch,
     move_to_point)
 
@@ -34,4 +34,8 @@ robot = Robot()
 #     except:
 #         failsafe_main()
 
-main()
+#main()
+
+
+prepare_for_grab(robot)
+grab(robot)
