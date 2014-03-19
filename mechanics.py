@@ -16,13 +16,6 @@ RIGHT_ARM = 2
 ARMS_FORWARDS_STOP = 0 # TODO
 ARMS_BACKWARDS_STOP = 0 # TODO
 
-# Notes on approximation:
-#
-# Average dt for right wheel notch at power = 50 is
-#     30 ms.
-# Same thing for left wheel is
-#     70 ms.
-# Right wheel usually turns a bit quicker, according to notches.
 
 class Journey:
     """
