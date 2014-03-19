@@ -10,8 +10,8 @@ ROBOT_RADIUS = 0.185
 M_SWITCH_LEFT  = 13
 M_SWITCH_RIGHT = 12
 WHEEL_CIRCUMFERENCE = 0.31
-LEFT_ARM = 0
-ARMS_LIFT = 1
+LEFT_ARM = 1
+ARMS_LIFT = 0
 RIGHT_ARM = 2
 ARMS_FORWARDS_STOP = 0 # TODO
 ARMS_BACKWARDS_STOP = 0 # TODO
@@ -120,7 +120,7 @@ def open_arms(robot):
     robot.servos[0][RIGHT_ARM] = 50
 
 def close_arms(robot):
-    pos = 85
+    pos = 90
     robot.servos[0][LEFT_ARM] = pos
     robot.servos[0][RIGHT_ARM] = 100 - pos
 
