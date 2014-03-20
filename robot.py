@@ -43,3 +43,4 @@ while True:
     open_arms(robot)
     sleep(2)
     close_arms(robot)
+    print "cycled"
