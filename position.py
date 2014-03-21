@@ -2,8 +2,6 @@ from math import sin, cos, atan2, radians, pi, hypot
 
 
 STARTING_DISTANCE = 0.6591
-D = 2.2
-SCAN_POINTS = [(D, D), (8-D, D), (8-D, 8-D), (D, 8-D)]
 
 class Zone:
     def __init__(self, zoneNumber):
@@ -35,15 +33,15 @@ def position_from_wall(marker):
     val = [0, d, 8, 8-d, 0]
     alpha = -radians(marker.rot_y)
     beta = -radians(marker.orientation.rot_y)
-    bearing = beta + pi / 2 * (3-w)
+    theta = beta + pi / 2 * (3-w)
 
     # ix and iy are marker's coordinates on the wall starting from O
     ix = val[w]
     iy = val[w+1]
     # dx and dy - where robot is relatively to wall marker
-    dx = marker.dist * cos(bearing - alpha)
-    dy = marker.dist * sin(bearing - alpha)
-    return ix - dy, iy + dx, bearing
+    dx = marker.dist * cos(theta - alpha)
+    dy = marker.dist * sin(theta - alpha)
+    return ix - dy, iy + dx, theta
 
 def position_from_slot(marker):
     xList = [3.5, 3.68]
@@ -67,7 +65,8 @@ def position_from_slot(marker):
         slotY = yList[n%2 + 2]
     return slotX - dy, slotY + dx, theta
 
-def position_from_zone(zone_number, dist=STARTING_DISTANCE):
+def position_from_zone(zone_number):
+    dist = STARTING_DISTANCE
     theta = ((3*pi)/4 + (pi/2 * zone_number)) % (2*pi)
     x = dist if zone_number in (0, 3) else 8 - dist
     y = dist if zone_number in (0, 1) else 8 - dist
