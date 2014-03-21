@@ -41,7 +41,6 @@ def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
     Turns the robot alpha RADIANS and updates the tracker.
     """
     journey = Journey(robot, angle=alpha)
-
     journey.start()
     robot.position.turn(alpha)
 
