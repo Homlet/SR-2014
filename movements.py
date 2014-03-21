@@ -11,10 +11,9 @@ class Tracker():
     """
     Tracks the robot's current position and bearing.
     
-    Position is stored as a vector, (x, y),
-    where x and y are metres from the origin.
+    Position is stored as displacement from corner 0: x, y in meters.
     
-    Bearing is stored in RADIANS.
+    Bearing is stored as theta in radians.
     """
     def __init__(self, zoneNumber):
         self.x, self.y, self.theta = position_from_zone(zoneNumber)
