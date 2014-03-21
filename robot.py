@@ -7,26 +7,38 @@ from strategy import (line_up_to_marker, scan_corner, move_till_touch,
     move_to_point)
 from mechanics import raise_arms, lower_arms, open_arms, close_arms
 
-def main():
-    robot.position = Tracker(robot.zone)
-    
-    p = robot.position
-    print 'Start\n    x = %.1f y = %.1f theta = %.1f' % (p.x, p.y, p.theta)
-    
-    # Main strategy goes here:
-    # marker = scan_corner(robot, robot.zone)
-    # line_up_to_marker(robot, marker)
-    # move_till_touch(robot)
-    for i in range(2):
-        turn(robot)
+def use_arms():
+    while True:
         sleep(2)
-    
-    move_straight(robot, 1)
-    
-    p = robot.position
-    print 'End\n    x = %.1f y = %.1f theta = %.1f' % (p.x, p.y, p.theta)
+        print('raise')
+        raise_arms(robot)
+        sleep(2)
+        print('lower')
+        lower_arms(robot)
+        sleep(2)
+        print('open')
+        open_arms(robot)
+        sleep(2)
+        print('close')
+        close_arms(robot)
+        print "cycled"
 
-robot = Robot()
+def get_to_marker(robot):
+    marker = scan_corner(robot, robot.zone)[0]
+    line_up_to_marker(robot, marker)
+    move_till_touch(robot)
+
+def main():
+    robot = Robot()
+    robot.position = Tracker(robot.zone)
+    while 1:
+        try:
+            # get_to_marker()
+            use_arms()
+        except:
+            print 'There was an error. Restarting in 2s.'
+            sleep(2)
+            continue
 
 # def failsafe_main():
 #     """I sold my soul to write this function."""
@@ -35,20 +47,4 @@ robot = Robot()
 #     except:
 #         failsafe_main()
 
-#main()
-
-
-while True:
-    sleep(2)
-    print('raise')
-    raise_arms(robot)
-    sleep(2)
-    print('lower')
-    lower_arms(robot)
-    sleep(2)
-    print('open')
-    open_arms(robot)
-    sleep(2)
-    print('close')
-    close_arms(robot)
-    print "cycled"
+main()
