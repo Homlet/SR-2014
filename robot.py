@@ -40,7 +40,15 @@ robot = Robot()
 
 while True:
     sleep(2)
+    print('raise')
+    raise_arms(robot)
+    sleep(2)
+    print('lower')
+    lower_arms(robot)
+    sleep(2)
+    print('open')
     open_arms(robot)
     sleep(2)
+    print('close')
     close_arms(robot)
     print "cycled"
