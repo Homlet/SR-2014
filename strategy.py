@@ -8,9 +8,9 @@ from movements import move_straight, turn
 
 M_SWITCH_FRONT = 11
 
+D = 2.6
+SCAN_POINTS = [(D, D), (8-D, D), (8-D, 8-D), (D, 8-D)]
 
-def execute_directions():
-    pass
 
 def move_to_point(robot, x, y):
     """
@@ -28,23 +28,23 @@ def move_to_point(robot, x, y):
 
 def scan_corner(robot, zone):
     """
-    Checks to see if the robot is near the given zone corner.
-    If the robot is not, it is moved there.
-    Then, the robot rotates and gather as a list of markers.
+    Go to zone's corner and return markers seen there.
     """
-    zx, zy, theta = position_from_zone(zone, 2.2)
+    zx, zy = SCAN_POINTS[zone]
     
-    print "Moving to point x=%.1f y=%.1f" % (zx, zy)
+    print "Moving to scan zone %d" % (zone)
     move_to_point(robot, zx, zy)
     print "    done."
     
     print 'Scanning corner for markers...'
-    return whats_around(robot)[0]
+    return whats_around(robot)
 
-def whats_around(robot):
+def whats_around(robot, angle=0.524):
+    # Can be given angle=0 to just stare in front
+
     markers_in_sight = robot.see()
     while not markers_in_sight:
-        turn(robot)
+        turn(robot, angle)
         sleep(0.5)
         markers_in_sight = robot.see()
     return markers_in_sight
