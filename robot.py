@@ -7,7 +7,7 @@ from strategy import (line_up_to_marker, scan_corner, move_till_touch,
     move_to_point)
 from mechanics import raise_arms, lower_arms, open_arms, close_arms
 
-def use_arms():
+def use_arms(robot):
     while True:
         sleep(2)
         print('raise')
@@ -34,7 +34,7 @@ def main():
     while 1:
         try:
             # get_to_marker()
-            use_arms()
+            use_arms(robot)
         except:
             print 'There was an error. Restarting in 2s.'
             sleep(2)
