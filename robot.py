@@ -1,9 +1,10 @@
 from time import sleep
+from traceback import print_exc
 
 from sr import Robot
 
 from movements import Tracker, turn, move_straight, prepare_for_grab, grab
-from strategy import (line_up_to_marker, scan_corner, move_till_touch,
+from strategy import line_up_to_marker, scan_corner, move_till_touch,
     move_to_point)
 from mechanics import raise_arms, lower_arms, open_arms, close_arms
 
@@ -36,15 +37,8 @@ def main():
             # get_to_marker()
             use_arms(robot)
         except:
-            print 'There was an error. Restarting in 2s.'
+            print_exc()
+            print '\nRestarting in 2s...\n'
             sleep(2)
-            continue
-
-# def failsafe_main():
-#     """I sold my soul to write this function."""
-#     try:
-#         main()
-#     except:
-#         failsafe_main()
 
 main()
