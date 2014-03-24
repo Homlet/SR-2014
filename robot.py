@@ -4,7 +4,7 @@ from traceback import print_exc
 from sr import Robot
 
 from movements import Tracker, turn, move_straight, prepare_for_grab, grab
-from strategy import line_up_to_marker, scan_corner, move_till_touch,
+from strategy import (line_up_to_marker, scan_corner, move_till_touch,
     move_to_point)
 from mechanics import raise_arms, lower_arms, open_arms, close_arms
 
