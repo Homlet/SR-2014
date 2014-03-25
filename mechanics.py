@@ -28,21 +28,21 @@ class Journey:
         self.run = True
         if distance != 0:
             self.length = distance
-            self.approximationTuple = (40, 8)
+            approximation = (40, 8)
         elif angle != 0:
             self.length = -angle * ROBOT_RADIUS
-            self.approximationTuple = (50, 3.7)
+            approximation = (50, 3.7)
         else:
             self.run = False
-            self.approximationTuple = (0, 0)
+            approximation = (0, 0)
             return
 
         turnsToDo = self.length / WHEEL_CIRCUMFERENCE
       
-        self.m0 = Motor(robot.motors[0].m0, M_SWITCH_LEFT, rduino, turnsToDo)
+        self.m0 = Motor(robot.motors[0].m0, M_SWITCH_LEFT, rduino, turnsToDo, approximation)
         if angle != 0:
             turnsToDo *= -1
-        self.m1 = Motor(robot.motors[0].m1, M_SWITCH_RIGHT, rduino, turnsToDo)
+        self.m1 = Motor(robot.motors[0].m1, M_SWITCH_RIGHT, rduino, turnsToDo, approximation)
 
     def start(self):
         if self.run:
@@ -51,12 +51,7 @@ class Journey:
             self.m0.join()
             self.m1.join()
         else:
-            # print "Warning: cannot run zero-length journey."
-            print 'approximation'
-            power = self.approximationTuple[0]
-            time = self.approximationTuple[1]
-            self.motor.power = copysign(power, self.turns) # was 50 and time = 3.7
-            sleep(time * abs(self.turns) * WHEEL_CIRCUMFERENCE)
+            print "Warning: cannot run zero-length journey."
 
 
 class Motor(Thread):
@@ -64,11 +59,12 @@ class Motor(Thread):
     Drives a motor a given number of turns using micro-switches or,
     for small distances, approximation. Runs concurrently.
     """
-    def __init__(self, motor, switchID, rduino, turns):
+    def __init__(self, motor, switchID, rduino, turns, approximation):
         super(Motor, self).__init__()
         self.switchID = switchID
         self.motor = motor
         self.turns = turns
+        self.approximation = approximation
         self.ruggeduino = rduino
         self.ruggeduino.pin_mode(switchID, INPUT_PULLUP)
 
@@ -91,8 +87,8 @@ class Motor(Thread):
         triggers = abs(self.turns) * NOTCHES_ON_WHEEL
         if triggers < 2:
             # Probably need different powers for turning/moving forward of the robot
-            self.motor.power = copysign(40, self.turns) # was 50 and time = 3.7
-            sleep(8 * abs(self.turns) * WHEEL_CIRCUMFERENCE)
+            self.motor.power = copysign(self.approximation[0], self.turns) # was 50 and time = 3.7
+            sleep(self.approximation[1] * abs(self.turns) * WHEEL_CIRCUMFERENCE)
         else:
             self.motor.power = copysign(50, self.turns)
             total_t = 0
