@@ -84,7 +84,7 @@ class Motor(Thread):
         if triggers < 2:
             # Probably need different powers for turning/moving forward of the robot
             self.motor.power = copysign(50, self.turns)
-            sleep(3 * abs(self.turns) * WHEEL_CIRCUMFERENCE)
+            sleep(3.3 * abs(self.turns) * WHEEL_CIRCUMFERENCE)
         else:
             self.motor.power = copysign(50, self.turns)
             total_t = 0
