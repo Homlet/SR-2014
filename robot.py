@@ -42,7 +42,7 @@ def measure_distance(robot, dist):
     move_straight(robot, dist)
     marker = see_marker(robot)
     dist1 = marker.dist
-    print 'Attempted moving %.1f m;\nMoved %.1f m' % (dist, dist0 - dist1)
+    print 'Attempted moving %.2f m;\nMoved %.2f m' % (dist, dist0 - dist1)
 
 def measure_angle(robot, angle):
     marker = see_marker(robot)
