@@ -73,9 +73,9 @@ def main():
     robot.position = Tracker(robot.zone)
     while 1:
         try:
-            # get_to_marker()
-            # use_arms(robot)
-            approximations(robot)
+            get_to_marker()
+            use_arms(robot)
+            # approximations(robot)
         except:
             print_exc()
             print '\nRestarting in 2s...\n'
