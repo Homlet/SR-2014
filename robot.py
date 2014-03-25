@@ -73,7 +73,7 @@ def main():
     robot.position = Tracker(robot.zone)
     while 1:
         try:
-            get_to_marker()
+            get_to_marker(robot)
             use_arms(robot)
             # approximations(robot)
         except:
