@@ -28,10 +28,13 @@ class Journey:
         self.run = True
         if distance != 0:
             self.length = distance
+            self.approximationTuple = (40, 8)
         elif angle != 0:
             self.length = -angle * ROBOT_RADIUS
+            self.approximationTuple = (50, 3.7)
         else:
             self.run = False
+            self.approximationTuple = (0, 0)
             return
 
         turnsToDo = self.length / WHEEL_CIRCUMFERENCE
@@ -48,7 +51,12 @@ class Journey:
             self.m0.join()
             self.m1.join()
         else:
-            print "Warning: cannot run zero-length journey."
+            # print "Warning: cannot run zero-length journey."
+            print 'approximation'
+            power = self.approximationTuple[0]
+            time = self.approximationTuple[1]
+            self.motor.power = copysign(power, self.turns) # was 50 and time = 3.7
+            sleep(time * abs(self.turns) * WHEEL_CIRCUMFERENCE)
 
 
 class Motor(Thread):
