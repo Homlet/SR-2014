@@ -56,12 +56,12 @@ def measure_angle(robot, angle):
     
 def approximations(robot):
     distances = [0.25, 0.15, 0.1, 0.05, 0.05]
-    angles = [pi/6, pi/12, pi/36]
-    for dist in distances:
-        measure_distance(robot, dist)
-        sleep(10)
+    angles = [pi/6, pi/6, pi/6, pi/12, pi/36]
+    # for dist in distances:
+    #     measure_distance(robot, dist)
+    #     sleep(10)
 
-    sleep(20)
+    # sleep(20)
 
     for angle in angles:
         measure_angle(robot, angle)
