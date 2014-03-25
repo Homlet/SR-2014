@@ -1,6 +1,6 @@
 from time import sleep
 from traceback import print_exc
-from math import degrees
+from math import degrees, pi
 
 from sr import Robot
 
@@ -39,7 +39,7 @@ def see_marker(robot):
 def measure_distance(robot, dist):
     marker = see_marker(robot)
     dist0 = marker.dist
-    move_straight(dist)
+    move_straight(robot, dist)
     marker = see_marker(robot)
     dist1 = marker.dist
     print 'Attempted moving %.1f m;\nMoved %.1f m' % (dist, dist0 - dist1)
@@ -74,7 +74,7 @@ def main():
         try:
             # get_to_marker()
             # use_arms(robot)
-            approximations()
+            approximations(robot)
         except:
             print_exc()
             print '\nRestarting in 2s...\n'
