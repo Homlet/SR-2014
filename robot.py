@@ -48,6 +48,7 @@ def measure_angle(robot, angle):
     marker = see_marker(robot)
     alpha = marker.orientation.rot_y
     turn(robot, angle)
+    sleep(1)
     marker = see_marker(robot)
     beta = marker.orientation.rot_y
     angle = degrees(angle)
