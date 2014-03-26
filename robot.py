@@ -4,8 +4,7 @@ from traceback import print_exc
 from sr import Robot
 
 from movements import Tracker
-from strategy import (line_up_to_marker, scan_corner, move_till_touch,
-    move_to_point, get_marker_from_corner)
+from strategy import get_marker_from_corner
 
 
 def main():
