@@ -14,8 +14,8 @@ class Zone:
 
     def is_inside(self, x, y):
         """Tells whether x, y is inside the zone"""
-        return in_range(x, self.boundaries[0], self.boundaries[2]) and \
-               in_range(y, self.boundaries[1], self.boundaries[3])
+        return self.boundaries[0] <= x <= self.boundaries[2] and \
+               self.boundaries[1] <= y <= self.boundaries[3]
 
 
 def position_from_wall(marker):
