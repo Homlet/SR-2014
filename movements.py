@@ -43,7 +43,7 @@ def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
     journey.start()
     robot.position.turn(alpha)
 
-def prepare_for_grab(robot):
+def prepare_grab(robot):
     init_arms_pins(robot)
     close_arms(robot)
     lower_arms(robot)
