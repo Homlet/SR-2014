@@ -1,9 +1,6 @@
 from math import sin, cos, atan2, radians, pi, hypot
 
 
-STARTING_DISTANCE = 0.6591
-
-
 class Zone:
     def __init__(self, zoneNumber):
         #                   x1   y1   x2   y2
@@ -27,7 +24,6 @@ def position_from_wall(marker):
     top left corner of the arena.
     Bearing is angle in radians from upward vertical in clock-wise direction.
     """
-
     n = marker.info.code
     w = n // 7
     d = n % 7 + 1
@@ -69,7 +65,7 @@ def position_from_slot(marker):
 
 
 def position_from_zone(zone_number):
-    dist = STARTING_DISTANCE
+    dist = 0.6591
     theta = ((3*pi)/4 + (pi/2 * zone_number)) % (2*pi)
     x = dist if zone_number in (0, 3) else 8 - dist
     y = dist if zone_number in (0, 1) else 8 - dist
