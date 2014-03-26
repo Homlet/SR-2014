@@ -2,6 +2,7 @@ from time import time, sleep
 
 from sr import INPUT_PULLUP
 
+from logging import *
 from position import *
 from movements import move_straight, turn, prepare_grab, grab
 
@@ -28,14 +29,24 @@ def move_to_point(robot, x, y):
     Given the robot's current tracked position, moves to point
     (x, y), where x and y are metres from the origin.
     """
-    print "Moving to point x=%.1f y=%.1f ..." % (x, y)
+    log(robot, "Moving to point x=%.1f y=%.1f..." % (x, y))
+    
     dist, angle = compute_directions_for_point(robot, x, y)
-    print "    dist=%.1f angle=%.1f" % (dist, angle)
-    print "    Turning..."
+    log(robot, "dist=%.1f angle=%.1f" % (dist, angle))
+
+    log(robot, "Turning...")
+    push_log(robot)
     turn(robot, angle)
+    log(robot, "done.")
+    pop_log(robot)
+
     sleep(0.7)
-    print "    Moving forwards...\n"
+
+    log(robot, "Moving forwards...")
+    push_log(robot)
     move_straight(robot, dist)
+    log(robot, "done.")
+    pop_log(robot)
 
 
 def scan_corner(robot, zone):
@@ -44,9 +55,11 @@ def scan_corner(robot, zone):
     """
     zx, zy = SCAN_POINTS[zone]
 
-    print "Moving to corner of zone %d..." % (zone)
+    log(robot, "Moving to corner of zone %d..." % (zone))
+    push_log(robot)
     move_to_point(robot, zx, zy)
-    print "    done."
+    log(robot, "done.")
+    pop_log(robot)
 
     return scan_for_markers(robot)
 
@@ -69,14 +82,20 @@ def line_up_to_marker(robot, marker, dist=0.4):
     """
     Moves the robot 'dist' metres in front of a given marker.
     """
-    print 'Lining up to marker:'
+    log(robot, "Lining up to marker:")
+    push_log(robot)
+
     dist, angle1, angle2 = compute_directions_for_marker(marker, d=dist)
-    print '    dist=%.2f, angle1=%.2f, angle2=%.2f' % (dist, angle1, angle2)
+    log(robot, "dist=%.2f, angle1=%.2f, angle2=%.2f" % (dist, angle1, angle2))
+
     turn(robot, angle1)
     sleep(0.75)
     move_straight(robot, dist)
     sleep(0.75)
     turn(robot, angle2)
+
+    log(robot, "done.")
+    pop_log(robot)
 
 
 def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
@@ -91,7 +110,7 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
     touching_marker = False
     beyond_time_limit = False
 
-    print 'Moving into marker...'
+    log(robot, "Moving into marker...")
     start = time()
     robot.motors[0].m0.power = 30
     robot.motors[0].m1.power = 30
@@ -100,7 +119,7 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
         beyond_time_limit = time() > start + time_limit
     robot.motors[0].m0.power = 0
     robot.motors[0].m1.power = 0
-    print '    marker touched.'
+    log(robot, "  marker touched.")
 
     # Update robot.position with distance moved.
     robot.position.move((time() - start) / 5)
