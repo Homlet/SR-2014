@@ -4,6 +4,8 @@ from threading import Thread
 
 from sr import INPUT_PULLUP
 
+from logging import *
+
 
 NOTCHES_ON_WHEEL = 4
 ROBOT_RADIUS = 0.185
