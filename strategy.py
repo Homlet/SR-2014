@@ -2,7 +2,7 @@ from time import time, sleep
 
 from sr import INPUT_PULLUP
 
-from logging import *
+from log import *
 from position import *
 from movements import move_straight, turn, prepare_grab, grab
 
