@@ -49,12 +49,15 @@ def scan_corner(robot, zone):
     print "    done."
 
     print 'Scanning corner for markers...'
-    return whats_around(robot)
+    return scan_for_markers(robot)
 
 
-def whats_around(robot, angle=0.524):
-    # Can be given angle=0 to just stare in front
-
+def scan_for_markers(robot, angle=0.524):
+    """
+    Rotates on the spot in increments until a marker(s) is seen.
+    Then returns list of visible markers.
+    Can be passed angle=0 to stare forwards.
+    """
     markers_in_sight = robot.see()
     while not markers_in_sight:
         turn(robot, angle)
