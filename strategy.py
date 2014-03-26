@@ -44,11 +44,10 @@ def scan_corner(robot, zone):
     """
     zx, zy = SCAN_POINTS[zone]
 
-    print "Moving to scan zone %d" % (zone)
+    print "Moving to corner of zone %d..." % (zone)
     move_to_point(robot, zx, zy)
     print "    done."
 
-    print 'Scanning corner for markers...'
     return scan_for_markers(robot)
 
 
@@ -80,7 +79,7 @@ def line_up_to_marker(robot, marker, dist=0.4):
     turn(robot, angle2)
 
 
-def move_till_touch(robot, time_limit=30):  # Experiment with limit default
+def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
     """
     Moves the robot forward at a constant rate until a
     switch is triggered or if it has been moving for longer
