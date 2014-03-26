@@ -13,7 +13,7 @@ def main():
     robot.position = Tracker(robot.zone)
     while 1:
         try:
-            get_marker_from_corner(robot)
+            get_marker_from_corner(robot, robot.zone)
         except:
             print_exc()
             print '\nRestarting in 2s...\n'
