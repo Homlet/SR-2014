@@ -6,7 +6,7 @@ STARTING_DISTANCE = 0.6591
 
 class Zone:
     def __init__(self, zoneNumber):
-        #                   x1  y1    x2   y2
+        #                   x1   y1   x2   y2
         zoneBoundaries = [(291, 250, 409, 400),
                           (409, 250, 509, 400),
                           (291, 400, 409, 550),
