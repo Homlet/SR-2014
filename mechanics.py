@@ -91,7 +91,8 @@ class Motor(Thread):
         triggers = abs(self.turns) * NOTCHES_ON_WHEEL
         if triggers < 2:
             # Probably need different powers for turning/moving forward
-            self.motor.power = copysign(self.approx[0], self.turns) # was 50 and time = 3.7
+            # (was 50 and time = 3.7)
+            self.motor.power = copysign(self.approx[0], self.turns)
             sleep(self.approx[1] * abs(self.turns) * WHEEL_CIRCUMFERENCE)
         else:
             self.motor.power = copysign(50, self.turns)
@@ -128,11 +129,11 @@ def close_arms(robot):
 
 
 def raise_arms(robot):
-    robot.servos[0][ARMS_LIFT] = 0 # TODO
+    robot.servos[0][ARMS_LIFT] = 0  # TODO
 
 
 def lower_arms(robot):
-    robot.servos[0][ARMS_LIFT] = 100 # TODO
+    robot.servos[0][ARMS_LIFT] = 100  # TODO
 
 
 def init_arms_pins(robot):
