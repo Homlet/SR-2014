@@ -55,7 +55,7 @@ class Journey:
             self.m0.join()
             self.m1.join()
         else:
-            print "Warning: cannot run zero-length journey."
+            log(self.robot, "Warning: cannot run zero-length journey.")
 
 
 class Motor(Thread):
