@@ -43,11 +43,11 @@ def scan_corner(robot, zone):
     Go to zone's corner and return markers seen there.
     """
     zx, zy = SCAN_POINTS[zone]
-    
+
     print "Moving to scan zone %d" % (zone)
     move_to_point(robot, zx, zy)
     print "    done."
-    
+
     print 'Scanning corner for markers...'
     return whats_around(robot)
 
@@ -77,7 +77,7 @@ def line_up_to_marker(robot, marker, dist=0.4):
     turn(robot, angle2)
 
 
-def move_till_touch(robot, time_limit=30): # TODO: Experiment with limit default
+def move_till_touch(robot, time_limit=30):  # Experiment with limit default
     """
     Moves the robot forward at a constant rate until a
     switch is triggered or if it has been moving for longer
@@ -85,10 +85,10 @@ def move_till_touch(robot, time_limit=30): # TODO: Experiment with limit default
     anything within the limit.
     """
     robot.ruggeduinos[0].pin_mode(M_SWITCH_FRONT, INPUT_PULLUP)
-        
+
     touching_marker = False
     beyond_time_limit = False
-    
+
     print 'Moving into marker...'
     start = time()
     robot.motors[0].m0.power = 30
@@ -99,8 +99,8 @@ def move_till_touch(robot, time_limit=30): # TODO: Experiment with limit default
     robot.motors[0].m0.power = 0
     robot.motors[0].m1.power = 0
     print '    marker touched.'
-    
+
     # Update robot.position with distance moved.
     robot.position.move((time() - start) / 5)
-    
+
     return not beyond_time_limit
