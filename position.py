@@ -3,6 +3,7 @@ from math import sin, cos, atan2, radians, pi, hypot
 
 STARTING_DISTANCE = 0.6591
 
+
 class Zone:
     def __init__(self, zoneNumber):
         #                   x1  y1    x2   y2
@@ -43,6 +44,7 @@ def position_from_wall(marker):
     dy = marker.dist * sin(theta - alpha)
     return ix - dy, iy + dx, theta
 
+
 def position_from_slot(marker):
     xList = [3.5, 3.68]
     yList = [2.65, 3.55, 4.45, 5.35]
@@ -65,6 +67,7 @@ def position_from_slot(marker):
         slotY = yList[n%2 + 2]
     return slotX - dy, slotY + dx, theta
 
+
 def position_from_zone(zone_number):
     dist = STARTING_DISTANCE
     theta = ((3*pi)/4 + (pi/2 * zone_number)) % (2*pi)
@@ -72,11 +75,13 @@ def position_from_zone(zone_number):
     y = dist if zone_number in (0, 1) else 8 - dist
     return x, y, theta
 
+
 def compute_token_pos(tokenMarker, x, y, theta):
     alpha = radians(tokenMarker.rot_y)
     X = x + tokenMarker.dist*cos(theta - alpha)
     Y = y - tokenMarker.dist*sin(theta - alpha)
     return X, Y
+
 
 def compute_directions_for_marker(marker, d=1):
     """
@@ -99,7 +104,8 @@ def compute_directions_for_marker(marker, d=1):
     y = Y - d*cos(beta)
     gamma = atan2(x, y)
     return hypot(x, y), gamma, beta - gamma
-    
+
+
 def compute_directions_for_point(robot, x, y):
     """
     Returns angle to turn and the distance to move.
@@ -118,7 +124,7 @@ def compute_directions_for_point(robot, x, y):
     if beta > pi:
         beta -= pi+pi    
     return hypot(dx, dy), beta
+    
 
 def in_range(x, l, r):
     return l <= x <= r
-    
