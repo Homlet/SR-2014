@@ -3,13 +3,24 @@ from time import time, sleep
 from sr import INPUT_PULLUP
 
 from position import *
-from movements import move_straight, turn
+from movements import move_straight, turn, prepare_grab, grab
 
 
 M_SWITCH_FRONT = 11
 
 D = 2.6
 SCAN_POINTS = [(D, D), (8-D, D), (8-D, 8-D), (D, 8-D)]
+
+
+def get_marker_from_corner(robot, zone):
+    """
+    Moves to specified corner, finds a marker and picks it up.
+    """
+    marker = scan_corner(robot, zone)[0]
+    line_up_to_marker(robot, marker)
+    prepare_grab(robot)
+    move_till_touch(robot)
+    grab(robot)
 
 
 def move_to_point(robot, x, y):
@@ -26,6 +37,7 @@ def move_to_point(robot, x, y):
     print "    Moving forwards...\n"
     move_straight(robot, dist)
 
+
 def scan_corner(robot, zone):
     """
     Go to zone's corner and return markers seen there.
@@ -39,6 +51,7 @@ def scan_corner(robot, zone):
     print 'Scanning corner for markers...'
     return whats_around(robot)
 
+
 def whats_around(robot, angle=0.524):
     # Can be given angle=0 to just stare in front
 
@@ -48,6 +61,7 @@ def whats_around(robot, angle=0.524):
         sleep(0.5)
         markers_in_sight = robot.see()
     return markers_in_sight
+
 
 def line_up_to_marker(robot, marker, dist=0.4):
     """
@@ -61,8 +75,9 @@ def line_up_to_marker(robot, marker, dist=0.4):
     move_straight(robot, dist)
     sleep(0.75)
     turn(robot, angle2)
-    
-def move_till_touch(robot, time_limit=30): # TODO: Experiment with limit default.
+
+
+def move_till_touch(robot, time_limit=30): # TODO: Experiment with limit default
     """
     Moves the robot forward at a constant rate until a
     switch is triggered or if it has been moving for longer
