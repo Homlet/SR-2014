@@ -30,7 +30,7 @@ def position_from_wall(marker):
 
     n = marker.info.code
     w = n // 7
-    d = n%7 + 1
+    d = n % 7 + 1
     val = [0, d, 8, 8-d, 0]
     alpha = -radians(marker.rot_y)
     beta = -radians(marker.orientation.rot_y)
@@ -64,7 +64,7 @@ def position_from_slot(marker):
     if n < 4:
         slotY = yList[n % 2]
     else:
-        slotY = yList[n%2 + 2]
+        slotY = yList[n % 2 + 2]
     return slotX - dy, slotY + dx, theta
 
 
@@ -122,9 +122,9 @@ def compute_directions_for_point(robot, x, y):
     if beta < -pi:
         beta += pi+pi
     if beta > pi:
-        beta -= pi+pi    
+        beta -= pi+pi
     return hypot(dx, dy), beta
-    
+
 
 def in_range(x, l, r):
     return l <= x <= r
