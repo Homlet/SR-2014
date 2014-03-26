@@ -65,6 +65,9 @@ def position_from_slot(marker):
 
 
 def position_from_zone(zone_number):
+    """
+    Computes starting position based on zone number.
+    """
     dist = 0.6591
     theta = ((3*pi)/4 + (pi/2 * zone_number)) % (2*pi)
     x = dist if zone_number in (0, 3) else 8 - dist
@@ -73,6 +76,10 @@ def position_from_zone(zone_number):
 
 
 def compute_token_pos(tokenMarker, x, y, theta):
+    """
+    Computes the position of a marker object given the
+    robot's current position.
+    """
     alpha = radians(tokenMarker.rot_y)
     X = x + tokenMarker.dist*cos(theta - alpha)
     Y = y - tokenMarker.dist*sin(theta - alpha)
@@ -120,7 +127,3 @@ def compute_directions_for_point(robot, x, y):
     if beta > pi:
         beta -= pi+pi
     return hypot(dx, dy), beta
-
-
-def in_range(x, l, r):
-    return l <= x <= r
