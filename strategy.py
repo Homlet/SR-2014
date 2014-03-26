@@ -17,11 +17,14 @@ def get_marker_from_corner(robot, zone):
     """
     Moves to specified corner, finds a marker and picks it up.
     """
+    log(robot, "Getting marker from corner of zone %d..." % (zone))
+    push_log(robot)
     marker = scan_corner(robot, zone)[0]
     line_up_to_marker(robot, marker)
     prepare_grab(robot)
     move_till_touch(robot)
     grab(robot)
+    pop_log(robot)
 
 
 def move_to_point(robot, x, y):
