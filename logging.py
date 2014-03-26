@@ -19,3 +19,4 @@ def pop_log(robot):
             robot.log_level -= 1
     else:
         robot.log_level = 0
+    print()
