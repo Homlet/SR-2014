@@ -30,10 +30,10 @@ class Journey:
         self.run = True
         if distance != 0:
             self.length = distance
-            approx = (40, 8)
+            approx = (50, 3.7)
         elif angle != 0:
             self.length = -angle * ROBOT_RADIUS
-            approx = (50, 3.7)
+            approx = (40, 8)
         else:
             self.run = False
             approx = (0, 0)
