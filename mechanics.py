@@ -90,8 +90,6 @@ class Motor(Thread):
     def run(self):
         triggers = abs(self.turns) * NOTCHES_ON_WHEEL
         if triggers < 2:
-            # Probably need different powers for turning/moving forward
-            # (was 50 and time = 3.7)
             self.motor.power = copysign(self.approx[0], self.turns)
             sleep(self.approx[1] * abs(self.turns) * WHEEL_CIRCUMFERENCE)
         else:
