@@ -5,7 +5,7 @@ from sr import INPUT_PULLUP
 
 from log import push_log, pop_log, log
 from position import directions_for_marker, directions_for_point
-from movements import move_straight, turn, prepare_grab, grab
+from movements import move_straight, turn, prepare_grab, grab, put_down
 
 
 M_SWITCH_FRONT = 11
@@ -13,7 +13,7 @@ M_SWITCH_FRONT = 11
 D = 2.6
 SCAN_POINTS = [(D, D), (8-D, D), (8-D, 8-D), (D, 8-D)]
 # These points are coordinate of corners of zones where we get points
-ARENA_POINTS = [(3, 2.5), (5, 2.5), (5, 5.5), (3, 5.5)]
+ARENA_POINTS = [(3, 2.5), (5.18, 2.5), (5.18, 5.5), (3, 5.5)]
 
 
 def get_marker_from_corner(robot, zone):
@@ -34,6 +34,10 @@ def token_to_slot(robot, zone):
     zx, zy = ARENA_POINTS[zone]
     target_theta = pi/2 if zone in [0, 3] else 1.5*pi
     move_to_point(robot, zx, zy, target_theta)
+    marker = robot.see()[0]
+    if marker.info.n in range(32, 40):
+        move_straight(robot, marker.dist - 0.3)
+    put_down()
 
 
 def move_to_point(robot, x, y, target_theta):
