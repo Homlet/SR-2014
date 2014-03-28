@@ -12,6 +12,8 @@ M_SWITCH_FRONT = 11
 
 D = 2.6
 SCAN_POINTS = [(D, D), (8-D, D), (8-D, 8-D), (D, 8-D)]
+# These points are coordinate of corners of zones where we get points
+ARENA_POINTS = [(3, 2.5), (5, 2.5), (5, 5.5), (3, 5.5)]
 
 
 def get_marker_from_corner(robot, zone):
@@ -28,7 +30,13 @@ def get_marker_from_corner(robot, zone):
     pop_log(robot)
 
 
-def move_to_point(robot, x, y):
+def token_to_slot(robot, zone):
+    zx, zy = ARENA_POINTS[zone]
+    target_theta = pi/2 if zone in [0, 3] else 1.5*pi
+    move_to_point(robot, zx, zy, target_theta)
+
+
+def move_to_point(robot, x, y, target_theta):
     """
     Given the robot's current tracked position, moves to point
     (x, y), where x and y are metres from the origin.
@@ -49,6 +57,14 @@ def move_to_point(robot, x, y):
     log(robot, "Moving forwards...")
     push_log(robot)
     move_straight(robot, dist)
+
+    d_theta = target_theta - robot.position.theta
+    if d_theta > pi:
+        d_theta -= pi+pi
+    elif d_theta < -pi:
+        d_theta += pi+pi
+    turn(robot, d_theta)
+
     log(robot, "done.")
     pop_log(robot)
 
@@ -56,26 +72,21 @@ def move_to_point(robot, x, y):
 def scan_corner(robot, zone):
     """
     Go to zone's corner and return markers seen there.
+    Turns the robot so that it then scans the corner
+    by turning through 90 degrees.
+    
+    We may want to increase that angle to account for token scattering
     """
+    
     zx, zy = SCAN_POINTS[zone]
 
     log(robot, "Moving to corner of zone %d..." % (zone))
     push_log(robot)
-    move_to_point(robot, zx, zy)
+    target_theta = (1.5*pi + zone*pi/2) % (pi+pi)
+    move_to_point(robot, zx, zy, target_theta)
     log(robot, "done.")
     pop_log(robot)
 
-    # Turns the robot so that it then scans the corner
-    # by turning through 90 degrees.
-        # We may want to increase that angle to account for token scattering
-
-    target_theta = (1.5*pi + zone*pi/2) % (pi+pi)
-    d_theta = target_theta - robot.position.theta
-    if d_theta > pi:
-        d_theta -= pi+pi
-    elif d_theta < -pi:
-        d_theta += pi+pi
-    turn(robot, d_theta)
 
     markers_in_corner = []
     for i in range(3):
