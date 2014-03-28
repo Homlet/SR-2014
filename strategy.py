@@ -1,3 +1,4 @@
+from math import pi
 from time import time, sleep
 
 from sr import INPUT_PULLUP
