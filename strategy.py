@@ -64,7 +64,25 @@ def scan_corner(robot, zone):
     log(robot, "done.")
     pop_log(robot)
 
-    return scan_for_markers(robot)
+    # Turns the robot so that it then scans the corner
+    # by turning through 90 degrees.
+        # We may want to increase that angle to account for token scattering
+
+    target_theta = (1.5*pi + zone*pi/2) % (pi+pi)
+    d_theta = target_theta - robot.position.theta
+    if d_theta > pi:
+        d_theta -= pi+pi
+    elif d_theta < -pi:
+        d_theta += pi+pi
+    turn(robot, d_theta)
+
+    markers_in_corner = []
+    for i in range(3):
+        # Assumes the robot turns 30 degrees each time.
+        markers_in_corner += robot.see()
+        turn(robot)
+        sleep(1)
+    return markers_in_corner
 
 
 def scan_for_markers(robot, angle=0.524):
