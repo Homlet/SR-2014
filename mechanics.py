@@ -4,7 +4,7 @@ from threading import Thread
 
 from sr import INPUT_PULLUP
 
-from log import *
+from log import log
 
 
 NOTCHES_ON_WHEEL = 4
