@@ -3,7 +3,7 @@ from time import time, sleep
 from sr import INPUT_PULLUP
 
 from log import push_log, pop_log, log
-from position import compute_directions_for_marker
+from position import directions_for_marker, directions_for_point
 from movements import move_straight, turn, prepare_grab, grab
 
 
@@ -34,7 +34,7 @@ def move_to_point(robot, x, y):
     """
     log(robot, "Moving to point x=%.1f y=%.1f..." % (x, y))
     
-    dist, angle = compute_directions_for_point(robot, x, y)
+    dist, angle = directions_for_point(robot, x, y)
     log(robot, "dist=%.1f angle=%.1f" % (dist, angle))
 
     log(robot, "Turning...")
@@ -88,7 +88,7 @@ def line_up_to_marker(robot, marker, dist=0.4):
     log(robot, "Lining up to marker:")
     push_log(robot)
 
-    dist, angle1, angle2 = compute_directions_for_marker(marker, d=dist)
+    dist, angle1, angle2 = directions_for_marker(marker, d=dist)
     log(robot, "dist=%.2f, angle1=%.2f, angle2=%.2f" % (dist, angle1, angle2))
 
     turn(robot, angle1)
