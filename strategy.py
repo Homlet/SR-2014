@@ -2,8 +2,8 @@ from time import time, sleep
 
 from sr import INPUT_PULLUP
 
-from log import *
-from position import *
+from log import push_log, pop_log, log
+from position import compute_directions_for_marker
 from movements import move_straight, turn, prepare_grab, grab
 
 
@@ -126,6 +126,6 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
     log(robot, "  marker touched.")
 
     # Update robot.position with distance moved.
-    robot.position.move((time() - start) / 5)
+    robot.position.move((time()-start) / 5)
 
     return not beyond_time_limit
