@@ -37,7 +37,7 @@ def token_to_slot(robot, zone):
     marker = robot.see()[0]
     if marker.info.n in range(32, 40):
         move_straight(robot, marker.dist - 0.3)
-    put_down()
+    put_down(robot)
 
 
 def move_to_point(robot, x, y, target_theta):
