@@ -99,14 +99,17 @@ def scan_corner(robot, zone):
     move_to_point(robot, zx, zy, target_theta)
     log(robot, "done.")
     pop_log(robot)
-
+    log(robot, "Moved to Point.")
 
     markers_in_corner = []
     for i in range(3):
         # Assumes the robot turns 30 degrees each time.
         markers_in_corner += robot.see(res=RESOLUTION)
+        log(robot, "Arena Scanned.")
         turn(robot)
+        log(robot, "turned.")
         sleep(1)
+    log(robot, "Scan Complete.")
     return markers_in_corner
 
 
