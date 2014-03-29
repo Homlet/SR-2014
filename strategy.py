@@ -16,7 +16,7 @@ SCAN_POINTS = [(D, D), (8-D, D), (8-D, 8-D), (D, 8-D)]
 ARENA_POINTS = [(3, 2.5), (5.18, 2.5), (5.18, 5.5), (3, 5.5)]
 
 
-def get_marker_from_corner(robot, zone):
+def get_token_from_corner(robot, zone):
     """
     Moves to specified corner, finds a marker and picks it up.
     """
