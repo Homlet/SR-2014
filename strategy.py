@@ -164,6 +164,7 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
     robot.motors[0].m0.power = 0
     robot.motors[0].m1.power = 0
     log(robot, "  marker touched.")
+    sleep(2)
 
     # Update robot.position with distance moved.
     robot.position.move((time()-start) / 5)
