@@ -156,7 +156,6 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
     robot.motors[0].m1.power = 30
     while not (touching_marker or beyond_time_limit):
         touching_marker = not robot.ruggeduinos[0].digital_read(M_SWITCH_FRONT)
-        print touching_marker
         beyond_time_limit = time() > start + time_limit
     robot.motors[0].m0.power = 0
     robot.motors[0].m1.power = 0
