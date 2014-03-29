@@ -22,11 +22,14 @@ def get_marker_from_corner(robot, zone):
     """
     log(robot, "Getting marker from corner of zone %d..." % (zone))
     push_log(robot)
-    marker = scan_corner(robot, zone)[0]
-    line_up_to_marker(robot, marker)
-    prepare_grab(robot)
-    move_till_touch(robot)
-    grab(robot)
+    markers = scan_corner(robot, zone)
+    if markers:    
+        line_up_to_marker(robot, markers[0])
+        prepare_grab(robot)
+        move_till_touch(robot)
+        grab(robot)
+    else:
+        print "Error in 'scan corner'!"
     pop_log(robot)
 
 
