@@ -38,7 +38,7 @@ def token_to_slot(robot, zone):
     target_theta = pi/2 if zone in [0, 3] else 1.5*pi
     print "anything"
     robot.position.x, robot.position.y, robot.position.theta = 0.5, 2.6, 1.5*1.57
-    move_to_point(robot, zx, zy, -target_theta)
+    move_to_point(robot, zx, zy, target_theta)
     print "I am near the slot, and looking at it (hopefully)"
     markers = robot.see()
     if markers:
@@ -53,7 +53,7 @@ def move_to_point(robot, x, y, target_theta):
     Given the robot's current tracked position, moves to point
     (x, y), where x and y are metres from the origin.
     """
-    log(robot, "Moving to point x=%.1f y=%.1f..." % (x, y))
+    log(robot, "Moving to point x=%.1f y=%.1f... %.1f " %(x, y, target_theta))
     
     dist, angle = directions_for_point(robot, x, y)
     log(robot, "dist=%.1f angle=%.1f" % (dist, angle))
