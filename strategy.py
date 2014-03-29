@@ -43,8 +43,8 @@ def token_to_slot(robot, zone):
     markers = robot.see()
     if markers:
         # How slot markers are numbered?
-        if marker.info.n in range(32, 40):
-            move_straight(robot, marker.dist - 0.3)
+        if markers[0].info.n in range(32, 40):
+            move_straight(robot, markers[0].dist - 0.3)
     # put_down(robot)
 
 
