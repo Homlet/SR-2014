@@ -37,6 +37,7 @@ def token_to_slot(robot, zone):
     zx, zy = ARENA_POINTS[zone]
     target_theta = pi/2 if zone in [0, 3] else 1.5*pi
     print "anything"
+    robot.position.x, robot.position.y = 0.5, 2.6
     move_to_point(robot, zx, zy, -target_theta)
     print "I am near the slot, and looking at it (hopefully)"
     markers = robot.see()
