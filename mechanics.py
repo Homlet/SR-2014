@@ -90,7 +90,7 @@ class Motor(Thread):
     def run(self):
         triggers = abs(self.turns) * NOTCHES_ON_WHEEL
         if triggers < 2:
-            for i in range(self.approx[0] // self.approx[2]):
+            for i in range(int(self.approx[0] / self.approx[2])):
                 self.motor.power += copysign(self.approx[2], self.turns)
             sleep(self.approx[1] * abs(self.turns) * WHEEL_CIRCUMFERENCE)
         else:
