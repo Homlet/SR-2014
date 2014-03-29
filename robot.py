@@ -4,7 +4,7 @@ from traceback import print_exc
 from sr import Robot
 
 from movements import Tracker
-from strategy import get_marker_from_corner
+from strategy import get_token_from_corner
 
 
 def main():
@@ -12,7 +12,7 @@ def main():
     robot.position = Tracker(robot.zone)
     while 1:
         try:
-            get_marker_from_corner(robot, robot.zone)
+            get_token_from_corner(robot, robot.zone)
         except:
             print_exc()
             print '\nRestarting in 2s...\n'
