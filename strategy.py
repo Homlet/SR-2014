@@ -25,7 +25,6 @@ def get_token_from_corner(robot, zone):
     log(robot, "Getting marker from corner of zone %d..." % (zone))
     push_log(robot)
     markers = scan_corner(robot, zone)
-    print "Corner Scanned."
     if markers:    
         line_up_to_marker(robot, markers[0])
         prepare_grab(robot)

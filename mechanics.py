@@ -51,7 +51,6 @@ class Journey:
         )
 
     def start(self):
-        print "Journey Start"
         if self.run:
             self.m0.start()
             self.m1.start()
