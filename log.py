@@ -1,8 +1,8 @@
 def log(robot, s):
     """Prints message with indentation based on stack."""
-    if not hasattr(robot, "log_level"):
-        robot.log_level = 0
-    print "  " * robot.log_level + s
+#    if not hasattr(robot, "log_level"):
+#        robot.log_level = 0
+    print ("  " * robot.log_level) + s
 
 
 def push_log(robot, repeat=1):
