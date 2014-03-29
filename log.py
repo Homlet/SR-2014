@@ -1,6 +1,6 @@
 def log(robot, s):
     """Prints message with indentation based on stack."""
-    print ("-" * robot.log_level) + s
+    print ("| " * robot.log_level) + s
 
 
 def reset_log(robot):
