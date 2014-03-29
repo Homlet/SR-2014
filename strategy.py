@@ -31,17 +31,16 @@ def get_token_from_corner(robot, zone):
         move_till_touch(robot)
         grab(robot)
     else:
-        print "Error in 'scan corner'!"
+        log(robot, "Error in 'scan corner'!")
     pop_log(robot)
 
 
 def token_to_slot(robot, zone):
     zx, zy = ARENA_POINTS[zone]
     target_theta = pi/2 if zone in [0, 3] else 1.5*pi
-    print "anything"
     robot.position.x, robot.position.y, robot.position.theta = 0.5, 2.6, 1.5*pi
     move_to_point(robot, zx, zy, target_theta)
-    print "I am near the slot, and looking at it (hopefully)"
+    log(robot, "I am near the slot, and looking at it (hopefully).")
     markers = robot.see(res=RESOLUTION)
     if markers:
         # How slot markers are numbered?
