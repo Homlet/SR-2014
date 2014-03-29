@@ -39,13 +39,14 @@ def token_to_slot(robot, zone):
     zx, zy = ARENA_POINTS[zone]
     target_theta = pi/2 if zone in [0, 3] else 1.5*pi
     print "anything"
-    move_to_point(robot, zx, zy, -target_theta)
+    robot.position.x, robot.position.y, robot.position.theta = 0.5, 2.6, 1.5*pi
+    move_to_point(robot, zx, zy, target_theta)
     print "I am near the slot, and looking at it (hopefully)"
     markers = robot.see(res=RESOLUTION)
     if markers:
         # How slot markers are numbered?
-        if marker.info.n in range(32, 40):
-            move_straight(robot, marker.dist - 0.3)
+        if markers[0].info.n in range(32, 40):
+            move_straight(robot, markers[0].dist - 0.3)
     # put_down(robot)
 
 
@@ -54,7 +55,7 @@ def move_to_point(robot, x, y, target_theta):
     Given the robot's current tracked position, moves to point
     (x, y), where x and y are metres from the origin.
     """
-    log(robot, "Moving to point x=%.1f y=%.1f..." % (x, y))
+    log(robot, "Moving to point x=%.1f y=%.1f... %.1f " %(x, y, target_theta))
     
     dist, angle = directions_for_point(robot, x, y)
     log(robot, "dist=%.1f angle=%.1f" % (dist, angle))
