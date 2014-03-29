@@ -4,7 +4,7 @@ import math
 from sr import Robot
 
 from movements import Tracker, turn
-from strategy import get_marker_from_corner, token_to_slot
+from strategy import get_token_from_corner, token_to_slot
 
 
 def main():
@@ -12,9 +12,7 @@ def main():
     robot.position = Tracker(robot.zone)
     while 1:
         try:
-            # turn(robot)
-            # sleep(1)
-            get_marker_from_corner(robot, robot.zone)
+            get_token_from_corner(robot, robot.zone)
             token_to_slot(robot, robot.zone)
             sleep(15)
         except:
