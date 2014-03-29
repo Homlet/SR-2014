@@ -8,6 +8,8 @@ from position import directions_for_marker, directions_for_point
 from movements import move_straight, turn, prepare_grab, grab, put_down
 
 
+RESOLUTION = (1280, 960)
+
 M_SWITCH_FRONT = 11
 
 D = 2.6
@@ -39,7 +41,7 @@ def token_to_slot(robot, zone):
     print "anything"
     move_to_point(robot, zx, zy, -target_theta)
     print "I am near the slot, and looking at it (hopefully)"
-    markers = robot.see()
+    markers = robot.see(res=RESOLUTION)
     if markers:
         # How slot markers are numbered?
         if marker.info.n in range(32, 40):
@@ -102,7 +104,7 @@ def scan_corner(robot, zone):
     markers_in_corner = []
     for i in range(3):
         # Assumes the robot turns 30 degrees each time.
-        markers_in_corner += robot.see()
+        markers_in_corner += robot.see(res=RESOLUTION)
         turn(robot)
         sleep(1)
     return markers_in_corner
@@ -114,11 +116,11 @@ def scan_for_markers(robot, angle=0.524):
     Then returns list of visible markers.
     Can be passed angle=0 to stare forwards.
     """
-    markers_in_sight = robot.see()
+    markers_in_sight = robot.see(res=RESOLUTION)
     while not markers_in_sight:
         turn(robot, angle)
         sleep(0.5)
-        markers_in_sight = robot.see()
+        markers_in_sight = robot.see(res=RESOLUTION)
     return markers_in_sight
 
 
