@@ -38,7 +38,6 @@ def get_token_from_corner(robot, zone):
 def token_to_slot(robot, zone):
     zx, zy = ARENA_POINTS[zone]
     target_theta = pi/2 if zone in [0, 3] else 1.5*pi
-    robot.position.x, robot.position.y, robot.position.theta = 0.5, 2.6, 1.5*pi
     move_to_point(robot, zx, zy, target_theta)
     log(robot, "I am near the slot, and looking at it (hopefully).")
     markers = robot.see(res=RESOLUTION)
