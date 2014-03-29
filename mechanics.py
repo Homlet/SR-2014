@@ -110,7 +110,7 @@ class Motor(Thread):
         self.stop()
 
     def stop(self):
-        self.motor.power = -copysign(20, self.turns)
+        self.motor.power = -copysign(10, self.turns)
         sleep(0.1)
         self.motor.power = 0
 

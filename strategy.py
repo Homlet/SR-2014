@@ -16,7 +16,7 @@ SCAN_POINTS = [(D, D), (8-D, D), (8-D, 8-D), (D, 8-D)]
 ARENA_POINTS = [(3, 2.5), (5.18, 2.5), (5.18, 5.5), (3, 5.5)]
 
 
-def get_token_from_corner(robot, zone):
+def get_marker_from_corner(robot, zone):
     """
     Moves to specified corner, finds a marker and picks it up.
     """
@@ -36,11 +36,15 @@ def get_token_from_corner(robot, zone):
 def token_to_slot(robot, zone):
     zx, zy = ARENA_POINTS[zone]
     target_theta = pi/2 if zone in [0, 3] else 1.5*pi
-    move_to_point(robot, zx, zy, target_theta)
-    marker = robot.see()[0]
-    if marker.info.n in range(32, 40):
-        move_straight(robot, marker.dist - 0.3)
-    put_down(robot)
+    print "anything"
+    move_to_point(robot, zx, zy, -target_theta)
+    print "I am near the slot, and looking at it (hopefully)"
+    markers = robot.see()
+    if markers:
+        # How slot markers are numbered?
+        if marker.info.n in range(32, 40):
+            move_straight(robot, marker.dist - 0.3)
+    # put_down(robot)
 
 
 def move_to_point(robot, x, y, target_theta):

@@ -1,10 +1,10 @@
 from time import sleep
 from traceback import print_exc
-
+import math
 from sr import Robot
 
-from movements import Tracker
-from strategy import get_token_from_corner
+from movements import Tracker, turn
+from strategy import get_marker_from_corner, token_to_slot
 
 
 def main():
@@ -12,7 +12,11 @@ def main():
     robot.position = Tracker(robot.zone)
     while 1:
         try:
-            get_token_from_corner(robot, robot.zone)
+            # turn(robot)
+            # sleep(1)
+            get_marker_from_corner(robot, robot.zone)
+            token_to_slot(robot, robot.zone)
+            sleep(15)
         except:
             print_exc()
             print '\nRestarting in 2s...\n'
