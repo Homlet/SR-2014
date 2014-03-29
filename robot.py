@@ -12,7 +12,7 @@ def main():
     robot.position = Tracker(robot.zone)
     while 1:
         try:
-            get_token_from_corner(robot, robot.zone)
+            # get_token_from_corner(robot, robot.zone)
             token_to_slot(robot, robot.zone)
             sleep(15)
         except:
