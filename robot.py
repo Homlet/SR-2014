@@ -12,6 +12,7 @@ def main():
     robot = Robot()
     robot.position = Tracker(robot.zone)
     reset_log(robot)
+
     while 1:
         try:
             get_token_from_corner(robot, robot.zone)
