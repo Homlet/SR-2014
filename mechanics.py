@@ -25,14 +25,16 @@ class Journey:
     """
     def __init__(self, robot, distance=0, angle=0):
         self.robot = robot
-        rduino = self.robot.ruggeduinos[0]
+        rduino = robot.ruggeduinos[0]
 
         self.run = True
         if distance != 0:
             self.length = distance
+            log(robot, "Creating journey with dist=%.1f" % (distance))
             approx = (50, 3.7, 50)
         elif angle != 0:
             self.length = -angle * ROBOT_RADIUS
+            log(robot, "Creating journey with angle=%.1f" % (angle))
             approx = (40, 8, 0.05)
         else:
             self.run = False
@@ -52,10 +54,12 @@ class Journey:
 
     def start(self):
         if self.run:
+            log(self.robot, "Starting journey...")
             self.m0.start()
             self.m1.start()
             self.m0.join()
             self.m1.join()
+            log(self.robot, "done.")
         else:
             log(self.robot, "Warning: cannot run zero-length journey.")
 
