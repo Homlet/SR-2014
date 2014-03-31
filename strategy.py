@@ -36,15 +36,29 @@ def get_token_from_corner(robot, zone):
 
 
 def token_to_slot(robot, zone):
+    log(robot, "Moving to zone %d..." % (zone))
+    push_log()
+
     zx, zy = ARENA_POINTS[zone]
     target_theta = pi/2 if zone in [0, 3] else 1.5*pi
     move_to_point(robot, zx, zy, target_theta)
-    log(robot, "I am near the slot, and looking at it (hopefully).")
+
+    pop_log()
+    log(robot, "done.")
+
+    log(robot, "Moving to slot...")
+    push_log(robot)
+
     markers = robot.see(res=RESOLUTION)
     if markers:
-        # How slot markers are numbered?
-        if markers[0].info.n in range(32, 40):
-            move_straight(robot, markers[0].dist - 0.3)
+        for marker in markers:
+            if marker.info.n in range(32, 40):
+                move_straight(robot, marker.dist - 0.3)
+                break
+
+    pop_log(robot)
+    log(robot, "done.")
+
     # put_down(robot)
 
 
@@ -61,8 +75,8 @@ def move_to_point(robot, x, y, target_theta):
     log(robot, "Turning...")
     push_log(robot)
     turn(robot, angle)
-    log(robot, "done.")
     pop_log(robot)
+    log(robot, "done.")
 
     sleep(0.7)
 
@@ -77,8 +91,8 @@ def move_to_point(robot, x, y, target_theta):
         d_theta += pi+pi
     turn(robot, d_theta)
 
-    log(robot, "done.")
     pop_log(robot)
+    log(robot, "done.")
 
 
 def scan_corner(robot, zone):
@@ -89,26 +103,29 @@ def scan_corner(robot, zone):
     
     We may want to increase that angle to account for token scattering
     """
-    
-    zx, zy = SCAN_POINTS[zone]
-
     log(robot, "Moving to corner of zone %d..." % (zone))
     push_log(robot)
+
+    zx, zy = SCAN_POINTS[zone]
     target_theta = (1.5*pi + zone*pi/2) % (pi+pi)
     move_to_point(robot, zx, zy, target_theta)
-    log(robot, "done.")
-    pop_log(robot)
-    log(robot, "Moved to Point.")
 
+    pop_log(robot)
+    log(robot, "done.")
+    
+    log(robot, "Scanning for token markers...")
+    push_log(robot)
+    
     markers_in_corner = []
     for i in range(3):
         # Assumes the robot turns 30 degrees each time.
         markers_in_corner += robot.see(res=RESOLUTION)
-        log(robot, "Arena Scanned.")
         turn(robot)
-        log(robot, "turned.")
         sleep(1)
-    log(robot, "Scan Complete.")
+
+    pop_log(robot)
+    log(robot, "done.")
+    
     return markers_in_corner
 
 
@@ -142,8 +159,8 @@ def line_up_to_marker(robot, marker, dist=0.4):
     sleep(0.75)
     turn(robot, angle2)
 
-    log(robot, "done.")
     pop_log(robot)
+    log(robot, "done.")
 
 
 def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
@@ -159,6 +176,7 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
     beyond_time_limit = False
 
     log(robot, "Moving into marker...")
+
     start = time()
     robot.motors[0].m0.power = 30
     robot.motors[0].m1.power = 30
@@ -167,7 +185,8 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
         beyond_time_limit = time() > start + time_limit
     robot.motors[0].m0.power = 0
     robot.motors[0].m1.power = 0
-    log(robot, "  marker touched.")
+
+    log(robot, "done.")
     sleep(2)
 
     # Update robot.position with distance moved.
