@@ -37,13 +37,13 @@ def get_token_from_corner(robot, zone):
 
 def token_to_slot(robot, zone):
     log(robot, "Moving to zone %d..." % (zone))
-    push_log()
+    push_log(robot)
 
     zx, zy = ARENA_POINTS[zone]
     target_theta = pi/2 if zone in [0, 3] else 1.5*pi
     move_to_point(robot, zx, zy, target_theta)
 
-    pop_log()
+    pop_log(robot)
     log(robot, "done.")
 
     log(robot, "Moving to slot...")
