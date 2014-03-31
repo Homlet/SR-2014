@@ -4,7 +4,8 @@ from time import time, sleep
 from sr import INPUT_PULLUP
 
 from log import push_log, pop_log, log
-from position import directions_for_marker, directions_for_point
+from position import (directions_for_marker, directions_for_point,
+    position_from_wall)
 from movements import move_straight, turn, prepare_grab, grab, put_down
 
 
@@ -36,6 +37,9 @@ def get_token_from_corner(robot, zone):
 
 
 def token_to_slot(robot, zone):
+    """
+    Moves the robot to the specified slot, and places down the token.
+    """
     log(robot, "Moving to zone %d..." % (zone))
     push_log(robot)
 
@@ -60,6 +64,43 @@ def token_to_slot(robot, zone):
     log(robot, "done.")
 
     # put_down(robot)
+
+
+def recalulate_position(robot):
+    """
+    Calculates the robot's position using nearby markers.
+    If there are not enough markers to gain an accurate result,
+    nothing is done.
+    Returns true if the recalculation was successful.
+    """
+    log(robot, "Recalculating position...")
+
+    markers = robot.see(res=RESOLUTION)
+    if markers:
+        positions = []
+        for marker in markers:
+            if marker.info.n in range(0, 28):
+                positions.append(position_from_wall(marker))
+        if len(positions) < 3:  # TODO: tweak.
+            log(robot, "Not enough markers seen.")
+            return False
+
+        means = []
+        for i in range(3):
+            means[i] = sum([p[i] for p in positions]) / len(positions)
+            square_mean = sum([p[i]**2 for p in positions]) / len(positions)
+            if sqrt(square_mean - means[i]**2) > 0.5:  # TODO: tweak.
+                log(robot, "Position data too varied.")
+                return False
+
+        log(robot, "New position: x=%.1f, y=%.1f, theta=%.1f" % means)
+        robot.position.x, \
+        robot.position.y, \
+        robot.position.theta = means
+        return True
+    else:
+        log(robot, "No markers seen.")
+        return False
 
 
 def move_to_point(robot, x, y, target_theta):
