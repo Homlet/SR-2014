@@ -31,14 +31,14 @@ class Journey:
         if distance != 0:
             self.length = distance
             log(robot, "Creating journey with dist=%.1f" % (distance))
-            approx = (50, 3.7, 50)
+            approx = (50, 3.7)
         elif angle != 0:
             self.length = -angle * ROBOT_RADIUS
             log(robot, "Creating journey with angle=%.1f" % (angle))
-            approx = (40, 8, 0.05)
+            approx = (40, 8)
         else:
             self.run = False
-            approx = (0, 0, 0)
+            approx = (0, 0)
             return
 
         turnsToDo = self.length / WHEEL_CIRCUMFERENCE
@@ -94,8 +94,7 @@ class Motor(Thread):
     def run(self):
         triggers = abs(self.turns) * NOTCHES_ON_WHEEL
         if triggers < 2:
-            for i in range(int(self.approx[0] / self.approx[2])):
-                self.motor.power += copysign(self.approx[2], self.turns)
+            self.motor.power = copysign(self.approx[0], self.turns)
             sleep(self.approx[1] * abs(self.turns) * WHEEL_CIRCUMFERENCE)
         else:
             self.motor.power = copysign(50, self.turns)
