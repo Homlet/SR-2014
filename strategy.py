@@ -232,7 +232,6 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
 
     log(robot, "done.")
 
-
     # Update robot.position with distance moved.
     robot.position.move((time()-start) / 5)
 
