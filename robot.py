@@ -25,11 +25,11 @@ def main():
     i = 0
     while 1:
         try:
-            # get_token_from_corner(robot, robot.zone)
-            # token_to_slot(robot, robot.zone)
-            print i
-            resolution_test(robot)
-            i += 1
+            get_token_from_corner(robot, robot.zone)
+            token_to_slot(robot, robot.zone)
+            # print i
+            # resolution_test(robot)
+            # i += 1
             # sleep(0)
         except:
             print_exc()
