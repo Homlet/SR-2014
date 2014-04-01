@@ -10,15 +10,14 @@ from strategy import get_token_from_corner, token_to_slot
 
 def resolution_test(robot):
     resolutions = [(1280, 960), (800, 600)]
-    markers = robot.see(res=resolutions[0])
     i = 0
-    while not markers:
-        for res in resolutions:
-            start = time()
-            markers = robot.see(res=res)
-            print 'took %.1f s to take picture with %s' % (time()-start, res)
-            print 'Seen %d markers' % (len(markers))
-            i += 1
+    for res in resolutions:
+        print i
+        start = time()
+        markers = robot.see(res=res)
+        print 'took %.1f s to take picture with %s' % (time()-start, res)
+        print 'Seen %d markers' % (len(markers))
+        i += 1
 
 def main():
     robot = Robot()
