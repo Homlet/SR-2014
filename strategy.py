@@ -31,9 +31,12 @@ def get_token_from_corner(robot, zone):
         prepare_grab(robot)
         move_till_touch(robot)
         grab(robot)
+        pop_log(robot)
+        return True
     else:
-        log(robot, "Error in 'scan corner'!")
-    pop_log(robot)
+        log(robot, "No tokens found.")
+        pop_log(robot)
+        return False
 
 
 def token_to_slot(robot, zone):
