@@ -160,17 +160,17 @@ def scan_corner(robot, zone):
     log(robot, "Scanning for token markers...")
     push_log(robot)
     
-    markers_in_corner = []
+    markers = robot.see(res=RESOLUTION)
     for i in range(3):
-        # Assumes the robot turns 30 degrees each time.
-        markers_in_corner += robot.see(res=RESOLUTION)
+        if markers: break
         turn(robot)
         sleep(1)
+        markers = robot.see(res=RESOLUTION)
 
     pop_log(robot)
     log(robot, "done.")
     
-    return markers_in_corner
+    return markers
 
 
 def scan_for_markers(robot, angle=0.524):
