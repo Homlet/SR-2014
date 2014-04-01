@@ -15,7 +15,7 @@ def resolution_test(robot):
         for res in resolutions:
             start = time()
             markers = robot.see(res=res)
-            print 'took %.1f s to take picture with %s' % (time()-start, res,)
+            print 'took %.1f s to take picture with %s' % (time()-start, res)
         print 'Seen %d markers' % (len(markers))
 
 def main():
