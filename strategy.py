@@ -1,4 +1,4 @@
-from math import pi
+from math import pi, sqrt
 from time import time, sleep
 
 from sr import INPUT_PULLUP
