@@ -1,4 +1,4 @@
-from time import sleep
+from time import sleep, time
 from traceback import print_exc
 import math
 from sr import Robot
@@ -9,11 +9,14 @@ from strategy import get_token_from_corner, token_to_slot
 
 
 def resolution_test(robot):
-    res = (1280, 960)
+    resolutions = [(1280, 960), (800, 600)]
     markers = robot.see(res=res)
     while not markers:
-        markers = robot.see(res=res)
-    print 'Seen %d markers' % (len(markers))
+        for res in resolutions:
+            start = time()
+            markers = robot.see(res=res)
+            print 'took %.1f s to take picture with %s' % (time()-start, res,)
+        print 'Seen %d markers' % (len(markers))
 
 def main():
     robot = Robot()
@@ -25,7 +28,7 @@ def main():
             # get_token_from_corner(robot, robot.zone)
             # token_to_slot(robot, robot.zone)
             resolution_test(robot)
-            sleep(5)
+            # sleep(0)
         except:
             print_exc()
             reset_log(robot)
