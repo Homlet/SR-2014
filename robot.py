@@ -10,7 +10,7 @@ from strategy import get_token_from_corner, token_to_slot
 
 def resolution_test(robot):
     resolutions = [(1280, 960), (800, 600)]
-    markers = robot.see(res=res)
+    markers = robot.see(res=resolutions[0])
     while not markers:
         for res in resolutions:
             start = time()
