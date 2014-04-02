@@ -3,7 +3,7 @@ from traceback import print_exc
 import math
 from sr import Robot
 
-from log import reset_log
+from log import log, reset_log
 from movements import Tracker, turn
 from strategy import get_token_from_corner, token_to_slot
         
@@ -20,11 +20,11 @@ def main():
             slot = 1
             while slot < 4:
                 i = (robot.zone + zone) % 4
-                j = (robot.slot + slot) % 4
+                j = (robot.zone + slot) % 4
                 if get_token_from_corner(robot, zone):
                     token_to_slot(robot, slot)
-                    j += 1
-                i += 1
+                    slot += 1
+                zone += 1
             log(robot, "All slots filled!")
         except:
             print_exc()
