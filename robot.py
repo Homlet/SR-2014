@@ -16,16 +16,12 @@ def main():
     while 1:
         try:
             token_to_slot(robot, robot.zone)
-            zone = 0
-            slot = 1
-            while slot < 4:
-                i = (robot.zone + zone) % 4
-                j = (robot.zone + slot) % 4
+            i = 0
+            while i < 4:
+                zone = (robot.zone + i) % 4
                 if get_token_from_corner(robot, zone):
-                    token_to_slot(robot, slot)
-                    slot += 1
-                zone += 1
-            log(robot, "All slots filled!")
+                    token_to_slot(robot, zone)
+                i += 1
         except:
             print_exc()
             reset_log(robot)
