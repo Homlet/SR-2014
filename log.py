@@ -25,7 +25,7 @@ def indented(func):
     def new(robot, *args, **kwargs):
         try:
             push_log(robot)
-            out = func(*args, **kwargs)
+            out = func(robot, *args, **kwargs)
             pop_log(robot)
             return out
         except:
