@@ -17,6 +17,9 @@ class Tracker():
     """
     def __init__(self, zoneNumber):
         self.x, self.y, self.theta = position_from_zone(zoneNumber)
+        
+    def __repr__(self):
+        return 'Tracker(' + ', '.join([self.x, self.y, self.theta]) + ')'
 
     def move(self, dist):
         self.x += dist * sin(self.theta)
