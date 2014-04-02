@@ -19,3 +19,12 @@ def pop_log(robot, repeat=1):
     for i in range(repeat):
         if robot.log_level > 0:
             robot.log_level -= 1
+
+def indented(func):
+    """Decorator to automatically indent a function."""
+    def new(*args, **kwargs):
+        push_log(robot)
+        out = func(*args, **kwargs)
+        pop_log(robot)
+        return out
+    return new
