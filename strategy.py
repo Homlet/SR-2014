@@ -65,8 +65,11 @@ def token_to_slot(robot, zone):
 
     pop_log(robot)
     log(robot, "done.")
-
+    
+    log(robot, "Placing token in slot...")
+    push_log(robot)
     put_down(robot)
+    pop_log(robot)
 
 
 def recalulate_position(robot):
