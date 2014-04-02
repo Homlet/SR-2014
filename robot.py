@@ -14,7 +14,7 @@ def main():
     robot.position = Tracker(robot.zone)
     reset_log(robot)
     
-    while:
+    while True:
         markers = False
         while not markers:
             markers = robot.see()
