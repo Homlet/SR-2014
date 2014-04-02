@@ -1,7 +1,7 @@
 from math import pi, sqrt
 from time import time, sleep
 
-from sr import INPUT_PULLUP
+from sr import INPUT_PULLUP, MARKER_ARENA
 
 from log import push_log, pop_log, log
 from position import (directions_for_marker, directions_for_point,
@@ -65,8 +65,11 @@ def token_to_slot(robot, zone):
 
     pop_log(robot)
     log(robot, "done.")
-
+    
+    log(robot, "Placing token in slot...")
+    push_log(robot)
     put_down(robot)
+    pop_log(robot)
 
 
 def recalulate_position(robot):
@@ -82,8 +85,9 @@ def recalulate_position(robot):
     if markers:
         positions = []
         for marker in markers:
-            if marker.info.n in range(0, 28):
+            if marker.info.marker_type == MARKER_ARENA:
                 positions.append(position_from_wall(marker))
+        print(str(positions) + ' markers seen')
         if len(positions) < 3:  # TODO: tweak.
             log(robot, "Not enough markers seen.")
             return False

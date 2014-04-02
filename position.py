@@ -26,18 +26,18 @@ def position_from_wall(marker):
     """
     n = marker.info.code
     w = n // 7
-    d = n%7 + 1
+    d = n % 7 + 1
     val = [0, d, 8, 8-d, 0]
     alpha = -radians(marker.rot_y)
     beta = -radians(marker.orientation.rot_y)
-    theta = beta + pi/2*(3-w)
+    theta = beta + pi / 2*(3 - w)
 
     # ix and iy are marker's coordinates on the wall starting from O
     ix = val[w]
     iy = val[w+1]
     # dx and dy - where robot is relatively to wall marker
-    dx = marker.dist * cos(theta-alpha)
-    dy = marker.dist * sin(theta-alpha)
+    dx = marker.dist * cos(theta - alpha)
+    dy = marker.dist * sin(theta - alpha)
     return ix - dy, iy + dx, theta
 
 
