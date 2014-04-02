@@ -24,9 +24,9 @@ def indented(func):
     """Decorator to automatically indent a function."""
     def new(*args, **kwargs):
         try:
-            push_log(kwargs[robot])
+            push_log(kwargs['robot'])
             out = func(*args, **kwargs)
-            pop_log(kwargs[robot])
+            pop_log(kwargs['robot'])
             return out
         except:
             return func(*args, **kwargs)
