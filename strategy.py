@@ -87,7 +87,7 @@ def recalulate_position(robot):
         for marker in markers:
             if marker.info.marker_type == MARKER_ARENA:
                 positions.append(position_from_wall(marker))
-        print(len(positions) + ' markers seen')
+        print(str(positions) + ' markers seen')
         if len(positions) < 3:  # TODO: tweak.
             log(robot, "Not enough markers seen.")
             return False
