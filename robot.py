@@ -16,6 +16,7 @@ def main():
     while True:
         recalulate_position(robot)
         print(robot.position)
+        sleep(5)
 
     # while 1:
     #     try:
