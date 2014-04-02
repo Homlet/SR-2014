@@ -5,8 +5,7 @@ from sr import Robot
 
 from log import log, reset_log
 from movements import Tracker, turn
-from strategy import get_token_from_corner, token_to_slot
-from position import position_from_wall
+from strategy import get_token_from_corner, token_to_slot, recalulate_position
         
 
 def main():
@@ -15,11 +14,8 @@ def main():
     reset_log(robot)
     
     while True:
-        markers = False
-        while not markers:
-            markers = robot.see()
-        print position_from_wall(markers[0])
-        sleep(5)
+        recalulate_position(robot)
+        print(robot.position)
 
     # while 1:
     #     try:
