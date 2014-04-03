@@ -57,11 +57,10 @@ def token_to_slot(robot, zone):
     push_log(robot)
 
     markers = robot.see(res=RESOLUTION)
-    if markers:
-        for marker in markers:
-            if marker.info.n in range(32, 40):
-                move_straight(robot, marker.dist - 0.3)
-                break
+    for marker in markers:
+        if marker.info.n in range(32, 40):
+            move_straight(robot, marker.dist - 0.3)
+            break
 
     pop_log(robot)
     log(robot, "done.")
