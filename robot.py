@@ -1,10 +1,13 @@
 from time import sleep
 from traceback import print_exc
+from math import pi
+
 from sr import Robot
 
 from log import log, reset_log
 from movements import Tracker, turn
-from strategy import get_token_from_corner, token_to_slot, recalulate_position
+from strategy import (get_token_from_corner, token_to_slot, recalulate_position,
+    move_to_point)
 
 
 def main():
