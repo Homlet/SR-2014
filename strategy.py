@@ -39,36 +39,20 @@ def get_token_from_corner(robot, zone):
         return False
 
 
-def token_to_slot(robot, zone):
-    """
-    Moves the robot to the specified slot, and places down the token.
-    """
-    log(robot, "Moving to zone %d..." % (zone))
-    push_log(robot)
-
-    zx, zy = ARENA_POINTS[zone]
-    target_theta = pi/2 if zone in [0, 3] else 1.5*pi
-    move_to_point(robot, zx, zy, target_theta)
-
-    pop_log(robot)
-    log(robot, "done.")
-
-    log(robot, "Moving to slot...")
-    push_log(robot)
-
-    markers = robot.see(res=RESOLUTION)
+def token_to_slot(robot):
+    markers = robot.see()
     for marker in markers:
-        if marker.info.n in range(32, 40):
-            move_straight(robot, marker.dist - 0.3)
+        if marker.info.code in range(32, 40):
+            line_up_to_marker(robot, marker, 0.3)
+            put_down(robot)
+            move_straight(robot, -0.3)
             break
-
-    pop_log(robot)
-    log(robot, "done.")
-    
-    log(robot, "Placing token in slot...")
-    push_log(robot)
-    put_down(robot)
-    pop_log(robot)
+        elif marker.info.code in range(40, 52):
+            # This is unlikely to happen at the beginning
+            # of the competition.
+            pass
+            # Check if it's in a slot.
+                # If it's not our take it out?
 
 
 def recalulate_position(robot):
