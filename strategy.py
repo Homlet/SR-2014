@@ -107,16 +107,14 @@ def move_to_point(robot, x, y, target_theta):
     dist, angle = directions_for_point(robot, x, y)
     log(robot, "dist=%.1f angle=%.1f" % (dist, angle))
 
-    log(robot, "Turning...")
-    push_log(robot)
     turn(robot, angle)
-    pop_log(robot)
-    log(robot, "done.")
-
     sleep(0.7)
+    # Check area in front of us before moving.
+    # If there's a robot, take a picture again, work out where it's going.
+        # Take measures to avoid it, if needed.
+    # If there's a token, we could either ignore it or move around it.
+    # Anyway, if there are obstacles our way, we must move in steps.
 
-    log(robot, "Moving forwards...")
-    push_log(robot)
     move_straight(robot, dist)
 
     d_theta = target_theta - robot.position.theta
@@ -126,7 +124,6 @@ def move_to_point(robot, x, y, target_theta):
         d_theta += pi+pi
     turn(robot, d_theta)
 
-    pop_log(robot)
     log(robot, "done.")
 
 
