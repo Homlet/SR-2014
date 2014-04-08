@@ -133,7 +133,7 @@ def scan_corner(robot, zone):
     Turns the robot so that it then scans the corner
     by turning through 90 degrees.
 
-    WARNING: the function is generator
+    WARNING: this fuction is a generator
     """
     log(robot, "Moving to corner of zone %d..." % (zone))
     push_log(robot)
