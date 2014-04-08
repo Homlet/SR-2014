@@ -5,10 +5,12 @@ from math import pi
 from sr import Robot
 
 from log import log, reset_log
-from movements import Tracker, turn
-from strategy import (get_token_from_corner, token_to_slot, recalulate_position,
-    move_to_point)
+from movements import turn
+from tracker import Tracker
+from strategy import (get_token_from_corner, token_to_slot,
+    recalulate_position, move_to_point)
 
+# get_token_from_corner
 
 def main():
     robot = Robot()
