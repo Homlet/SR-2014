@@ -32,14 +32,7 @@ def main():
                 if i == 1:
                     get_token_from_corner(robot, robot.zone)
                 elif i > 1:
-                    if robot.zone == 0:
-                        get_token_from_corner(robot, 3)
-                    if robot.zone == 1:
-                        get_token_from_corner(robot, 2)
-                    if robot.zone == 2:
-                        get_token_from_corner(robot, 1)
-                    if robot.zone == 3:
-                        get_token_from_corner(robot, 0)
+                    get_token_from_corner(robot, 3 - robot.zone)
 
                 slot_y = slot_y_0 + i*dy
                 move_to_point(robot, slots_x, slot_y, target_theta)
