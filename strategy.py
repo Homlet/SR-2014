@@ -125,15 +125,13 @@ def get_token_from_corner(robot, zone):
         return False
 
 
-# @indented? - Might be a bit awkward to do logging with a generator.
+@indented
 def look_for_token(robot, zone):
     """
     Go to zone's corner and return markers seen there.
     Turns the robot so that it then scans the corner
     by turning through 90 degrees.
-
     """
-    push_log(robot)  # Perhaps just log the initial journey to the corner.
     log(robot, "Moving to corner of zone %d..." % (zone))
 
     zx, zy = SCAN_POINTS[zone]
@@ -141,7 +139,6 @@ def look_for_token(robot, zone):
     move_to_point(robot, zx, zy, target_theta)
 
     log(robot, "done.")
-    pop_log(robot)  # No logging beyond this point.
 
     for i in xrange(3):
         markers = robot.see(res=RESOLUTION)
