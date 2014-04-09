@@ -1,11 +1,8 @@
-from time import sleep
-
 from mechanics import (init_arms_pins, close_arms, lower_arms, extend_arms,
     open_arms, raise_arms, Journey)
-from position import position_from_zone
-
 
 ARMS_POWER = 20
+
 
 def move_straight(robot, dist):
     """
@@ -38,6 +35,7 @@ def grab(robot):
     close_arms(robot)
     raise_arms(robot)
     extend_arms(robot, -ARMS_POWER)
+
 
 def put_down(robot):
     pass
