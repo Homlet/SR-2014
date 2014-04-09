@@ -158,6 +158,6 @@ def extend_arms(robot, power):
     while not (hit_stop or beyond_time_limit):
         hit_stop = not robot.ruggeduinos[0].digital_read(stop_pin)
         log(robot, hit_stop)
-        beyond_time_limit = time() > start + 10
+        beyond_time_limit = time() > start + 3 # Failsafe limit
     robot.motors[1].m1.power = 0
     log(robot, "Stopping arms.")
