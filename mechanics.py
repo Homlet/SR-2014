@@ -133,11 +133,11 @@ def close_arms(robot):
 
 
 def raise_arms(robot):
-    robot.servos[0][ARMS_LIFT] = 0  # TODO
+    robot.servos[0][ARMS_LIFT] = 63
 
 
 def lower_arms(robot):
-    robot.servos[0][ARMS_LIFT] = 100  # TODO
+    robot.servos[0][ARMS_LIFT] = 100
 
 
 def init_arms_pins(robot):
