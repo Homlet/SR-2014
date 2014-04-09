@@ -8,7 +8,7 @@ from log import reset_log
 from tracker import Tracker
 from strategy import get_token_from_corner, token_to_slot, move_to_point
 
-from mechanics import raise_arms, lower_arms
+from mechanics import raise_arms, lower_arms, init_arms_pins
 from movements import extend_arms, ARMS_POWER
 
 def main():
@@ -54,6 +54,7 @@ def main_test():
     #     sleep(5)
     #     raise_arms(robot)
     #     sleep(5)
+    init_arms_pins(robot)
     while True:
         extend_arms(robot, ARMS_POWER)
         sleep(1)
