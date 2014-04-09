@@ -11,12 +11,13 @@ class Tracker():
     def __init__(self, zoneNumber):
         self.x, self.y, self.theta = position_from_zone(zoneNumber)
 
+    # Why use __repr__? Why not __str__?
     def __repr__(self):
         return ', '.join(map(repr, [self.x, self.y, self.theta]))
 
     def move(self, dist):
-        self.x += dist * sin(self.theta)
-        self.y -= dist * cos(self.theta)
+        self.x += dist*sin(self.theta)
+        self.y -= dist*cos(self.theta)
 
     def turn(self, angle):
         self.theta += angle
