@@ -1,11 +1,11 @@
-from math import pi, sqrt
+from math import pi, sqrt, atan2
 from time import time, sleep
 
 from sr import INPUT_PULLUP, MARKER_ARENA
 
 from log import push_log, pop_log, log, indented
 from position import (directions_for_marker, directions_for_point,
-    position_from_wall)
+    position_from_wall, marker_pos)
 from movements import move_straight, turn, prepare_grab, grab, put_down
 
 # This resolution is not used everywhere on purpose
@@ -77,18 +77,60 @@ def recalulate_position(robot):
         return False
 
 
+def avoid_obstacles(robot):  # This will need more arguments
+    markers = robot.see()
+    for marker in markers:
+        if marker.info.code in range(28, 32):
+            markers_ = robot.see()
+            for m in markers_:  # Leaves m being a robot marker
+                if m.info.code in range(28, 32):
+                    break
+            else:
+                print 'Lost opponent\'s robot'
+                return
+            # Works out direction of movement of that robot
+            x0, y0 = marker_pos(marker, robot.position)
+            x1, y1 = marker_pos(m, robot.position)
+            dx = x1 - x0
+            dy = y1 - y0
+            if dx < 0.1 and dy < 0.1:  # 'Not moving'
+                pass
+                # Is it in our way?
+            else:
+                d_theta = (5*pi/2 - atan2(dy, dx)) % 2*pi
+                theta = robot.position.theta
+                # Is it going towars us?
+                if ((d_theta+pi) % 2*pi) <= theta + pi/9 and \
+                   ((d_theta+pi) % 2*pi) >= theta - pi/9:
+                        pass
+                # Is it moving out of our way or is it an obstacle?
+
+        elif marker.info.code in range(40, 52):
+            if our_token(marker, robot.zone):
+                pass
+                # This should happen quite often
+            else:
+                pass
+                # Either ignore it or move around it
+                # We may not need this
+
+
 @indented
 def move_to_point(robot, x, y, target_theta):
     """
     Given the robot's current tracked position, moves to point
     (x, y), where x and y are metres from the origin.
     """
+    smart = False
     log(robot, "Moving to point x=%.1f y=%.1f...%.1f " % (x, y, target_theta))
     dist, angle = directions_for_point(robot, x, y)
     log(robot, "dist=%.1f angle=%.1f" % (dist, angle))
 
     turn(robot, angle)
     sleep(0.7)
+    if smart:
+        avoid_obstacles(robot)
+
     # Check area in front of us before moving.
     # If there's a robot, take a picture again, work out where it's going.
         # Take measures to avoid it, if needed.
