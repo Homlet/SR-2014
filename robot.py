@@ -47,10 +47,9 @@ def main():
 def main_test():
     robot = Robot()
     reset_log(robot)
-    for i in range(100, 62, -1):
-        robot.servos[0][ARMS_LIFT] = i
-        sleep(1)
-    
+    lower_arms()
+    sleep(1)
+    raise_arms()
     robot.motors[1].m0.power = 5
     sleep(1)
     robot.motors[1].m0.power = 0
