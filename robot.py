@@ -49,11 +49,14 @@ def main():
 def main_test():
     robot = Robot()
     reset_log(robot)
-    for i in range(0, 3):
-        lower_arms(robot)
-        sleep(5)
-        raise_arms(robot)
-        sleep(5)
-    #extend_arms(robot, ARMS_POWER)
-    #extend_arms(robot, -ARMS_POWER)
+    # for i in range(0, 3):
+    #     lower_arms(robot)
+    #     sleep(5)
+    #     raise_arms(robot)
+    #     sleep(5)
+    while True:
+        extend_arms(robot, ARMS_POWER)
+        sleep(1)
+        extend_arms(robot, -ARMS_POWER)
+        sleep(1)
 main_test()
