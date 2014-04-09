@@ -8,7 +8,7 @@ from position import (directions_for_marker, directions_for_point,
     position_from_wall)
 from movements import move_straight, turn, prepare_grab, grab, put_down
 
-
+# This resolution is not used everywhere on purpose
 RESOLUTION = (1280, 960)
 
 M_SWITCH_FRONT = 11
