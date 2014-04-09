@@ -13,7 +13,7 @@ class Tracker():
 
     # Why use __repr__? Why not __str__?
     def __repr__(self):
-        return 'Tracker(' +
+        return 'Tracker(' + \
                 ', '.join(map(repr, [self.x, self.y, self.theta])) + ')'
 
     def move(self, dist):
