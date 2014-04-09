@@ -44,5 +44,10 @@ def main():
             print '\nRestarting in 2s...\n'
             sleep(2)
 
-
-main()
+def main_test():
+    robot = Robot()
+    reset_log(robot)
+    for i in range(100, -1, -10):
+        robot.servos[0][ARMS_LIFT] = i
+        sleep(2)
+main_test()
