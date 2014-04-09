@@ -48,10 +48,12 @@ def main():
 def main_test():
     robot = Robot()
     reset_log(robot)
-    lower_arms(robot)
-    sleep(1)
-    raise_arms(robot)
-    robot.motors[1].m0.power = 5
-    sleep(1)
-    robot.motors[1].m0.power = 0
+    for i in range(0, 3):
+        lower_arms(robot)
+        sleep(5)
+        raise_arms(robot)
+        sleep(5)
+    #robot.motors[1].m0.power = 5
+    #sleep(1)
+    #robot.motors[1].m0.power = 0
 main_test()
