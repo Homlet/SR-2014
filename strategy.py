@@ -13,26 +13,29 @@ RESOLUTION = (1280, 960)
 
 M_SWITCH_FRONT = 11
 
-D = 2.6
+D = 2
 SCAN_POINTS = [(D, D), (8-D, D), (8-D, 8-D), (D, 8-D)]
 # These points are coordinate of corners of zones where we get points
-ARENA_POINTS = [(3, 2.5), (5.18, 2.5), (5.18, 5.5), (3, 5.5)]
+SLOT_POINTS = [(3, 2.65), (5.18, 2.65), (5.18, 5.65), (3, 5.65)]
 
 
 def get_token_from_corner(robot, zone):
     """
     Moves to specified corner, finds a marker and picks it up.
     """
-    log(robot, "Getting marker from corner of zone %d..." % (zone))
+    log(robot, "Attempting to get token from corner of zone %d..." % (zone))
     push_log(robot)
-    markers = scan_corner(robot, zone)
-    if markers:    
-        line_up_to_marker(robot, markers[0])
-        prepare_grab(robot)
-        move_till_touch(robot)
-        grab(robot)
-        pop_log(robot)
-        return True
+    for markers in scan_corner(robot, zone):
+        for marker in markers:
+            if our_token(marker, robot.zone):
+                line_up_to_marker(robot, markers[0])
+                prepare_grab(robot)
+                move_till_touch(robot)
+                grab(robot)
+                pop_log(robot)
+                return True
+            elif marker.info.code in xrange(28):
+                robot.position.reset_to(position_from_wall(marker))
     else:
         log(robot, "No tokens found.")
         pop_log(robot)
@@ -40,6 +43,10 @@ def get_token_from_corner(robot, zone):
 
 
 def token_to_slot(robot):
+    """
+    Assumes robot is near the slot with the token already.
+    """
+
     markers = robot.see()
     for marker in markers:
         if marker.info.code in range(32, 40):
@@ -76,17 +83,15 @@ def recalulate_position(robot):
             return False
 
         means = []
-        for i in range(3):
-            means[i] = sum([p[i] for p in positions]) / len(positions)
+        for i in xrange(3):
+            means.append(sum([p[i] for p in positions]) / len(positions))
             square_mean = sum([p[i]**2 for p in positions]) / len(positions)
             if sqrt(square_mean - means[i]**2) > 0.5:  # TODO: tweak.
                 log(robot, "Position data too varied.")
                 return False
 
         log(robot, "New position: x=%.1f, y=%.1f, theta=%.1f" % means)
-        robot.position.x, \
-        robot.position.y, \
-        robot.position.theta = means
+        robot.position.reset_to(means)
         return True
     else:
         log(robot, "No markers seen.")
@@ -98,21 +103,18 @@ def move_to_point(robot, x, y, target_theta):
     Given the robot's current tracked position, moves to point
     (x, y), where x and y are metres from the origin.
     """
-    log(robot, "Moving to point x=%.1f y=%.1f... %.1f " %(x, y, target_theta))
-    
+    log(robot, "Moving to point x=%.1f y=%.1f...%.1f " % (x, y, target_theta))
     dist, angle = directions_for_point(robot, x, y)
     log(robot, "dist=%.1f angle=%.1f" % (dist, angle))
 
-    log(robot, "Turning...")
-    push_log(robot)
     turn(robot, angle)
-    pop_log(robot)
-    log(robot, "done.")
-
     sleep(0.7)
+    # Check area in front of us before moving.
+    # If there's a robot, take a picture again, work out where it's going.
+        # Take measures to avoid it, if needed.
+    # If there's a token, we could either ignore it or move around it.
+    # Anyway, if there are obstacles our way, we must move in steps.
 
-    log(robot, "Moving forwards...")
-    push_log(robot)
     move_straight(robot, dist)
 
     d_theta = target_theta - robot.position.theta
@@ -122,7 +124,6 @@ def move_to_point(robot, x, y, target_theta):
         d_theta += pi+pi
     turn(robot, d_theta)
 
-    pop_log(robot)
     log(robot, "done.")
 
 
@@ -131,8 +132,8 @@ def scan_corner(robot, zone):
     Go to zone's corner and return markers seen there.
     Turns the robot so that it then scans the corner
     by turning through 90 degrees.
-    
-    We may want to increase that angle to account for token scattering
+
+    WARNING: this fuction is a generator
     """
     log(robot, "Moving to corner of zone %d..." % (zone))
     push_log(robot)
@@ -143,21 +144,17 @@ def scan_corner(robot, zone):
 
     pop_log(robot)
     log(robot, "done.")
-    
-    log(robot, "Scanning for token markers...")
+
+    log(robot, "Scanning for markers...")
     push_log(robot)
-    
-    markers = robot.see(res=RESOLUTION)
-    for i in range(3):
-        if markers: break
+    yield robot.see(res=RESOLUTION)
+    for i in range(2):
         turn(robot)
-        sleep(1)
-        markers = robot.see(res=RESOLUTION)
+        sleep(0.5)
+        yield robot.see(res=RESOLUTION)
 
     pop_log(robot)
     log(robot, "done.")
-    
-    return markers
 
 
 def scan_for_markers(robot, angle=0.524):
@@ -223,3 +220,7 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
     robot.position.move((time()-start) / 5)
 
     return not beyond_time_limit
+
+
+def our_token(token_marker, zone):
+    return token_marker.info.code in range(40 + zone, 49 + zone, 4)
