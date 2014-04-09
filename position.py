@@ -60,7 +60,7 @@ def position_from_slot(marker):
     if n < 4:
         slotY = yList[n % 2]
     else:
-        slotY = yList[n%2 + 2]
+        slotY = yList[(n % 2) + 2]
     return slotX - dy, slotY + dx, theta
 
 
