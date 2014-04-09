@@ -15,7 +15,8 @@ M_SWITCH_FRONT = 11
 
 D = 2
 SCAN_POINTS = [(D, D), (8-D, D), (8-D, 8-D), (D, 8-D)]
-# These points are coordinate of corners of zones where we get points
+
+# We go to SLOT_POINTS when we have token.
 SLOT_POINTS = [(3, 2.65), (5.18, 2.65), (5.18, 5.65), (3, 5.65)]
 
 
