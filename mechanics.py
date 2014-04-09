@@ -4,7 +4,7 @@ from threading import Thread
 
 from sr import INPUT_PULLUP
 
-from log import log
+from log import log, indented
 
 
 NOTCHES_ON_WHEEL = 4
@@ -145,15 +145,18 @@ def init_arms_pins(robot):
     robot.ruggeduinos[0].pin_mode(ARMS_BACKWARDS_STOP, INPUT_PULLUP)
 
 
+@indented
 def extend_arms(robot, power):
     stop_pin = ARMS_FORWARDS_STOP if power >= 0 else ARMS_BACKWARDS_STOP
-
+    
     hit_stop = False
     beyond_time_limit = False
 
+    log(robot, "Moving arms out.")
     start = time()
     robot.motors[1].m0.power = power
     while not (hit_stop or beyond_time_limit):
         hit_stop = robot.ruggeduinos[0].digital_read(stop_pin)
         beyond_time_limit = time() > start + 5  # TODO
     robot.motors[1].m0.power = 0
+    log(robot, "Stopping arms.")
