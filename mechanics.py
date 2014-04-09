@@ -4,7 +4,7 @@ from threading import Thread
 
 from sr import INPUT_PULLUP
 
-from log import log
+from log import log, indented
 
 
 NOTCHES_ON_WHEEL = 4
@@ -23,6 +23,7 @@ class Journey:
     """
     Handles straight or rotational movement using threading.
     """
+    @indented
     def __init__(self, robot, distance=0, angle=0):
         self.robot = robot
         rduino = robot.ruggeduinos[0]
@@ -52,6 +53,7 @@ class Journey:
             robot.motors[0].m1, M_SWITCH_RIGHT, rduino, turnsToDo, approx
         )
 
+    @indented
     def start(self):
         if self.run:
             log(self.robot, "Starting journey...")

@@ -3,7 +3,7 @@ from time import time, sleep
 
 from sr import INPUT_PULLUP, MARKER_ARENA
 
-from log import push_log, pop_log, log
+from log import push_log, pop_log, log, indented
 from position import (directions_for_marker, directions_for_point,
     position_from_wall)
 from movements import move_straight, turn, prepare_grab, grab, put_down
@@ -19,12 +19,12 @@ SCAN_POINTS = [(D, D), (8-D, D), (8-D, 8-D), (D, 8-D)]
 SLOT_POINTS = [(3, 2.65), (5.18, 2.65), (5.18, 5.65), (3, 5.65)]
 
 
+@indented
 def get_token_from_corner(robot, zone):
     """
     Moves to specified corner, finds a marker and picks it up.
     """
     log(robot, "Attempting to get token from corner of zone %d..." % (zone))
-    push_log(robot)
     for markers in scan_corner(robot, zone):
         for marker in markers:
             if our_token(marker, robot.zone):
@@ -32,21 +32,19 @@ def get_token_from_corner(robot, zone):
                 prepare_grab(robot)
                 move_till_touch(robot)
                 grab(robot)
-                pop_log(robot)
                 return True
             elif marker.info.code in xrange(28):
                 robot.position.reset_to(position_from_wall(marker))
     else:
         log(robot, "No tokens found.")
-        pop_log(robot)
         return False
 
 
+@indented
 def token_to_slot(robot):
     """
     Assumes robot is near the slot with the token already.
     """
-
     markers = robot.see()
     for marker in markers:
         if marker.info.code in range(32, 40):
@@ -62,6 +60,7 @@ def token_to_slot(robot):
                 # If it's not our take it out?
 
 
+@indented
 def recalulate_position(robot):
     """
     Calculates the robot's position using nearby markers.
@@ -98,6 +97,7 @@ def recalulate_position(robot):
         return False
 
 
+@indented
 def move_to_point(robot, x, y, target_theta):
     """
     Given the robot's current tracked position, moves to point
@@ -127,6 +127,7 @@ def move_to_point(robot, x, y, target_theta):
     log(robot, "done.")
 
 
+# @indented? - Might be a bit awkward to do logging with a generator.
 def scan_corner(robot, zone):
     """
     Go to zone's corner and return markers seen there.
@@ -135,48 +136,46 @@ def scan_corner(robot, zone):
 
     WARNING: this fuction is a generator
     """
+    push_log(robot)  # Perhaps just log the initial journey to the corner.
     log(robot, "Moving to corner of zone %d..." % (zone))
-    push_log(robot)
 
     zx, zy = SCAN_POINTS[zone]
     target_theta = (1.5*pi + zone*pi/2) % (pi+pi)
     move_to_point(robot, zx, zy, target_theta)
 
-    pop_log(robot)
     log(robot, "done.")
+    pop_log(robot)  # No logging beyond this point.
 
-    log(robot, "Scanning for markers...")
-    push_log(robot)
     yield robot.see(res=RESOLUTION)
     for i in range(2):
         turn(robot)
         sleep(0.5)
         yield robot.see(res=RESOLUTION)
 
-    pop_log(robot)
-    log(robot, "done.")
 
-
+@indented
 def scan_for_markers(robot, angle=0.524):
     """
     Rotates on the spot in increments until a marker(s) is seen.
     Then returns list of visible markers.
     Can be passed angle=0 to stare forwards.
     """
-    markers_in_sight = robot.see(res=RESOLUTION)
-    while not markers_in_sight:
+    log(robot, "Scanning point for markers...")
+    markers = robot.see(res=RESOLUTION)
+    while not markers:
         turn(robot, angle)
         sleep(0.5)
-        markers_in_sight = robot.see(res=RESOLUTION)
-    return markers_in_sight
+        markers = robot.see(res=RESOLUTION)
+    log(robot, "%d markers found." % (markers))
+    return markers
 
 
+@indented
 def line_up_to_marker(robot, marker, dist=0.4):
     """
     Moves the robot 'dist' metres in front of a given marker.
     """
     log(robot, "Lining up to marker:")
-    push_log(robot)
 
     dist, angle1, angle2 = directions_for_marker(marker, d=dist)
     log(robot, "dist=%.2f, angle1=%.2f, angle2=%.2f" % (dist, angle1, angle2))
@@ -187,10 +186,10 @@ def line_up_to_marker(robot, marker, dist=0.4):
     sleep(0.75)
     turn(robot, angle2)
 
-    pop_log(robot)
     log(robot, "done.")
 
 
+@indented
 def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
     """
     Moves the robot forward at a constant rate until a
