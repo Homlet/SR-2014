@@ -20,27 +20,6 @@ SLOT_POINTS = [(3, 2.65), (5.18, 2.65), (5.18, 5.65), (3, 5.65)]
 
 
 @indented
-def get_token_from_corner(robot, zone):
-    """
-    Moves to specified corner, finds a marker and picks it up.
-    """
-    log(robot, "Attempting to get token from corner of zone %d..." % (zone))
-    for markers in scan_corner(robot, zone):
-        for marker in markers:
-            if our_token(marker, robot.zone):
-                line_up_to_marker(robot, markers[0])
-                prepare_grab(robot)
-                move_till_touch(robot)
-                grab(robot)
-                return True
-            elif marker.info.code in xrange(28):
-                robot.position.reset_to(position_from_wall(marker))
-    else:
-        log(robot, "No tokens found.")
-        return False
-
-
-@indented
 def token_to_slot(robot):
     """
     Assumes robot is near the slot with the token already.
@@ -51,11 +30,11 @@ def token_to_slot(robot):
             line_up_to_marker(robot, marker, 0.3)
             put_down(robot)
             move_straight(robot, -0.3)
-            break
+            break  # Return True?
         elif marker.info.code in range(40, 52):
             # This is unlikely to happen at the beginning
-            # of the competition.
-            pass
+            # of the competition/match.
+            pass  # Return False?
             # Check if it's in a slot.
                 # If it's not our take it out?
 
@@ -127,14 +106,31 @@ def move_to_point(robot, x, y, target_theta):
     log(robot, "done.")
 
 
+@indented
+def get_token_from_corner(robot, zone):
+    """
+    Moves to specified corner, finds a marker and picks it up.
+    """
+    log(robot, "Attempting to get token from corner of zone %d..." % (zone))
+    token_marker = look_for_token(robot, zone)
+    if token_marker:
+        line_up_to_marker(robot, markers[0])
+        prepare_grab(robot)
+        move_till_touch(robot)
+        grab(robot)
+        return True
+    else:
+        log(robot, "No tokens found.")
+        return False
+
+
 # @indented? - Might be a bit awkward to do logging with a generator.
-def scan_corner(robot, zone):
+def look_for_token(robot, zone):
     """
     Go to zone's corner and return markers seen there.
     Turns the robot so that it then scans the corner
     by turning through 90 degrees.
 
-    WARNING: this fuction is a generator
     """
     push_log(robot)  # Perhaps just log the initial journey to the corner.
     log(robot, "Moving to corner of zone %d..." % (zone))
@@ -146,28 +142,18 @@ def scan_corner(robot, zone):
     log(robot, "done.")
     pop_log(robot)  # No logging beyond this point.
 
-    yield robot.see(res=RESOLUTION)
-    for i in range(2):
+    for i in xrange(3):
+        markers = robot.see(res=RESOLUTION)
+        for marker in markers:
+            n = marker.info.code
+            if n in xrange(28):
+                robot.position.reset_to(position_from_wall(marker))
+            elif our_token(marker, robot.zone):
+                return marker
         turn(robot)
         sleep(0.5)
-        yield robot.see(res=RESOLUTION)
-
-
-@indented
-def scan_for_markers(robot, angle=0.524):
-    """
-    Rotates on the spot in increments until a marker(s) is seen.
-    Then returns list of visible markers.
-    Can be passed angle=0 to stare forwards.
-    """
-    log(robot, "Scanning point for markers...")
-    markers = robot.see(res=RESOLUTION)
-    while not markers:
-        turn(robot, angle)
-        sleep(0.5)
-        markers = robot.see(res=RESOLUTION)
-    log(robot, "%d markers found." % (markers))
-    return markers
+    else:
+        return None
 
 
 @indented
