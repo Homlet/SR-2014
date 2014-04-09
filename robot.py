@@ -4,15 +4,16 @@ from math import pi
 
 from sr import Robot
 
-from log import log, reset_log
-from movements import turn
+from log import reset_log
 from tracker import Tracker
-from strategy import (get_token_from_corner, token_to_slot,
-    recalulate_position, move_to_point)
+from strategy import get_token_from_corner, token_to_slot, move_to_point
 
-# get_token_from_corner
 
 def main():
+    """
+    Robot will use two corners on one side of the wall in the arena.
+    It will try to put all 4 tokens into slots. This gives us 9 points.
+    """
     robot = Robot()
     robot.position = Tracker(robot.zone)
     reset_log(robot)
