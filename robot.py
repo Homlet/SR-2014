@@ -8,6 +8,7 @@ from log import reset_log
 from tracker import Tracker
 from strategy import get_token_from_corner, token_to_slot, move_to_point
 
+from mechanics import raise_arms, lower_arms
 
 def main():
     """
@@ -47,9 +48,9 @@ def main():
 def main_test():
     robot = Robot()
     reset_log(robot)
-    lower_arms()
+    lower_arms(robot)
     sleep(1)
-    raise_arms()
+    raise_arms(robot)
     robot.motors[1].m0.power = 5
     sleep(1)
     robot.motors[1].m0.power = 0
