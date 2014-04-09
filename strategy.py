@@ -114,7 +114,7 @@ def get_token_from_corner(robot, zone):
     log(robot, "Attempting to get token from corner of zone %d..." % (zone))
     token_marker = look_for_token(robot, zone)
     if token_marker:
-        line_up_to_marker(robot, markers[0])
+        line_up_to_marker(robot, token_marker)
         prepare_grab(robot)
         move_till_touch(robot)
         grab(robot)
