@@ -75,14 +75,16 @@ def position_from_zone(zone_number):
     return x, y, theta
 
 
-def compute_token_pos(tokenMarker, x, y, theta):
+def marker_pos(marker, robot_pos):
     """
-    Computes the position of a marker object given the
-    robot's current position.
+    Computes the position of a marker given the robot's 'Tracker' object.
     """
-    alpha = radians(tokenMarker.rot_y)
-    X = x + tokenMarker.dist*cos(theta-alpha)
-    Y = y - tokenMarker.dist*sin(theta-alpha)
+    x, y, theta = robot_pos.x, robot_pos.y, robot_pos.theta
+    alpha = radians(marker.rot_y)
+    dx = marker.dist * sin(alpha)
+    dy = marker.dist * cos(alpha)
+    X = x + dx*sin(theta)
+    Y = y - dy*cos(theta)
     return X, Y
 
 
