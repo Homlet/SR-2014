@@ -5,7 +5,7 @@ from mechanics import (init_arms_pins, close_arms, lower_arms, extend_arms,
 from position import position_from_zone
 
 
-ARMS_POWER = 15
+ARMS_POWER = 30
 
 def move_straight(robot, dist):
     """
