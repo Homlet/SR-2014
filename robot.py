@@ -9,6 +9,7 @@ from tracker import Tracker
 from strategy import get_token_from_corner, token_to_slot, move_to_point
 
 from mechanics import raise_arms, lower_arms
+from movements import prepare_grab, grab
 
 def main():
     """
@@ -53,7 +54,6 @@ def main_test():
     #    sleep(5)
     #    raise_arms(robot)
     #    sleep(5)
-    robot.motors[1].m0.power = 5
-    sleep(1)
-    robot.motors[1].m0.power = 0
+    prepare_grab(robot)
+    grab(robot)
 main_test()
