@@ -1,6 +1,6 @@
 def log(robot, s):
     """Prints message with indentation based on stack."""
-    print(str("| " * robot.log_level) + s)
+    print str("| " * robot.log_level) + s
 
 
 def reset_log(robot):
@@ -15,7 +15,6 @@ def push_log(robot, levels=1):
 
 def pop_log(robot, levels=1):
     """Decreases indentation level for output."""
-    raise BaseException()
     robot.log_level -= levels
     if robot.log_level < 0:
         robot.log_level = 0
