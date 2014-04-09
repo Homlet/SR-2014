@@ -152,11 +152,13 @@ def extend_arms(robot, power):
     hit_stop = False
     beyond_time_limit = False
 
-    log(robot, ("Extending" if power >= 0 else "Retracting") + " arms.")
+    log(robot, ("Extending" if stop_pin == ARMS_FORWARDS_STOP else "Retracting") + " arms.")
     start = time()
     # robot.motors[1].m1.power = power
     while not (hit_stop or beyond_time_limit):
-        hit_stop = not robot.ruggeduinos[0].digital_read(stop_pin)
+        hit_stop = robot.ruggeduinos[0].digital_read(stop_pin)
+        # Microswitches are wired differently... Real solution is to rewire switches.
+        hit_stop = hit_stop if stop_pin == ARMS_FORWARDS_STOP else not hit_stop
         log(robot, hit_stop)
         beyond_time_limit = time() > start + 10
     robot.motors[1].m1.power = 0
