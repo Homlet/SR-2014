@@ -4,7 +4,7 @@ from math import pi
 
 from sr import Robot
 
-from log import reset_log
+from log import reset_log, log
 from tracker import Tracker
 from strategy import get_token_from_corner, token_to_slot, move_to_point
 from movements import put_down, grab
