@@ -8,7 +8,7 @@ from log import reset_log, log
 from tracker import Tracker
 from strategy import (get_token_from_corner, token_to_slot, move_to_point,
     FRONT_SWITCH)
-from movements import prepare_grab, grab
+from movements import put_down, grab
 from mechanics import ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP, raise_arms, lower_arms
 
 
