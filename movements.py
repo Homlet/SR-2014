@@ -1,5 +1,6 @@
 from mechanics import (close_arms, lower_arms, extend_arms,
     retract_arms, open_arms, raise_arms, Journey)
+from time import sleep #delay in grabbing arm (testing only)
 
 
 def move_straight(robot, dist):
