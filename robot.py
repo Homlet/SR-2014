@@ -9,6 +9,7 @@ from tracker import Tracker
 from strategy import get_token_from_corner, token_to_slot, move_to_point
 from movements import put_down, grab
 
+
 def main():
     """
     Robot will use two corners on one side of the wall in the arena.
@@ -44,13 +45,20 @@ def main():
             print '\nRestarting in 2s...\n'
             sleep(2)
 
+
 def main_test():
     robot = Robot()
     reset_log(robot)
     while True:
+        log(robot, "Putting down arms...")
         put_down(robot)
+        log(robot, "done.")
         sleep(5)
+
+        log(robot, "Grabbing token...")
         grab(robot)
+        log(robot, "done.")
         sleep(5)
+
 
 main_test()

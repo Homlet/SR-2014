@@ -149,7 +149,7 @@ def extend_arms(robot):
     robot.motors[1].m1.power = -ARMS_POWER
     while not (hit_stop or beyond_time_limit):
         hit_stop = not robot.ruggeduinos[0].digital_read(ARMS_FORWARDS_STOP)
-        beyond_time_limit = time() - start > 3  # Failsafe limit    
+        beyond_time_limit = time() - start > 3  # Failsafe limit
     robot.motors[1].m1.power = 0
 
 
@@ -161,5 +161,5 @@ def retract_arms(robot):
     robot.motors[1].m1.power = ARMS_POWER
     while not (hit_stop or beyond_time_limit):
         hit_stop = not robot.ruggeduinos[0].digital_read(ARMS_BACKWARDS_STOP)
-        beyond_time_limit = time() - start > 3  # Failsafe limit    
+        beyond_time_limit = time() - start > 3  # Failsafe limit
     robot.motors[1].m1.power = 0
