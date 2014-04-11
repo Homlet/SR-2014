@@ -8,7 +8,7 @@ from log import reset_log, log
 from tracker import Tracker
 from strategy import (get_token_from_corner, token_to_slot, move_to_point,
     move_till_touch, FRONT_SWITCH)
-from movements import put_down, grab
+from movements import put_down, grab, move_straight, turn
 from mechanics import (ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP,
     LEFT_MOTOR_SWITCH, RIGHT_MOTOR_SWITCH, raise_arms, lower_arms)
 
@@ -61,7 +61,8 @@ def main_test():
         log(robot, "done.")
         sleep(1)
         move_till_touch(robot)
-
+        move_straight(robot, 1.5)
+        turn(robot, 90)
         log(robot, "Grabbing token...")
         grab(robot)
         log(robot, "done.")
