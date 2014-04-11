@@ -6,7 +6,7 @@ from sr import INPUT_PULLUP, MARKER_ARENA
 from log import push_log, pop_log, log, indented
 from position import (directions_for_marker, directions_for_point,
     position_from_wall, marker_pos)
-from movements import move_straight, turn, prepare_grab, grab, put_down
+from movements import move_straight, turn, grab, put_down
 
 # This resolution is not used everywhere on purpose
 RESOLUTION = (1280, 960)
