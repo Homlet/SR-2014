@@ -52,7 +52,7 @@ def main():
 def main_test():
     robot = Robot()
     robot.position = Tracker(robot.zone)
-    set_pin(robot)
+    set_pins(robot)
     reset_log(robot)
     while True:
         prepare_grab(robot)
