@@ -1,6 +1,5 @@
-from mechanics import (close_arms, lower_arms, extend_arms,
+from mechanics import (init_arms_pins, close_arms, lower_arms, extend_arms,
     retract_arms, open_arms, raise_arms, Journey)
-from time import sleep #delay in grabbing arm (testing only)
 
 
 def move_straight(robot, dist):
@@ -21,20 +20,14 @@ def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
     robot.position.turn(alpha)
 
 
-def prepare_grab(robot):
-    close_arms(robot)
-    lower_arms(robot)
-    extend_arms(robot)
-    open_arms(robot)
-
-
 def grab(robot):
     close_arms(robot)
-    sleep(0.8)
     raise_arms(robot)
-    sleep(0.8)
     retract_arms(robot)
 
 
 def put_down(robot):
-    pass
+    close_arms(robot)
+    extend_arms(robot)
+    lower_arms(robot)
+    open_arms(robot)
