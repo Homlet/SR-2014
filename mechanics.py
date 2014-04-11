@@ -134,11 +134,13 @@ def close_arms(robot):
 
 
 def raise_arms(robot):
-    robot.servos[0][ARMS_LIFT] = 30
+    for i in range(100. 30, -5):
+        robot.servos[0][ARMS_LIFT] = i
 
 
 def lower_arms(robot):
-    robot.servos[0][ARMS_LIFT] = 100
+    for i in range(30, 100, 5):
+        robot.servos[0][ARMS_LIFT] = i
 
 
 def extend_arms(robot):
