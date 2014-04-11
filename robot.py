@@ -6,7 +6,7 @@ from sr import Robot, INPUT_PULLUP
 
 from log import reset_log, log
 from tracker import Tracker
-from strategy import (get_token_from_corner, token_to_slot, move_to_point,
+from strategy import (get_token_from_corner, token_to_slot, move_to_point, move_till_touch,
     FRONT_SWITCH)
 from movements import put_down, grab
 from mechanics import ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP, raise_arms, lower_arms
@@ -58,7 +58,8 @@ def main_test():
         log(robot, "Putting down arms...")
         put_down(robot)
         log(robot, "done.")
-        sleep(5)
+        sleep(1)
+        move_till_touch(robot)
 
         log(robot, "Grabbing token...")
         grab(robot)
