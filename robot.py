@@ -56,7 +56,7 @@ def main_test():
     reset_log(robot)
     while True:
         prepare_grab(robot)
-        sleep(5)
+        while robot.ruggeduinos[0].digital_read(FRONT_SWITCH): pass
         grab(robot)
         sleep(5)
 
