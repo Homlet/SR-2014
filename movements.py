@@ -21,7 +21,6 @@ def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
 
 
 def prepare_grab(robot):
-    init_arms_pins(robot)
     close_arms(robot)
     lower_arms(robot)
     extend_arms(robot)
@@ -29,7 +28,6 @@ def prepare_grab(robot):
 
 
 def grab(robot):
-    init_arms_pins(robot)
     close_arms(robot)
     raise_arms(robot)
     retract_arms(robot)

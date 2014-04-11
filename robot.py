@@ -6,8 +6,11 @@ from sr import Robot
 
 from log import reset_log
 from tracker import Tracker
-from strategy import get_token_from_corner, token_to_slot, move_to_point
+from strategy import (get_token_from_corner, token_to_slot, move_to_point,
+    FRONT_SWITCH)
 from movements import prepare_grab, grab
+from mechanics import ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP
+
 
 def main():
     """
@@ -16,6 +19,7 @@ def main():
     """
     robot = Robot()
     robot.position = Tracker(robot.zone)
+    set_pin(robot)
     reset_log(robot)
 
     slots_x = 3 if robot.zone in [0, 3] else 5.18
@@ -44,13 +48,23 @@ def main():
             print '\nRestarting in 2s...\n'
             sleep(2)
 
+
 def main_test():
     robot = Robot()
+    robot.position = Tracker(robot.zone)
+    set_pin(robot)
     reset_log(robot)
     while True:
         prepare_grab(robot)
         sleep(5)
         grab(robot)
         sleep(5)
+
+
+def set_pins(robot):
+    robot.ruggeduinos[0].pin_mode(FRONT_SWITCH, INPUT_PULLUP)
+    robot.ruggeduinos[0].pin_mode(ARMS_FORWARDS_STOP, INPUT_PULLUP)
+    robot.ruggeduinos[0].pin_mode(ARMS_BACKWARDS_STOP, INPUT_PULLUP)
+
 
 main_test()

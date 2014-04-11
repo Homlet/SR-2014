@@ -141,11 +141,6 @@ def lower_arms(robot):
     robot.servos[0][ARMS_LIFT] = 100
 
 
-def init_arms_pins(robot):
-    robot.ruggeduinos[0].pin_mode(ARMS_FORWARDS_STOP, INPUT_PULLUP)
-    robot.ruggeduinos[0].pin_mode(ARMS_BACKWARDS_STOP, INPUT_PULLUP)
-
-
 def extend_arms(robot):
     hit_stop = False
     beyond_time_limit = False
