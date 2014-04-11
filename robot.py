@@ -49,7 +49,7 @@ def main_test():
     robot = Robot()
     reset_log(robot)
     while True:
-        prepare_grab
+        prepare_grab(robot)
         sleep(5)
         grab(robot)
         sleep(5)
