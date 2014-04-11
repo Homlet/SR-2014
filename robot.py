@@ -35,6 +35,7 @@ def main():
     while 1:
         try:
             grab(robot)
+            log(robot, "Set arms to default position.")
             for i in range(4):
                 if i == 1:
                     get_token_from_corner(robot, robot.zone)
