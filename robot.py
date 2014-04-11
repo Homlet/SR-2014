@@ -58,6 +58,7 @@ def main_test():
     while 1:
         log(robot, "Putting down arms...")
         put_down(robot)
+        move_straight(robot, 0.5)
         log(robot, "done.")
         sleep(1)
         move_till_touch(robot)
