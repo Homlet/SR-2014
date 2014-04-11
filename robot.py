@@ -9,7 +9,7 @@ from tracker import Tracker
 from strategy import (get_token_from_corner, token_to_slot, move_to_point,
     FRONT_SWITCH)
 from movements import prepare_grab, grab
-from mechanics import ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP
+from mechanics import ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP, raise_arms, lower_arms
 
 
 def main():
@@ -58,7 +58,13 @@ def main_test():
         prepare_grab(robot)
         while robot.ruggeduinos[0].digital_read(FRONT_SWITCH): pass
         grab(robot)
-        sleep(5)
+        sleep(2)
+        while True:
+            lower_arms(robot)
+            sleep(5)
+            raise_arms(robot)
+            print "Cycle"
+        
 
 
 def set_pins(robot):
