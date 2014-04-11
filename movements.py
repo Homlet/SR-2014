@@ -24,7 +24,7 @@ def prepare_grab(robot):
     init_arms_pins(robot)
     close_arms(robot)
     lower_arms(robot)
-    extend_arms(robot, ARMS_POWER)
+    extend_arms(robot)
     open_arms(robot)
 
 
@@ -32,7 +32,7 @@ def grab(robot):
     init_arms_pins(robot)
     close_arms(robot)
     raise_arms(robot)
-    extend_arms(robot, -ARMS_POWER)
+    retract_arms(robot)
 
 
 def put_down(robot):
