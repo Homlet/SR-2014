@@ -145,8 +145,7 @@ def init_arms_pins(robot):
     robot.ruggeduinos[0].pin_mode(ARMS_BACKWARDS_STOP, INPUT_PULLUP)
 
 
-@indented
-def extend_arms(robot, power):
+def extend_arms(robot):
     stop_pin = ARMS_BACKWARDS_STOP if power >= 0 else ARMS_FORWARDS_STOP
 
     hit_stop = False
@@ -162,5 +161,8 @@ def extend_arms(robot, power):
         hit_stop = not robot.ruggeduinos[0].digital_read(stop_pin)
         log(robot, hit_stop)
         beyond_time_limit = time() > start + 3  # Failsafe limit
+
+def retract_arms(robot):
+    
     robot.motors[1].m1.power = 0
     log(robot, "Stopping arms.")
