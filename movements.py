@@ -2,7 +2,7 @@ from time import sleep
 
 from mechanics import (close_arms, lower_arms, extend_arms,
     retract_arms, open_arms, raise_arms, Journey)
-from logging import log, indented
+from log import log, indented
 
 
 def move_straight(robot, dist):
