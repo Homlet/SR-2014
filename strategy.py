@@ -8,10 +8,11 @@ from position import (directions_for_marker, directions_for_point,
     position_from_wall, marker_pos)
 from movements import move_straight, turn, grab, put_down
 
+
 # This resolution is not used everywhere on purpose
 RESOLUTION = (1280, 960)
 
-M_SWITCH_FRONT = 11
+FRONT_SWITCH = 11
 
 D = 2
 SCAN_POINTS = [(D, D), (8-D, D), (8-D, 8-D), (D, 8-D)]
@@ -223,8 +224,6 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
     than `limit` seconds. Returns False if it didn't hit
     anything within the limit.
     """
-    robot.ruggeduinos[0].pin_mode(M_SWITCH_FRONT, INPUT_PULLUP)
-
     touching_marker = False
     beyond_time_limit = False
 
@@ -234,7 +233,7 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
     robot.motors[0].m0.power = 30
     robot.motors[0].m1.power = 30
     while not (touching_marker or beyond_time_limit):
-        touching_marker = not robot.ruggeduinos[0].digital_read(M_SWITCH_FRONT)
+        touching_marker = not robot.ruggeduinos[0].digital_read(FRONT_SWITCH)
         beyond_time_limit = time() > start + time_limit
     robot.motors[0].m0.power = 0
     robot.motors[0].m1.power = 0
