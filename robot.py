@@ -45,13 +45,14 @@ def main():
             print '\nRestarting in 2s...\n'
             sleep(2)
 
-# def main_test():
-#     robot = Robot()
-#     reset_log(robot)
-#     while True:
-#         extend_arms(robot)
-#         sleep(5)
-#         extend_arms(robot)
-#         sleep(5)
+def main_test():
+    robot = Robot()
+    reset_log(robot)
+    while True:
+        prepare_grab
+        sleep(5)
+        grab(robot)
+        sleep(5)
+        print "cycle"
 
-main()
+main_test()
