@@ -64,7 +64,7 @@ def main_test():
         log(robot, "Grabbing token...")
         grab(robot)
         move_straight(robot, 1.5)
-        turn(robot, 90)
+        turn(robot, pi/2)
         log(robot, "done.")
         sleep(5)
 
