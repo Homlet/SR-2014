@@ -34,6 +34,7 @@ def main():
 
     while 1:
         try:
+            grab(robot)
             for i in range(4):
                 if i == 1:
                     get_token_from_corner(robot, robot.zone)
