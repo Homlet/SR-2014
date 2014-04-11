@@ -61,9 +61,10 @@ def main_test():
         sleep(2)
         while True:
             lower_arms(robot)
+            log(robot, "lowered Arms")
             sleep(5)
             raise_arms(robot)
-            print "Cycle"
+            log(robot, "raised arms")
         
 
 
