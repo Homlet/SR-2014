@@ -138,7 +138,7 @@ def raise_arms(robot):
 
 
 def lower_arms(robot):
-    robot.servos[0][ARMS_LIFT] = 105
+    robot.servos[0][ARMS_LIFT] = 100
 
 
 def extend_arms(robot):
