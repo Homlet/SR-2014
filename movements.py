@@ -1,5 +1,5 @@
-from mechanics import (init_arms_pins, close_arms, lower_arms, extend_arms, retract_arms,
-    open_arms, raise_arms, Journey)
+from mechanics import (init_arms_pins, close_arms, lower_arms, extend_arms,
+    retract_arms, open_arms, raise_arms, Journey)
 
 
 def move_straight(robot, dist):
