@@ -2,12 +2,14 @@ from time import sleep
 from traceback import print_exc
 from math import pi
 
-from sr import Robot
+from sr import Robot, INPUT_PULLUP
 
 from log import reset_log, log
 from tracker import Tracker
-from strategy import get_token_from_corner, token_to_slot, move_to_point
-from movements import put_down, grab
+from strategy import (get_token_from_corner, token_to_slot, move_to_point,
+    FRONT_SWITCH)
+from movements import prepare_grab, grab
+from mechanics import ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP, raise_arms, lower_arms
 
 
 def main():
@@ -17,6 +19,7 @@ def main():
     """
     robot = Robot()
     robot.position = Tracker(robot.zone)
+    set_pins(robot)
     reset_log(robot)
 
     slots_x = 3 if robot.zone in [0, 3] else 5.18
@@ -48,8 +51,10 @@ def main():
 
 def main_test():
     robot = Robot()
+    robot.position = Tracker(robot.zone)
+    set_pins(robot)
     reset_log(robot)
-    while True:
+    while 1:
         log(robot, "Putting down arms...")
         put_down(robot)
         log(robot, "done.")
@@ -59,6 +64,12 @@ def main_test():
         grab(robot)
         log(robot, "done.")
         sleep(5)
+
+
+def set_pins(robot):
+    robot.ruggeduinos[0].pin_mode(FRONT_SWITCH, INPUT_PULLUP)
+    robot.ruggeduinos[0].pin_mode(ARMS_FORWARDS_STOP, INPUT_PULLUP)
+    robot.ruggeduinos[0].pin_mode(ARMS_BACKWARDS_STOP, INPUT_PULLUP)
 
 
 main_test()
