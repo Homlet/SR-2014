@@ -61,10 +61,10 @@ def main_test():
         log(robot, "done.")
         sleep(1)
         move_till_touch(robot)
-        move_straight(robot, 1.5)
-        turn(robot, 90)
         log(robot, "Grabbing token...")
         grab(robot)
+        move_straight(robot, 1.5)
+        turn(robot, 90)
         log(robot, "done.")
         sleep(5)
 
