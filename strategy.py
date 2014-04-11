@@ -8,11 +8,10 @@ from position import (directions_for_marker, directions_for_point,
     position_from_wall, marker_pos)
 from movements import move_straight, turn, prepare_grab, grab, put_down
 
-
 # This resolution is not used everywhere on purpose
 RESOLUTION = (1280, 960)
 
-FRONT_SWITCH = 11
+M_SWITCH_FRONT = 11
 
 D = 2
 SCAN_POINTS = [(D, D), (8-D, D), (8-D, 8-D), (D, 8-D)]
@@ -132,6 +131,12 @@ def move_to_point(robot, x, y, target_theta):
     if smart:
         avoid_obstacles(robot)
 
+    # Check area in front of us before moving.
+    # If there's a robot, take a picture again, work out where it's going.
+        # Take measures to avoid it, if needed.
+    # If there's a token, we could either ignore it or move around it.
+    # Anyway, if there are obstacles our way, we must move in steps.
+
     move_straight(robot, dist)
 
     d_theta = target_theta - robot.position.theta
@@ -153,7 +158,7 @@ def get_token_from_corner(robot, zone):
     token_marker = look_for_token(robot, zone)
     if token_marker:
         line_up_to_marker(robot, token_marker)
-        prepare_grab(robot)
+        put_down(robot)
         move_till_touch(robot)
         grab(robot)
         return True
@@ -218,6 +223,8 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
     than `limit` seconds. Returns False if it didn't hit
     anything within the limit.
     """
+    robot.ruggeduinos[0].pin_mode(M_SWITCH_FRONT, INPUT_PULLUP)
+
     touching_marker = False
     beyond_time_limit = False
 
@@ -227,7 +234,7 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
     robot.motors[0].m0.power = 30
     robot.motors[0].m1.power = 30
     while not (touching_marker or beyond_time_limit):
-        touching_marker = not robot.ruggeduinos[0].digital_read(FRONT_SWITCH)
+        touching_marker = not robot.ruggeduinos[0].digital_read(M_SWITCH_FRONT)
         beyond_time_limit = time() > start + time_limit
     robot.motors[0].m0.power = 0
     robot.motors[0].m1.power = 0
