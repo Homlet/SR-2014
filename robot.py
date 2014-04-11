@@ -4,7 +4,7 @@ from math import pi
 
 from sr import Robot, INPUT_PULLUP
 
-from log import reset_log
+from log import reset_log, log
 from tracker import Tracker
 from strategy import (get_token_from_corner, token_to_slot, move_to_point,
     FRONT_SWITCH)
