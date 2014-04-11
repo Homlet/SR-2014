@@ -29,8 +29,9 @@ def prepare_grab(robot):
 
 def grab(robot):
     close_arms(robot)
+    sleep(0.8)
     raise_arms(robot)
-    retract_arms(robot)
+    #retract_arms(robot)
 
 
 def put_down(robot):
