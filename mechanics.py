@@ -15,8 +15,9 @@ WHEEL_CIRCUMFERENCE = 0.31
 LEFT_ARM = 1
 ARMS_LIFT = 2
 RIGHT_ARM = 0
-ARMS_FORWARDS_STOP = 10  # TODO
-ARMS_BACKWARDS_STOP = 9  # TODO
+ARMS_FORWARDS_STOP = 9
+ARMS_BACKWARDS_STOP = 10
+ARMS_POWER = 20
 
 
 class Journey:
@@ -146,23 +147,24 @@ def init_arms_pins(robot):
 
 
 def extend_arms(robot):
-    stop_pin = ARMS_BACKWARDS_STOP if power >= 0 else ARMS_FORWARDS_STOP
-
     hit_stop = False
     beyond_time_limit = False
 
-    if stop_pin == ARMS_FORWARDS_STOP:
-        log(robot, "Extending arms.")
-    else:
-        log(robot, "Retracting arms.")
     start = time()
-    robot.motors[1].m1.power = power
+    robot.motors[1].m1.power = -ARMS_POWER
     while not (hit_stop or beyond_time_limit):
-        hit_stop = not robot.ruggeduinos[0].digital_read(stop_pin)
-        log(robot, hit_stop)
-        beyond_time_limit = time() > start + 3  # Failsafe limit
+        hit_stop = not robot.ruggeduinos[0].digital_read(ARMS_FORWARDS_STOP)
+        beyond_time_limit = time() - start > 3  # Failsafe limit    
+    robot.motors[1].m1.power = 0
+
 
 def retract_arms(robot):
-    
+    hit_stop = False
+    beyond_time_limit = False
+
+    start = time()
+    robot.motors[1].m1.power = ARMS_POWER
+    while not (hit_stop or beyond_time_limit):
+        hit_stop = not robot.ruggeduinos[0].digital_read(ARMS_BACKWARDS_STOP)
+        beyond_time_limit = time() - start > 3  # Failsafe limit    
     robot.motors[1].m1.power = 0
-    log(robot, "Stopping arms.")

@@ -1,8 +1,6 @@
 from mechanics import (init_arms_pins, close_arms, lower_arms, extend_arms,
     open_arms, raise_arms, Journey)
 
-ARMS_POWER = 20
-
 
 def move_straight(robot, dist):
     """
