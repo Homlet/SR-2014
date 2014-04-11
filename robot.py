@@ -7,8 +7,7 @@ from sr import Robot
 from log import reset_log
 from tracker import Tracker
 from strategy import get_token_from_corner, token_to_slot, move_to_point
-
-from mechanics import raise_arms, lower_arms, extend_arms
+from movements import prepare_grab, grab
 
 def main():
     """
