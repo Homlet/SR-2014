@@ -2,7 +2,7 @@ from time import sleep
 from traceback import print_exc
 from math import pi
 
-from sr import Robot
+from sr import Robot, INPUT_PULLUP
 
 from log import reset_log
 from tracker import Tracker
@@ -19,7 +19,7 @@ def main():
     """
     robot = Robot()
     robot.position = Tracker(robot.zone)
-    set_pin(robot)
+    set_pins(robot)
     reset_log(robot)
 
     slots_x = 3 if robot.zone in [0, 3] else 5.18
