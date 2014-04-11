@@ -32,6 +32,7 @@ def grab(robot):
     close_arms(robot)
     sleep(0.8)
     raise_arms(robot)
+    sleep(0.8)
     retract_arms(robot)
 
 
