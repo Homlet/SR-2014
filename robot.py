@@ -6,10 +6,11 @@ from sr import Robot, INPUT_PULLUP
 
 from log import reset_log, log
 from tracker import Tracker
-from strategy import (get_token_from_corner, token_to_slot, move_to_point, move_till_touch,
-    FRONT_SWITCH)
+from strategy import (get_token_from_corner, token_to_slot, move_to_point,
+    move_till_touch, FRONT_SWITCH)
 from movements import put_down, grab
-from mechanics import ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP, raise_arms, lower_arms
+from mechanics import (ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP,
+    LEFT_MOTOR_SWITCH, RIGHT_MOTOR_SWITCH, raise_arms, lower_arms)
 
 
 def main():
@@ -69,6 +70,8 @@ def main_test():
 
 def set_pins(robot):
     robot.ruggeduinos[0].pin_mode(FRONT_SWITCH, INPUT_PULLUP)
+    robot.ruggeduinos[0].pin_mode(RIGHT_MOTOR_SWITCH, INPUT_PULLUP)
+    robot.ruggeduinos[0].pin_mode(LEFT_MOTOR_SWITCH, INPUT_PULLUP)
     robot.ruggeduinos[0].pin_mode(ARMS_FORWARDS_STOP, INPUT_PULLUP)
     robot.ruggeduinos[0].pin_mode(ARMS_BACKWARDS_STOP, INPUT_PULLUP)
 

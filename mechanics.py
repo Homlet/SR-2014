@@ -9,8 +9,8 @@ from log import log, indented
 
 NOTCHES_ON_WHEEL = 4
 ROBOT_RADIUS = 0.185
-M_SWITCH_LEFT = 13
-M_SWITCH_RIGHT = 12
+LEFT_MOTOR_SWITCH = 13
+RIGHT_MOTOR_SWITCH = 12
 WHEEL_CIRCUMFERENCE = 0.31
 LEFT_ARM = 1
 ARMS_LIFT = 2
@@ -45,12 +45,12 @@ class Journey:
         turnsToDo = self.length / WHEEL_CIRCUMFERENCE
 
         self.m0 = Motor(
-            robot.motors[0].m0, M_SWITCH_LEFT, rduino, turnsToDo, approx
+            robot.motors[0].m0, LEFT_MOTOR_SWITCH, rduino, turnsToDo, approx
         )
         if angle != 0:
             turnsToDo *= -1
         self.m1 = Motor(
-            robot.motors[0].m1, M_SWITCH_RIGHT, rduino, turnsToDo, approx
+            robot.motors[0].m1, RIGHT_MOTOR_SWITCH, rduino, turnsToDo, approx
         )
 
     def start(self):
@@ -77,7 +77,6 @@ class Motor(Thread):
         self.turns = turns
         self.approx = approx
         self.ruggeduino = rduino
-        self.ruggeduino.pin_mode(switchID, INPUT_PULLUP)
 
     def time_a_switch(self):
         """
