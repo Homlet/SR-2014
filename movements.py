@@ -1,4 +1,4 @@
-from mechanics import (init_arms_pins, close_arms, lower_arms, extend_arms,
+from mechanics import (init_arms_pins, close_arms, lower_arms, extend_arms, retract_arms,
     open_arms, raise_arms, Journey)
 
 
