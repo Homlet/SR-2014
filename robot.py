@@ -57,14 +57,13 @@ def main_test():
     while True:
         prepare_grab(robot)
         while robot.ruggeduinos[0].digital_read(FRONT_SWITCH): pass
-        grab(robot)
-        sleep(2)
         while True:
-            lower_arms(robot)
-            log(robot, "lowered Arms")
+            sleep(1)
+            grab(robot)
+            log(robot, "Grabbed")
             sleep(2)
-            raise_arms(robot)
-            log(robot, "raised arms")
+            prepare_grab(robot)
+            log(robot, "Prepared to Grab")
             sleep(2)
         
 
