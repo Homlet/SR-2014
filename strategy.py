@@ -132,12 +132,6 @@ def move_to_point(robot, x, y, target_theta):
     if smart:
         avoid_obstacles(robot)
 
-    # Check area in front of us before moving.
-    # If there's a robot, take a picture again, work out where it's going.
-        # Take measures to avoid it, if needed.
-    # If there's a token, we could either ignore it or move around it.
-    # Anyway, if there are obstacles our way, we must move in steps.
-
     move_straight(robot, dist)
 
     d_theta = target_theta - robot.position.theta
