@@ -18,7 +18,7 @@ RIGHT_ARM = 0
 ARMS_FORWARDS_STOP = 10
 ARMS_BACKWARDS_STOP = 9
 ARMS_POWER = 20
-
+DRIVE_POWER = 70
 
 class Journey:
     """
@@ -99,7 +99,7 @@ class Motor(Thread):
             self.motor.power = copysign(self.approx[0], self.turns)
             sleep(self.approx[1] * abs(self.turns) * WHEEL_CIRCUMFERENCE)
         else:
-            self.motor.power = copysign(70, self.turns)
+            self.motor.power = copysign(DRIVE_POWER, self.turns)
             total_t = 0
             i = 0
 
