@@ -13,6 +13,11 @@ from mechanics import (ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP,
     LEFT_MOTOR_SWITCH, RIGHT_MOTOR_SWITCH, raise_arms, lower_arms)
 
 
+# GO TEAM COLLYERS!
+with open("header.txt") as file:
+    for l in file: print(l)
+
+
 def main():
     """
     Robot will use two corners on one side of the wall in the arena.
