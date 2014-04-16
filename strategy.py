@@ -182,9 +182,11 @@ def look_for_token(robot, zone):
         markers = robot.see(res=RESOLUTION)
         for marker in markers:
             n = marker.info.code
+            log(robot, "Marker seen: %d" % (n))
             if n in xrange(28):
                 robot.position.reset_to(position_from_wall(marker))
             elif our_token(marker, robot.zone):
+                log(robot, "This is our marker!")
                 return marker
         turn(robot)
         sleep(0.5)
