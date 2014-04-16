@@ -60,7 +60,7 @@ class Journey:
             self.m1.start()
             self.m0.join()
             self.m1.join()
-            log(self.robot, "done.")
+            log(self.robot, "Journey Complete.")
         else:
             log(self.robot, "Warning: cannot run zero-length journey.")
 

@@ -198,9 +198,9 @@ def line_up_to_marker(robot, marker, dist=0.4):
     log(robot, "dist=%.2f, angle1=%.2f, angle2=%.2f" % (dist, angle1, angle2))
 
     turn(robot, angle1)
-    sleep(0.75)
+    sleep(0.5)
     move_straight(robot, dist)
-    sleep(0.75)
+    sleep(0.5)
     turn(robot, angle2)
 
     log(robot, "Lined up to Marker.")
