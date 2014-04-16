@@ -127,7 +127,7 @@ def open_arms(robot):
 
 
 def close_arms(robot):
-    pos = 100
+    pos = 95
     robot.servos[0][LEFT_ARM] = pos
     robot.servos[0][RIGHT_ARM] = 100 - pos
 
