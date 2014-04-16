@@ -15,7 +15,7 @@ from mechanics import (ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP,
     
 def print_file(path):
     with open(path) as file:
-        for l in file: print(l, end="")
+        for l in file: print l.rstrip("\r\n")
 
 
 def main():
