@@ -15,7 +15,7 @@ from mechanics import (ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP,
 
 # GO TEAM COLLYERS!
 with open("header.txt") as file:
-    for l in file: print(l)
+    for l in file: print(l, end="")
 
 
 def main():
