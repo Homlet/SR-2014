@@ -120,22 +120,19 @@ def move_to_point(robot, x, y, target_theta):
     Given the robot's current tracked position, moves to point
     (x, y), where x and y are metres from the origin.
     """
-    smart = False
     log(robot, "Moving to point x=%.1f, y=%.1f" % (x, y))
     dist, angle = directions_for_point(robot, x, y)
     log(robot, "dist=%.1f, angle=%.1f" % (dist, angle))
 
     turn(robot, angle)
     sleep(0.7)
-    if smart:
-        avoid_obstacles(robot)
 
     move_straight(robot, dist)
 
     d_theta = target_theta - robot.position.theta
-    if d_theta > pi:
+    if d_theta < pi:
         d_theta -= pi+pi
-    elif d_theta < -pi:
+    elif d_theta > -pi:
         d_theta += pi+pi
     log(robot, "target angle=%.1f, delta=%.1f" % (target_theta, d_theta))
     turn(robot, d_theta)
