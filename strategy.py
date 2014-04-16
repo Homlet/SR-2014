@@ -25,7 +25,7 @@ def token_to_slot(robot, slot):
     log(robot, "Moving to zone...")
     slot_x = SLOT_POINTS[slot][0]
     slot_y = SLOT_POINTS[slot][1]
-    slot_theta = pi/2 if slot in [1, 2] else 3 * pi/2
+    slot_theta = 3 * pi/2 if slot in [1, 2] else pi/2
     move_to_point(robot, slot_x, slot_y, slot_theta)
 
     log(robot, "Scanning for slot markers.")
