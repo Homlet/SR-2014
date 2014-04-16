@@ -27,7 +27,6 @@ def token_to_slot(robot, slot):
     slot_y = SLOT_POINTS[slot][1]
     slot_theta = pi/2 if slot in [1, 2] else 3 * pi/2
     move_to_point(robot, slot_x, slot_y, slot_theta)
-    log(robot, "done.")
 
     log(robot, "Scanning for slot markers.")
     markers = robot.see(res=RESOLUTION)
@@ -36,14 +35,7 @@ def token_to_slot(robot, slot):
             line_up_to_marker(robot, marker, 0.3)
             put_down(robot)
             move_straight(robot, -0.3)
-            break  # Return True?
-        elif marker.info.code in range(40, 52):
-            # This is unlikely to happen at the beginning
-            # of the competition/match.
-                # Return False?
-            # Check if it's in a slot.
-                # If it's not our take it out?
-            pass
+            break
 
 
 @indented
@@ -129,9 +121,9 @@ def move_to_point(robot, x, y, target_theta):
     (x, y), where x and y are metres from the origin.
     """
     smart = False
-    log(robot, "Moving to point x=%.1f y=%.1f...%.1f " % (x, y, target_theta))
+    log(robot, "Moving to point x=%.1f, y=%.1f" % (x, y))
     dist, angle = directions_for_point(robot, x, y)
-    log(robot, "dist=%.1f angle=%.1f" % (dist, angle))
+    log(robot, "dist=%.1f, angle=%.1f" % (dist, angle))
 
     turn(robot, angle)
     sleep(0.7)
@@ -145,7 +137,7 @@ def move_to_point(robot, x, y, target_theta):
         d_theta -= pi+pi
     elif d_theta < -pi:
         d_theta += pi+pi
-    log(robot, "D_Theta:" + str(d_theta))
+    log(robot, "target angle=%.1f, delta=%.1f" % (target_theta, d_theta))
     turn(robot, d_theta)
 
     log(robot, "done.")
