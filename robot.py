@@ -12,11 +12,6 @@ from movements import put_down, grab, move_straight, turn
 from mechanics import (ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP,
     LEFT_MOTOR_SWITCH, RIGHT_MOTOR_SWITCH, raise_arms, lower_arms)
 
-    
-def print_file(path):
-    with open(path) as file:
-        for l in file: print l.rstrip("\r\n")
-
 
 def main():
     """
@@ -27,9 +22,6 @@ def main():
     robot.position = Tracker(robot.zone)
     set_pins(robot)
     reset_log(robot)
-    
-    # GO TEAM COLLYERS!
-    print_file("header.txt")
 
     slots_x = 3 if robot.zone in [0, 3] else 5.18
     target_theta = pi/2 if robot.zone in [0, 3] else 1.5*pi
@@ -45,14 +37,15 @@ def main():
             log(robot, "Setting arms to default position...")
             grab(robot)
             for i in range(4):
-                if i == 0:
-                    get_token_from_corner(robot, robot.zone)
+                if i < 2:
+                    has_token = get_token_from_corner(robot, robot.zone)
                 else: 
-                    get_token_from_corner(robot, 3 - robot.zone)
-
-                slot_y = slot_y_0 + i*dy
-                move_to_point(robot, slots_x, slot_y, target_theta)
-                token_to_slot(robot)
+                    has_token = get_token_from_corner(robot, 3-robot.zone)
+                
+                if has_token:
+                    slot_y = slot_y_0 + i*dy
+                    move_to_point(robot, slots_x, slot_y, target_theta)
+                    token_to_slot(robot)
         except:
             print_exc()
             reset_log(robot)

@@ -9,15 +9,13 @@ from position import (directions_for_marker, directions_for_point,
 from movements import move_straight, turn, grab, put_down
 
 
-# This resolution is not used everywhere on purpose
+# > This resolution is not used everywhere on purpose
+# Why?
 RESOLUTION = (1280, 960)
 
 FRONT_SWITCH = 11
 
-D = 2
-SCAN_POINTS = [(D, D), (8-D, D), (8-D, 8-D), (D, 8-D)]
-
-# We go to SLOT_POINTS when we have token.
+SCAN_POINTS = [(2, 2), (6, 2), (6, 6), (2, 6)]
 SLOT_POINTS = [(3, 2.65), (5.18, 2.65), (5.18, 5.65), (3, 5.65)]
 
 
@@ -26,7 +24,7 @@ def token_to_slot(robot):
     """
     Assumes robot is near the slot with the token already.
     """
-    markers = robot.see()
+    markers = robot.see(res=RESOLUTION)
     for marker in markers:
         if marker.info.code in range(32, 40):
             line_up_to_marker(robot, marker, 0.3)
@@ -36,9 +34,10 @@ def token_to_slot(robot):
         elif marker.info.code in range(40, 52):
             # This is unlikely to happen at the beginning
             # of the competition/match.
-            pass  # Return False?
+                # Return False?
             # Check if it's in a slot.
                 # If it's not our take it out?
+            pass
 
 
 @indented
@@ -78,11 +77,12 @@ def recalulate_position(robot):
         return False
 
 
-def avoid_obstacles(robot):  # This will need more arguments
-    markers = robot.see()
+@indented
+def avoid_obstacles(robot):
+    markers = robot.see(res=RESOLUTION)
     for marker in markers:
         if marker.info.code in range(28, 32):
-            markers_ = robot.see()
+            markers_ = robot.see(res=RESOLUTION)
             for m in markers_:  # Leaves m being a robot marker
                 if m.info.code in range(28, 32):
                     break
@@ -114,6 +114,7 @@ def avoid_obstacles(robot):  # This will need more arguments
                 pass
                 # Either ignore it or move around it
                 # We may not need this
+                pass
 
 
 @indented
@@ -182,11 +183,9 @@ def look_for_token(robot, zone):
         markers = robot.see(res=RESOLUTION)
         for marker in markers:
             n = marker.info.code
-            log(robot, "Marker seen: %d" % (n))
             if n in xrange(28):
                 robot.position.reset_to(position_from_wall(marker))
             elif our_token(marker, robot.zone):
-                log(robot, "This is our marker!")
                 return marker
         turn(robot)
         sleep(0.5)
