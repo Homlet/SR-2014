@@ -171,7 +171,7 @@ def look_for_token(robot, zone):
     target_theta = (1.5*pi + zone*pi/2) % (pi+pi)
     move_to_point(robot, zx, zy, target_theta)
 
-    log(robot, "done.")
+    log(robot, "Moved to corner " + str(zone))
 
     for i in xrange(3):
         markers = robot.see(res=RESOLUTION)
@@ -203,7 +203,7 @@ def line_up_to_marker(robot, marker, dist=0.4):
     sleep(0.75)
     turn(robot, angle2)
 
-    log(robot, "done.")
+    log(robot, "Lined up to Marker.")
 
 
 @indented
@@ -228,7 +228,7 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
     robot.motors[0].m0.power = 0
     robot.motors[0].m1.power = 0
 
-    log(robot, "done.")
+    log(robot, "Hit Marker.")
 
     # Update robot.position with distance moved.
     robot.position.move((time()-start) / 5)
