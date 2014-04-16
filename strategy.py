@@ -9,8 +9,6 @@ from position import (directions_for_marker, directions_for_point,
 from movements import move_straight, turn, grab, put_down
 
 
-# > This resolution is not used everywhere on purpose
-# Why?
 RESOLUTION = (1280, 960)
 
 FRONT_SWITCH = 11
@@ -111,7 +109,6 @@ def avoid_obstacles(robot):
                 pass
                 # This should happen quite often
             else:
-                pass
                 # Either ignore it or move around it
                 # We may not need this
                 pass
