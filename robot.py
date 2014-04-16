@@ -12,10 +12,10 @@ from movements import put_down, grab, move_straight, turn
 from mechanics import (ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP,
     LEFT_MOTOR_SWITCH, RIGHT_MOTOR_SWITCH, raise_arms, lower_arms)
 
-
-# GO TEAM COLLYERS!
-with open("header.txt") as file:
-    for l in file: print(l, end="")
+    
+def print_file(path):
+    with open(path) as file:
+        for l in file: print(l, end="")
 
 
 def main():
@@ -27,6 +27,9 @@ def main():
     robot.position = Tracker(robot.zone)
     set_pins(robot)
     reset_log(robot)
+    
+    # GO TEAM COLLYERS!
+    print_file("header.txt")
 
     slots_x = 3 if robot.zone in [0, 3] else 5.18
     target_theta = pi/2 if robot.zone in [0, 3] else 1.5*pi
