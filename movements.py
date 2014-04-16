@@ -5,6 +5,7 @@ from mechanics import (close_arms, lower_arms, extend_arms,
 from log import log, indented
 
 
+@indented
 def move_straight(robot, dist):
     """
     Moves the robot dist metres forward and updates the tracker.
@@ -14,6 +15,7 @@ def move_straight(robot, dist):
     robot.position.move(dist)
 
 
+@indented
 def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
     """
     Turns the robot alpha RADIANS and updates the tracker.

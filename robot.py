@@ -23,29 +23,23 @@ def main():
     set_pins(robot)
     reset_log(robot)
 
-    slots_x = 3 if robot.zone in [0, 3] else 5.18
-    target_theta = pi/2 if robot.zone in [0, 3] else 1.5*pi
-    if robot.zone in [0, 1]:
-        dy = 0.9
-        slot_y_0 = 2.65
-    else:
-        dy = -0.9
-        slot_y_0 = 5.65
-
     while 1:
         try:
             log(robot, "Setting arms to default position...")
             grab(robot)
+            
+            log(robot, "Moving starting token to slot.")
+            token_to_slot(robot, robot.zone)
+
             for i in range(4):
-                if i < 2:
-                    has_token = get_token_from_corner(robot, robot.zone)
-                else: 
-                    has_token = get_token_from_corner(robot, 3-robot.zone)
+                zone = robot.zone if i < 2 else 3-robot.zone
+                
+                log(robot, "Taking token from corner %d" % (zone))
+                has_token = get_token_from_corner(robot, zone)
                 
                 if has_token:
-                    slot_y = slot_y_0 + i*dy
-                    move_to_point(robot, slots_x, slot_y, target_theta)
-                    token_to_slot(robot)
+                    log(robot, "Taking token to slot.")
+                    token_to_slot(robot, zone)
         except:
             print_exc()
             reset_log(robot)

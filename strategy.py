@@ -14,14 +14,22 @@ RESOLUTION = (1280, 960)
 FRONT_SWITCH = 11
 
 SCAN_POINTS = [(2, 2), (6, 2), (6, 6), (2, 6)]
-SLOT_POINTS = [(3, 2.65), (5.18, 2.65), (5.18, 5.65), (3, 5.65)]
+SLOT_POINTS = [(2.91, 3.1), (5.09, 3.1), (5.09, 4.9), (2.91, 4.9)]
 
 
 @indented
-def token_to_slot(robot):
+def token_to_slot(robot, slot):
     """
-    Assumes robot is near the slot with the token already.
+    Moves robot near the slot, and places token on shelf.
     """
+    log(robot, "Moving to zone...")
+    slot_x = SLOT_POINTS[slot][0]
+    slot_y = SLOT_POINTS[slot][1]
+    slot_theta = pi/2 if slot in [1, 2] else 3 * pi/2
+    move_to_point(robot, slot_x, slot_y, slot_theta)
+    log(robot, "done.")
+
+    log(robot, "Scanning for slot markers.")
     markers = robot.see(res=RESOLUTION)
     for marker in markers:
         if marker.info.code in range(32, 40):
