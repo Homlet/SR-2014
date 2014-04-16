@@ -45,9 +45,9 @@ def main():
             log(robot, "Setting arms to default position...")
             grab(robot)
             for i in range(4):
-                if i == 1:
+                if i == 0:
                     get_token_from_corner(robot, robot.zone)
-                elif i > 1:
+                else: 
                     get_token_from_corner(robot, 3 - robot.zone)
 
                 slot_y = slot_y_0 + i*dy
