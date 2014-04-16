@@ -130,9 +130,9 @@ def move_to_point(robot, x, y, target_theta):
     move_straight(robot, dist)
 
     d_theta = target_theta - robot.position.theta
-    if d_theta < pi:
+    if d_theta > pi:
         d_theta -= pi+pi
-    elif d_theta > -pi:
+    elif d_theta < -pi:
         d_theta += pi+pi
     log(robot, "target angle=%.1f, delta=%.1f" % (target_theta, d_theta))
     turn(robot, d_theta)
