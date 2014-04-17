@@ -22,13 +22,13 @@ def token_to_slot(robot, slot):
     """
     Moves robot near the slot, and places token on shelf.
     """
-    log(robot, "Moving to zone...")
+    log(robot, "Moving to zone start point...")
     slot_x = SLOT_POINTS[slot][0]
     slot_y = SLOT_POINTS[slot][1]
     slot_theta = 3 * pi/2 if slot in [1, 2] else pi/2
     move_to_point(robot, slot_x, slot_y, slot_theta)
 
-    log(robot, "Scanning for slot markers.")
+    log(robot, "Scanning for slot markers...")
     markers = robot.see(res=RESOLUTION)
     for marker in markers:
         if marker.info.code in range(32, 40):

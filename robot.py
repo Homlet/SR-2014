@@ -38,8 +38,9 @@ def main():
                 has_token = get_token_from_corner(robot, zone)
                 
                 if has_token:
-                    log(robot, "Taking token to slot.")
+                    log(robot, "Taking token to slot...")
                     token_to_slot(robot, zone)
+                    log(robot, "Token in slot.")
         except:
             print_exc()
             reset_log(robot)
