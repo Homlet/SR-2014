@@ -27,10 +27,10 @@ def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
 
 def grab(robot):
     close_arms(robot)
-    sleep(0.4)
+    sleep(0.2)
 
     raise_arms(robot)
-    sleep(0.8)
+    sleep(0.6)
 
     retract_arms(robot)
 
@@ -42,6 +42,6 @@ def put_down(robot):
     sleep(0.1)
 
     lower_arms(robot)
-    sleep(0.5)
+    sleep(0.3)
 
     open_arms(robot)
