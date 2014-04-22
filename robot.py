@@ -1,6 +1,7 @@
 from time import sleep
 from traceback import print_exc
 from math import pi
+from threading import Lock
 
 from sr import Robot, INPUT_PULLUP
 
@@ -20,6 +21,7 @@ def main():
     """
     robot = Robot()
     robot.position = Tracker(robot.zone)
+    robot.ruggeduinos[0].lock = Lock()
     set_pins(robot)
     reset_log(robot)
 
