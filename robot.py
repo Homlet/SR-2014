@@ -44,8 +44,21 @@ def main():
         except:
             print_exc()
             reset_log(robot)
-            print '\nRestarting in 2s...\n'
-            sleep(2)
+            restart(robot)
+
+
+def restart(robot):
+	log(robot,"\nERROR - Restarting in... ")
+    for i in range(2, -1, -1):
+        robot.power.led[i] = 1
+        print str(i) + "  ", end=""
+        robot.power.beep(620, 0.4)
+        sleep(0.9)
+    for i in range(3):
+        robot.power.led[i] = 0
+    robot.power.beep(700, 0.7)
+    log(robot, "Restarted.")
+
 
 
 def set_pins(robot):
