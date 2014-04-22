@@ -30,7 +30,7 @@ def main():
             
             log(robot, "Moving starting token to slot.")
             token_to_slot(robot, robot.zone)
-
+            log(robot, "Beginning General Code.")
             for i in range(4):
                 zone = robot.zone if i < 2 else 3-robot.zone
                 
