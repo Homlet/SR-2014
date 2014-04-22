@@ -22,6 +22,7 @@ def main():
     robot = Robot()
     robot.position = Tracker(robot.zone)
     robot.ruggeduinos[0].lock = Lock()
+    robot.ruggeduinos[0].lock.release()
     set_pins(robot)
     reset_log(robot)
 
