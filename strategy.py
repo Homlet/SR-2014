@@ -133,7 +133,7 @@ def move_to_point(robot, x, y, target_theta):
     log(robot, "dist=%.1f, angle=%.1f" % (dist, angle))
 
     turn(robot, angle)
-    sleep(0.7)
+    sleep(0.3)
 
     move_straight(robot, dist)
 
@@ -179,7 +179,7 @@ def look_for_token(robot, zone):
     target_theta = (1.5*pi + zone*pi/2) % (pi+pi)
     move_to_point(robot, zx, zy, target_theta)
 
-    log(robot, "Moved to corner " + str(zone))
+    log(robot, "Moved to corner of zone " + str(zone) + ".")
 
     for i in xrange(3):
         markers = robot.see(res=RESOLUTION)
@@ -190,7 +190,7 @@ def look_for_token(robot, zone):
             elif our_token(marker, robot.zone):
                 return marker
         turn(robot)
-        sleep(0.5)
+        sleep(0.2)
     else:
         return None
 
@@ -206,9 +206,9 @@ def line_up_to_marker(robot, marker, dist=0.4):
     log(robot, "dist=%.2f, angle1=%.2f, angle2=%.2f" % (dist, angle1, angle2))
 
     turn(robot, angle1)
-    sleep(0.5)
+    sleep(0.3)
     move_straight(robot, dist)
-    sleep(0.5)
+    sleep(0.3)
     turn(robot, angle2)
 
     log(robot, "Lined up to Marker.")
