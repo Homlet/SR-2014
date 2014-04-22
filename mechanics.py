@@ -93,7 +93,8 @@ class Motor(Thread):
     def ruggeduino_input(self):
     	self.ruggeduino.lock.acquire()
         out = self.ruggeduino.digital_read(self.switchID)
-        self.ruggeduino.lock
+        self.ruggeduino.lock.release()
+        return out
 
     def run(self):
         triggers = abs(self.turns) * NOTCHES_ON_WHEEL
