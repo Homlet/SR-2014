@@ -95,6 +95,7 @@ class Motor(Thread):
     	self.ruggeduino.lock.acquire()
         print str(self.switchID) + " Done."
         out = self.ruggeduino.digital_read(self.switchID)
+        print str(self.switchID) + " Sampled."
         self.ruggeduino.lock.release()
         print str(self.switchID) + " Released."
         return out
