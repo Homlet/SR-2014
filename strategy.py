@@ -34,7 +34,7 @@ def token_to_slot(robot, slot):
     for marker in markers:
         if marker.info.code in range(32, 40):
             log(robot, "Found Token Marker:" + str(marker.info.code))
-        	found_Marker = True
+            found_Marker = True
             line_up_to_marker(robot, marker, 0.3)
             put_down(robot)
             break
