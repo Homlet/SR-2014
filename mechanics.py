@@ -91,13 +91,7 @@ class Motor(Thread):
         return time() - start
 
     def ruggeduino_input(self):
-    	print str(self.switchID) + " Acquiring"
-    	self.ruggeduino.lock.acquire()
-        print str(self.switchID) + " Done."
         out = self.ruggeduino.digital_read(self.switchID)
-        print str(self.switchID) + " Sampled."
-        self.ruggeduino.lock.release()
-        print str(self.switchID) + " Released."
         return out
 
     def run(self):

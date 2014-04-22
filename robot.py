@@ -1,7 +1,6 @@
 from time import sleep
 from traceback import print_exc
 from math import pi
-from threading import Lock
 
 from sr import Robot, INPUT_PULLUP
 
@@ -21,7 +20,6 @@ def main():
     """
     robot = Robot()
     robot.position = Tracker(robot.zone)
-    robot.ruggeduinos[0].lock = Lock()
     set_pins(robot)
     reset_log(robot)
 
@@ -48,26 +46,6 @@ def main():
             reset_log(robot)
             print '\nRestarting in 2s...\n'
             sleep(2)
-
-
-def main_test():
-    robot = Robot()
-    robot.position = Tracker(robot.zone)
-    set_pins(robot)
-    reset_log(robot)
-    while 1:
-        log(robot, "Putting down arms...")
-        put_down(robot)
-        move_straight(robot, -0.5)
-        log(robot, "done.")
-        sleep(1)
-        move_till_touch(robot)
-        log(robot, "Grabbing token...")
-        grab(robot)
-        move_straight(robot, 1.5)
-        turn(robot, pi/2)
-        log(robot, "done.")
-        sleep(5)
 
 
 def set_pins(robot):
