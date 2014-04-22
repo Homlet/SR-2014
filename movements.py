@@ -25,7 +25,9 @@ def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
     robot.position.turn(alpha)
 
 
+@indented
 def grab(robot):
+	log(robot, "Picking Up Token.")
     close_arms(robot)
     sleep(0.2)
 
@@ -35,7 +37,9 @@ def grab(robot):
     retract_arms(robot)
 
 
+@indented
 def put_down(robot):
+	log(robot, "Putting Down Token.")
     close_arms(robot)
 
     extend_arms(robot)

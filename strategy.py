@@ -42,6 +42,7 @@ def token_to_slot(robot, slot):
         log(robot, "Marker Not Detected.")
         move_straight(robot, 0.4)
         put_down(robot)
+    log(robot, "Moving away from marker.")
     move_straight(robot, -0.6)
     
 
