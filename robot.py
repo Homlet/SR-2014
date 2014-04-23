@@ -25,6 +25,7 @@ def main():
     robot.sound = Sound(robot)
     set_pins(robot)
     robot.sound.play('R2D2')
+    main_test(robot)
 
     while 1:
         try:
@@ -72,5 +73,14 @@ def set_pins(robot):
     robot.ruggeduinos[0].pin_mode(ARMS_FORWARDS_STOP, INPUT_PULLUP)
     robot.ruggeduinos[0].pin_mode(ARMS_BACKWARDS_STOP, INPUT_PULLUP)
 
-
+def main_test(robot):
+	while True:
+		print "Grab"
+		grab(robot)
+		sleep(2)
+		print "Put Down"
+		put_down(robot)
+		sleep(2)
+		
 main()
+
