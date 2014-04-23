@@ -48,7 +48,7 @@ def main():
 
 
 def restart(robot):
-	log(robot,"\nERROR - Restarting in... ")
+	log(robot, "\nERROR - Restarting in... ")
     for i in range(2, -1, -1):
         robot.power.led[i] = 1
         print str(i) + "  ", end=""
