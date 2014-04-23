@@ -10,6 +10,7 @@ class Sound:
         self.data = [4,3,2]
         self.read = 5
         self.set_pins()
+        self.robot = robot
         
         self.sounds = {
             'STOP': '000',
@@ -30,7 +31,7 @@ class Sound:
         sleep(.05)
         self.set_pin(self.read, False)
         sleep(.05)
-    log(robot, "Sound Controller Initialised.")
+        log(self.robot, "Sound Controller Initialised.")
         
     def set_pins(self):
         for pin in self.data + [self.read]:
@@ -41,7 +42,7 @@ class Sound:
         sound_data = self.sounds.get(sound)
 
         if sound_data == None:
-            log(robot, "Error Playing Sound '" + sound + "'")
+            log(self.robot, "Error Playing Sound '" + sound + "'")
             return
 
         for bit, pin in enumerate(self.data):
@@ -49,9 +50,9 @@ class Sound:
     
         self.set_pin(self.read, True)
         if sound_data == "STOP":
-            log(robot, "Stopping Playback of sounds")
+            log(self.robot, "Stopping Playback of sounds")
         else:
-            log(robot, 'Now Playing:' + sound + 'with binary code' + sound_data)
+            log(self.robot, 'Now Playing:' + sound + 'with binary code' + sound_data)
             
         sleep(.05) 
         self.set_pin(self.read, False)
