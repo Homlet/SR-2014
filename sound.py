@@ -40,7 +40,7 @@ class Sound:
         """ Sends command to play sound. """
         sound_data = self.sounds.get(sound)
 
-        if sound_data = None:
+        if sound_data == None:
             log(robot, "Error Playing Sound '" + sound + "'")
             return
 
