@@ -29,6 +29,7 @@ def token_to_slot(robot, slot):
     move_to_point(robot, slot_x, slot_y, slot_theta)
 
     log(robot, "Scanning for slot markers...")
+    robot.sound.play('Radar')
     markers = robot.see(res=RESOLUTION)
     found_Marker = False
     for marker in markers:
@@ -37,8 +38,10 @@ def token_to_slot(robot, slot):
             found_Marker = True
             line_up_to_marker(robot, marker, 0.4)
             put_down(robot)
+            robot.sound.stop()
             break
     if not found_Marker:
+        robot.sound.stop()
         log(robot, "Marker Not Detected.")
         move_straight(robot, 0.4)
         put_down(robot)
@@ -131,7 +134,7 @@ def move_to_point(robot, x, y, target_theta):
     log(robot, "Moving to point x=%.1f, y=%.1f" % (x, y))
     dist, angle = directions_for_point(robot, x, y)
     log(robot, "dist=%.1f, angle=%.1f" % (dist, angle))
-
+    robot.sound.play('Valkyries')
     turn(robot, angle)
     sleep(0.3)
 
@@ -146,6 +149,7 @@ def move_to_point(robot, x, y, target_theta):
     turn(robot, d_theta)
 
     log(robot, "done.")
+    robot.sound.stop()
 
 
 @indented
@@ -180,7 +184,7 @@ def look_for_token(robot, zone):
     move_to_point(robot, zx, zy, target_theta)
 
     log(robot, "Moved to corner of zone " + str(zone) + ".")
-
+    robot.sound.play('Radar')
     for i in xrange(3):
         markers = robot.see(res=RESOLUTION)
         for marker in markers:
@@ -188,10 +192,12 @@ def look_for_token(robot, zone):
             if n in xrange(28):
                 robot.position.reset_to(position_from_wall(marker))
             elif our_token(marker, robot.zone):
+                robot.sound.stop()
                 return marker
         turn(robot)
         sleep(0.2)
     else:
+        robot.sound.stop()
         return None
 
 
@@ -201,7 +207,7 @@ def line_up_to_marker(robot, marker, dist=0.4):
     Moves the robot 'dist' metres in front of a given marker.
     """
     log(robot, "Lining up to marker:")
-
+    robot.sound.play('Valkyries')
     dist, angle1, angle2 = directions_for_marker(marker, d=dist)
     log(robot, "dist=%.2f, angle1=%.2f, angle2=%.2f" % (dist, angle1, angle2))
 
@@ -212,6 +218,7 @@ def line_up_to_marker(robot, marker, dist=0.4):
     turn(robot, angle2)
 
     log(robot, "Lined up to Marker.")
+    robot.sound.stop()
 
 
 @indented

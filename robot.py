@@ -20,10 +20,10 @@ def main():
     It will try to put all 4 tokens into slots. This gives us 9 points.
     """
     robot = Robot()
+    reset_log(robot)
     robot.position = Tracker(robot.zone)
     robot.sound = Sound(robot)
     set_pins(robot)
-    reset_log(robot)
 
     while 1:
         try:
