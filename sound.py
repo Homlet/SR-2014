@@ -17,7 +17,7 @@ class Sound:
             'R2D2': '001',
             'Radar': '010',
             'Valkyries': '011',
-            'DialUp': '100',
+            'Heart': '100',
             'Dixie': '101',
             '': '110',
             'Mario': '111'
