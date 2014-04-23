@@ -23,8 +23,8 @@ def main():
     reset_log(robot)
     robot.position = Tracker(robot.zone)
     robot.sound = Sound(robot)
-    set_pins(robot)
     robot.sound.play('R2D2')
+    set_pins(robot)
     main_test(robot)
 
     while 1:
