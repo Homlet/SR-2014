@@ -37,16 +37,19 @@ def token_to_slot(robot, slot):
             log(robot, "Found Token Marker:" + str(marker.info.code))
             found_Marker = True
             line_up_to_marker(robot, marker, 0.4)
+            sleep(0.4)
             put_down(robot)
             robot.sound.stop()
+            sleep(0.4)
             break
     if not found_Marker:
         robot.sound.stop()
         log(robot, "Marker Not Detected.")
         move_straight(robot, 0.4)
         put_down(robot)
+        sleep(0.4)
     log(robot, "Moving away from marker.")
-    move_straight(robot, -0.6)
+    move_straight(robot, -0.5)
     
 
 @indented

@@ -24,10 +24,12 @@ def main():
     robot.position = Tracker(robot.zone)
     robot.sound = Sound(robot)
     set_pins(robot)
+    robot.sound.play('R2D2')
 
     while 1:
         try:
             log(robot, "Setting arms to default position...")
+            put_down(robot)
             grab(robot)
             
             log(robot, "Moving starting token to slot.")
