@@ -27,6 +27,9 @@ def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
 
 @indented
 def grab(robot):
+    """
+    Picks up the token infront of the robot, and pulls it inside
+    """
     log(robot, "Picking Up Token.")
     close_arms(robot)
     sleep(0.2)
@@ -39,6 +42,9 @@ def grab(robot):
 
 @indented
 def put_down(robot):
+    """
+    Places the stored token infront of the robot
+    """
     log(robot, "Putting Down Token.")
     close_arms(robot)
 
