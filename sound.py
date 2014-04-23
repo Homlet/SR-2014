@@ -4,6 +4,7 @@ from log import log, indented
 
 class Sound:
     def __init__(self, robot):
+        log(robot, "Initialisig Sound Controller...")
         self.rduino = robot.ruggeduinos[0]
         self.set_pin = self.rduino.digital_write
         self.data = [4,3,2]
@@ -48,7 +49,7 @@ class Sound:
     
         self.set_pin(self.read, True)
         if sound_data == "STOP":
-            log(robot, "Stopping Playback of sounds using binary code " + sound_data)
+            log(robot, "Stopping Playback of sounds")
         else:
             log(robot, 'Now Playing:' + sound + 'with binary code' + sound_data)
             
