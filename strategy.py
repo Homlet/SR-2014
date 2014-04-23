@@ -36,10 +36,10 @@ def token_to_slot(robot, slot):
         if marker.info.code in range(32, 40):
             log(robot, "Found Token Marker:" + str(marker.info.code))
             found_Marker = True
-            line_up_to_marker(robot, marker, 0.4)
-            sleep(0.4)
-            put_down(robot)
             robot.sound.stop()
+            line_up_to_marker(robot, marker, 0.4)
+            sleep(0.2)
+            put_down(robot)
             sleep(0.4)
             break
     if not found_Marker:
@@ -136,11 +136,11 @@ def move_to_point(robot, x, y, target_theta):
     """
     log(robot, "Moving to point x=%.1f, y=%.1f" % (x, y))
     dist, angle = directions_for_point(robot, x, y)
-    log(robot, "dist=%.1f, angle=%.1f" % (dist, angle))
     robot.sound.play('Valkyries')
-    turn(robot, angle)
-    sleep(0.3)
+    log(robot, "dist=%.1f, angle=%.1f" % (dist, angle))
 
+    turn(robot, angle)
+    sleep(0.1)
     move_straight(robot, dist)
 
     d_theta = target_theta - robot.position.theta
@@ -164,9 +164,11 @@ def get_token_from_corner(robot, zone):
     token_marker = look_for_token(robot, zone)
     if token_marker:
         line_up_to_marker(robot, token_marker)
+        robot.sound.play('Heart')
         put_down(robot)
         move_till_touch(robot)
         grab(robot)
+        robot.sound.stop()
         return True
     else:
         log(robot, "No tokens found.")
@@ -236,6 +238,7 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
     beyond_time_limit = False
 
     log(robot, "Moving into marker...")
+    robot.sound.play('Heart')
 
     start = time()
     robot.motors[0].m0.power = 40
@@ -250,7 +253,7 @@ def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
 
     # Update robot.position with distance moved.
     robot.position.move((time()-start) / 5)
-
+    robot.sound.stop()
     return not beyond_time_limit
 
 
