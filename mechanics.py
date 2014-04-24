@@ -17,7 +17,7 @@ ARMS_LIFT = 7
 RIGHT_ARM = 5
 ARMS_FORWARDS_STOP = 10
 ARMS_BACKWARDS_STOP = 9
-ARMS_POWER = 35
+ARMS_POWER = 30
 DRIVE_POWER = 73
 
 class Journey:
@@ -149,7 +149,7 @@ def extend_arms(robot):
     robot.motors[1].m1.power = -ARMS_POWER
     while not (hit_stop or beyond_time_limit):
         hit_stop = not robot.ruggeduinos[0].digital_read(ARMS_FORWARDS_STOP)
-        beyond_time_limit = time() - start > 3  # Failsafe limit
+        beyond_time_limit = time() - start > 4  # Failsafe limit
     robot.motors[1].m1.power = 0
 
 
@@ -161,5 +161,6 @@ def retract_arms(robot):
     robot.motors[1].m1.power = ARMS_POWER
     while not (hit_stop or beyond_time_limit):
         hit_stop = not robot.ruggeduinos[0].digital_read(ARMS_BACKWARDS_STOP)
-        beyond_time_limit = time() - start > 3  # Failsafe limit
+        beyond_time_limit = time() - start > 4  # Failsafe limit
     robot.motors[1].m1.power = 0
+    
