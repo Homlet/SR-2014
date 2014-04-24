@@ -3,7 +3,7 @@ from sr import OUTPUT
 from log import log, indented
 
 class Sound:
-    def __init__(self, robot):
+    def __init__(self, robot, active):
         log(robot, "Initialisig Sound Controller...")
         self.rduino = robot.ruggeduinos[0]
         self.set_pin = self.rduino.digital_write
@@ -11,6 +11,7 @@ class Sound:
         self.read = 5
         self.set_pins()
         self.robot = robot
+        self.robot.sound.enabled = active
         
         self.sounds = {
             'STOP': '000',
@@ -39,6 +40,9 @@ class Sound:
         
     def play(self, sound):
         """ Sends command to play sound. """
+        if not self.robot.sound.enabled:
+            log(self.robot, "Sound is Disabled.")
+            return
         sound_data = self.sounds.get(sound)
 
         if sound_data == None:
