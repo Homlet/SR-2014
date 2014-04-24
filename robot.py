@@ -52,21 +52,19 @@ def main():
                     log(robot, "Token in slot! Continuing...")
         except:
             print_exc()
-            reset_log(robot)
             restart(robot)
 
 
 def restart(robot):
-    log(robot, "\nERROR - Restarting in... ")
-    for i in range(2, -1, -1):
+    reset_log(robot)
+    print "\nERROR - Restarting...\n"
+    for i in range(3):
         robot.power.led[i] = 1
-        print str(i) + "  ", 
-        robot.power.beep(620, 0.4)
+        robot.power.beep(523.25, 0.4)
         sleep(0.9)
     for i in range(3):
         robot.power.led[i] = 0
-    robot.power.beep(700, 0.7)
-    log(robot, "Restarted.")
+    robot.power.beep(783.99, 0.7)
 
 
 def set_pins(robot):
