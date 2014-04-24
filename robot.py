@@ -13,6 +13,7 @@ from movements import put_down, grab, move_straight, turn
 from mechanics import (ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP,
     LEFT_MOTOR_SWITCH, RIGHT_MOTOR_SWITCH, raise_arms, lower_arms)
 
+USING_SOUND = True
 
 def main():
     """
@@ -22,7 +23,7 @@ def main():
     robot = Robot()
     reset_log(robot)
     robot.position = Tracker(robot.zone)
-    robot.sound = Sound(robot)
+    robot.sound = Sound(robot, USING_SOUND)
     robot.sound.play('R2D2')
     set_pins(robot)
     main_test(robot)
