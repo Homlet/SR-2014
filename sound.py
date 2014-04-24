@@ -12,7 +12,7 @@ class Sound:
         self.set_pins()
         self.robot = robot
         self.enabled = active
-        if not self.robot.enabled: # if sound is disabled in constant of robot.py
+        if not self.enabled: # if sound is disabled in constant of robot.py
             log(robot, "Sound Disabled in Constant!")
             return
         
