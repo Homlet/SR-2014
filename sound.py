@@ -12,6 +12,9 @@ class Sound:
         self.set_pins()
         self.robot = robot
         self.robot.sound.enabled = active
+        if not self.robot.sound.enabled: # if sound is disabled in constant of robot.py
+            log(robot, "Sound Disabled in Constant!")
+            return
         
         self.sounds = {
             'STOP': '000',
@@ -35,14 +38,16 @@ class Sound:
         log(self.robot, "Sound Controller Initialised.")
         
     def set_pins(self):
+        """Initialises the Pins on the ruggeduino for sound output"""
         for pin in self.data + [self.read]:
             self.rduino.pin_mode(pin, OUTPUT)
         
     def play(self, sound):
         """ Sends command to play sound. """
-        if not self.robot.sound.enabled:
-            log(self.robot, "Sound is Disabled.")
+        if not self.robot.sound.enabled: #if sound is disabled.
+            log(self.robot, "Sound is Disabled, Ignoring Request.")
             return
+        
         sound_data = self.sounds.get(sound)
 
         if sound_data == None:
