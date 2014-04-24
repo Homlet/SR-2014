@@ -16,6 +16,7 @@ FRONT_SWITCH = 11
 SCAN_POINTS = [(2, 2), (6, 2), (6, 6), (2, 6)]
 SLOT_POINTS = [(2.91, 3.1), (5.09, 3.1), (5.09, 4.9), (2.91, 4.9)]
 
+CRAWL_POWER = 45
 
 @indented
 def token_to_slot(robot, slot):
@@ -241,8 +242,8 @@ def move_till_touch(robot, time_limit=10):  # Experiment with limit default.
     robot.sound.play('Heart')
 
     start = time()
-    robot.motors[0].m0.power = 40
-    robot.motors[0].m1.power = 40
+    robot.motors[0].m0.power = CRAWL_POWER
+    robot.motors[0].m1.power = CRAWL_POWER
     while not (touching_marker or beyond_time_limit):
         touching_marker = not robot.ruggeduinos[0].digital_read(FRONT_SWITCH)
         beyond_time_limit = time() > start + time_limit
