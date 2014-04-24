@@ -81,10 +81,10 @@ def main_test(robot):
 		sleep(2)
 		put_down(robot)
 		sleep(2)
-        move_straight(robot, 1.2)
-        sleep(1)
-        move_straight(robot, -1.2)
-        sleep(1)
+        #move_straight(robot, 1.2)
+        #sleep(1)
+        #move_straight(robot, -1.2)
+        #sleep(1)
         print "Cycled!"
         
 
