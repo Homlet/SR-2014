@@ -82,6 +82,6 @@ def main_test(robot):
 		put_down(robot)
 		sleep(2)
         print "Cycled!"
-        
-		
+
+
 main()
