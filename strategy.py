@@ -227,7 +227,7 @@ def line_up_to_marker(robot, marker, dist=0.4):
 
 
 @indented
-def move_till_touch(robot, time_limit=30):  # Experiment with limit default.
+def move_till_touch(robot, time_limit=10):  # Experiment with limit default.
     """
     Moves the robot forward at a constant rate until a
     switch is triggered or if it has been moving for longer
