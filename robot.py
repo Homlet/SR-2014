@@ -28,7 +28,9 @@ def main():
     robot.sound = Sound(robot, USING_SOUND)
     robot.sound.play('R2D2')
     set_pins(robot)
+
     main_test(robot)
+    return
 
     while 1:
         try:
@@ -38,7 +40,6 @@ def main():
             
             log(robot, "Moving starting token to slot.")
             token_to_slot(robot, robot.zone)
-            log(robot, "Beginning General Code!")
             for i in range(4):
                 zone = robot.zone if i < 2 else 3-robot.zone
                 
@@ -77,15 +78,11 @@ def set_pins(robot):
 
 
 def main_test(robot):
-	while True:
+	while 1:
 		grab(robot)
 		sleep(2)
 		put_down(robot)
 		sleep(2)
-        #move_straight(robot, 1.2)
-        #sleep(1)
-        #move_straight(robot, -1.2)
-        #sleep(1)
         print "Cycled!"
         
 		
