@@ -77,17 +77,15 @@ def set_pins(robot):
 
 def main_test(robot):
 	while True:
-		print "Grabbing..."
 		grab(robot)
 		sleep(2)
-		print "Putting Down..."
 		put_down(robot)
 		sleep(2)
-        print "Driving..."
         move_straight(robot, 1.2)
-        print "Reversing..."
+        sleep(1)
         move_straight(robot, -1.2)
         sleep(1)
+        print "Cycled!"
         
 
 		
