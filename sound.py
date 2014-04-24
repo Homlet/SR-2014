@@ -11,8 +11,8 @@ class Sound:
         self.read = 5
         self.set_pins()
         self.robot = robot
-        self.robot.sound.enabled = active
-        if not self.robot.sound.enabled: # if sound is disabled in constant of robot.py
+        self.enabled = active
+        if not self.robot.enabled: # if sound is disabled in constant of robot.py
             log(robot, "Sound Disabled in Constant!")
             return
         
@@ -44,7 +44,7 @@ class Sound:
         
     def play(self, sound):
         """ Sends command to play sound. """
-        if not self.robot.sound.enabled: #if sound is disabled.
+        if not self.enabled: #if sound is disabled.
             log(self.robot, "Sound is Disabled, Ignoring Request.")
             return
         
