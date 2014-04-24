@@ -13,7 +13,7 @@ from movements import put_down, grab, move_straight, turn
 from mechanics import (ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP,
     LEFT_MOTOR_SWITCH, RIGHT_MOTOR_SWITCH, raise_arms, lower_arms)
 
-USING_SOUND = True
+USING_SOUND = False
 
 def main():
     """
