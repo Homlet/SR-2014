@@ -66,7 +66,6 @@ def restart(robot):
     log(robot, "Restarted.")
 
 
-
 def set_pins(robot):
     robot.ruggeduinos[0].pin_mode(FRONT_SWITCH, INPUT_PULLUP)
     robot.ruggeduinos[0].pin_mode(RIGHT_MOTOR_SWITCH, INPUT_PULLUP)
@@ -87,7 +86,5 @@ def main_test(robot):
         #sleep(1)
         print "Cycled!"
         
-
 		
 main()
-
