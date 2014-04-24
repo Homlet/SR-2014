@@ -56,7 +56,7 @@ def restart(robot):
     log(robot, "\nERROR - Restarting in... ")
     for i in range(2, -1, -1):
         robot.power.led[i] = 1
-        print str(i) + "  ", # end = "" cannot be done in Python 2.*
+        print str(i) + "  ", 
         robot.power.beep(620, 0.4)
         sleep(0.9)
     for i in range(3):
