@@ -36,7 +36,7 @@ def main():
             
             log(robot, "Moving starting token to slot.")
             token_to_slot(robot, robot.zone)
-            log(robot, "Beginning General Code.")
+            log(robot, "Beginning General Code!")
             for i in range(4):
                 zone = robot.zone if i < 2 else 3-robot.zone
                 
@@ -44,9 +44,9 @@ def main():
                 has_token = get_token_from_corner(robot, zone)
                 
                 if has_token:
-                    log(robot, "Taking token to slot...")
+                    log(robot, "Got Token, Taking it to slot...")
                     token_to_slot(robot, zone)
-                    log(robot, "Token in slot.")
+                    log(robot, "Token in slot! Continuing...")
         except:
             print_exc()
             reset_log(robot)
@@ -77,12 +77,18 @@ def set_pins(robot):
 
 def main_test(robot):
 	while True:
-		print "Grab"
+		print "Grabbing..."
 		grab(robot)
 		sleep(2)
-		print "Put Down"
+		print "Putting Down..."
 		put_down(robot)
 		sleep(2)
+        print "Driving..."
+        move_straight(robot, 1.2)
+        print "Reversing..."
+        move_straight(robot, -1.2)
+        sleep(1)
+        
 
 		
 main()
