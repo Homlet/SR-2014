@@ -76,11 +76,16 @@ def set_pins(robot):
 
 
 def main_test(robot):
-	while 1:
+	while True:
+		robot.power.led[0] = 1
 		grab(robot)
+		robot.power.led[0] = 0
 		sleep(2)
+		robot.power.led[1] = 1
 		put_down(robot)
+		robot.power.led[1] = 0
 		sleep(2)
+		robot.power.beep(700, 0.5)
         print "Cycled!"
 
 
