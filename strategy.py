@@ -1,4 +1,4 @@
-from math import pi, sqrt, atan2
+from math import pi, sqrt, atan2, hypot
 from time import time, sleep
 
 from sr import INPUT_PULLUP, MARKER_ARENA
