@@ -89,4 +89,21 @@ def main_test(robot):
         print "Cycled!"
 
 
-main()
+# main()
+def approx():
+    robot = Robot()
+    z = robot.zone
+    angles = [pi/6, pi/3, pi/2]
+    distances = [1, 0.5, 0.3, 0.1, 0.5]
+    if z == 0:
+        for phi in angles:
+            for i in range(3):
+                turn(robot, phi)
+                sleep(5)
+    else:
+        for dist in distances:
+            for i in [1, -1]:
+                move_straight(robot, dist*i)
+                sleep(5)
+
+approx()
