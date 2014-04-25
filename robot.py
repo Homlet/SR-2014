@@ -24,9 +24,9 @@ def main():
     """
     robot = Robot()
     reset_log(robot)
-    robot.position = Tracker(robot.zone)
     robot.sound = Sound(robot, USING_SOUND)
     robot.sound.play('R2D2')
+    robot.position = Tracker(robot.zone)
     set_pins(robot)
 
     main_test(robot)
