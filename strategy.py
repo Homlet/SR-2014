@@ -91,11 +91,11 @@ def recalulate_position(robot):
 
 
 @indented
-def avoid_obstacles(robot):
-    markers = robot.see(res=RESOLUTION)
+def avoid_obstacles(robot, x, y):  # This will need more arguments
+    markers = robot.see()
     for marker in markers:
         if marker.info.code in range(28, 32):
-            markers_ = robot.see(res=RESOLUTION)
+            markers_ = robot.see()
             for m in markers_:  # Leaves m being a robot marker
                 if m.info.code in range(28, 32):
                     break
@@ -107,26 +107,35 @@ def avoid_obstacles(robot):
             x1, y1 = marker_pos(m, robot.position)
             dx = x1 - x0
             dy = y1 - y0
-            if dx < 0.1 and dy < 0.1:  # 'Not moving'
-                pass
-                # Is it in our way?
+            X = robot.position.x
+            Y = robot.position.y
+            if dx < 0.1 and dy < 0.1:  # The robot is still
+                if hypot(X-x1, Y-y1) <= hypot(x-X, y-Y):  # It's too close
+                    print 'Avoiding opponent'
+                else:
+                    print 'Ignoring opponent'
+                    return
             else:
                 d_theta = (5*pi/2 - atan2(dy, dx)) % 2*pi
                 theta = robot.position.theta
                 # Is it going towars us?
-                if ((d_theta+pi) % 2*pi) <= theta + pi/9 and \
-                   ((d_theta+pi) % 2*pi) >= theta - pi/9:
-                        pass
-                # Is it moving out of our way or is it an obstacle?
+                if theta - pi/9 <= ((d_theta+pi) % (2*pi)) <= theta + pi/9:
+                    print 'Avoiding opponent'
+                    # We should move away from him, if possible
+                elif hypot(X-x1, Y-y1) <= hypot(x-X, y-Y):  # It's too close
+                    print 'Avoiding opponent'
+                    # But still away from him, if possible
+                else:
+                    print 'Ignoring opponent'
+                    return
 
         elif marker.info.code in range(40, 52):
             if our_token(marker, robot.zone):
                 pass
                 # This should happen quite often
             else:
-                # Either ignore it or move around it
-                # We may not need this
                 pass
+                # Do something?
 
 
 @indented
