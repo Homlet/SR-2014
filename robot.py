@@ -29,7 +29,7 @@ def main():
     robot.position = Tracker(robot.zone)
     set_pins(robot)
 
-    approx()
+    approx(robot)
     return
 
     while 1:
@@ -88,8 +88,7 @@ def main_test(robot):
 		robot.power.beep(700, 0.5)
         print "Cycled!"
 
-def approx():
-    robot = Robot()
+def approx(robot):
     z = robot.zone
     angles = [pi/6, pi/3, pi/2]
     distances = [1, 0.5, 0.3, 0.1, 0.5]
