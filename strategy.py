@@ -91,7 +91,7 @@ def recalulate_position(robot):
 
 
 @indented
-def avoid_obstacles(robot, x, y):  # This will need more arguments
+def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
     markers = robot.see()
     for marker in markers:
         if marker.info.code in range(28, 32):
@@ -110,11 +110,16 @@ def avoid_obstacles(robot, x, y):  # This will need more arguments
             X = robot.position.x
             Y = robot.position.y
             if dx < 0.1 and dy < 0.1:  # The robot is still
-                if hypot(X-x1, Y-y1) <= hypot(x-X, y-Y):  # It's too close
+                if m.dist <= hypot(x-X, y-Y):  # It's too close
                     print 'Avoiding opponent'
+                    turn(robot, m.rot_y-pi/4)  # TO-DO: Turn towards the centre
+                    # Maybe check whether we can go to this point
+                    move_straight(robot, hypot(0.5, m.dist))
+                    move_to_point(x, y, theta, False)
+                    return True
                 else:
                     print 'Ignoring opponent'
-                    return
+                    return False
             else:
                 d_theta = (5*pi/2 - atan2(dy, dx)) % 2*pi
                 theta = robot.position.theta
@@ -122,12 +127,14 @@ def avoid_obstacles(robot, x, y):  # This will need more arguments
                 if theta - pi/9 <= ((d_theta+pi) % (2*pi)) <= theta + pi/9:
                     print 'Avoiding opponent'
                     # We should move away from him, if possible
+                    return True
                 elif hypot(X-x1, Y-y1) <= hypot(x-X, y-Y):  # It's too close
                     print 'Avoiding opponent'
-                    # But still away from him, if possible
+                    # move away from it, if possible
+                    return True
                 else:
                     print 'Ignoring opponent'
-                    return
+                    return False
 
         elif marker.info.code in range(40, 52):
             if our_token(marker, robot.zone):
@@ -139,26 +146,26 @@ def avoid_obstacles(robot, x, y):  # This will need more arguments
 
 
 @indented
-def move_to_point(robot, x, y, target_theta):
+def move_to_point(robot, x, y, target_theta, smart=True):
     """
     Given the robot's current tracked position, moves to point
     (x, y), where x and y are metres from the origin.
     """
-    log(robot, "Moving to point x=%.1f, y=%.1f" % (x, y))
+    log(robot, "Moving to point x=%.1f y=%.1f...%.1f " % (x, y, target_theta))
     dist, angle = directions_for_point(robot, x, y)
     robot.sound.play('Valkyries')
-    log(robot, "dist=%.1f, angle=%.1f" % (dist, angle))
+    log(robot, "dist=%.1f angle=%.1f" % (dist, angle))
 
     turn(robot, angle)
     sleep(0.1)
-    move_straight(robot, dist)
+    if not avoid_obstacles(robot, x, y, target_theta):
+        move_straight(robot, dist)
 
     d_theta = target_theta - robot.position.theta
     if d_theta > pi:
         d_theta -= pi+pi
     elif d_theta < -pi:
         d_theta += pi+pi
-    log(robot, "target angle=%.1f, delta=%.1f" % (target_theta, d_theta))
     turn(robot, d_theta)
 
     log(robot, "done.")
