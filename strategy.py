@@ -141,7 +141,8 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
                     turn(robot, m.rot_y-pi/4)  # TO-DO: Turn towards the centre
                     # Maybe check whether we can go to this point
                     # Find the point to go to get past the opp.
-                    move_straight(robot, hypot(0.5, m.dist))  # Use move_to_p.
+                    move_straight(robot, .2)
+                    # move_straight(robot, hypot(0.5, m.dist))  # Use move_to_p.
                     # This gets us where we wanted
                     move_to_point(roboy, x, y, theta, False)
                     return True
