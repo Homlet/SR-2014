@@ -30,7 +30,7 @@ def main():
     robot.position = Tracker(robot.zone)
     set_pins(robot)
 
-    dixie = abc.ABC("dixie.abc")
+    dixie = ABC("dixie.abc")
     dixie.play(robot, 1)
 
     approx(robot)
