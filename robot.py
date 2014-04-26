@@ -7,7 +7,6 @@ from sr import Robot, INPUT_PULLUP
 from log import reset_log, log
 from tracker import Tracker
 from sound import Sound
-from abc_parser import ABC
 from strategy import (get_token_from_corner, token_to_slot, move_to_point,
     move_till_touch, FRONT_SWITCH)
 from movements import put_down, grab, move_straight, turn
@@ -29,9 +28,6 @@ def main():
     robot.sound.play('R2D2')
     robot.position = Tracker(robot.zone)
     set_pins(robot)
-    
-    dixie = ABC("dixie.abc")
-    dixie.play(robot, 1)
     
     main_test(robot)
     return
