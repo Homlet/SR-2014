@@ -1,3 +1,9 @@
+from string import ascii_uppercase
+from time import sleep
+
+from log import log
+
+
 NOTES = ["A", "A^", "B", "C", "C^", "D", "D^", "E", "F", "F^", "G", "G^"]
 
 
@@ -19,6 +25,7 @@ class Tune:
         self.data = []
 
     def play(self, robot):
+        log(robot, "Playing tune: " + self.title)
         for note in self.data:
             note.play(robot)
 
