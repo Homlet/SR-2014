@@ -31,6 +31,8 @@ def main():
     robot.position = Tracker(robot.zone)
     set_pins(robot)
 
+    avoidance_test(robot)
+
     slots_x = 2.91 if robot.zone in [0, 3] else 5.09
     target_theta = pi/2 if robot.zone in [0, 3] else 1.5*pi
     if robot.zone in [0, 1]:
@@ -101,6 +103,7 @@ def main_test(robot):
 		sleep(2)
         print "Cycled!"
 
+
 def approx(robot):
     z = robot.zone
     angles = [pi/6, pi/3, pi/2]
@@ -119,12 +122,9 @@ def approx(robot):
                 move_straight(robot, dist*i)
                 sleep(5)
 
-def avoidance_test():
-    robot = Robot()
-    reset_log(robot)
-    robot.position = Tracker(robot.zone)
-    set_pins(robot)
 
+def avoidance_test(robot):
     move_to_point(robot, 2, 2, (pi/4)*5, True)
 
-avoidance_test()
+
+main()
