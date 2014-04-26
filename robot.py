@@ -22,31 +22,47 @@ def main():
     Robot will use two corners on one side of the wall in the arena.
     It will try to put all 4 tokens into slots. This gives us 9 points.
     """
+
+    option = 1
+
+
     robot = Robot()
-    reset_log(robot)
-    robot.sound = Sound(robot, USING_SOUND)
-    robot.sound.play('R2D2')
     robot.position = Tracker(robot.zone)
-    set_pins(robot)
+    reset_log(robot)
+
+    slots_x = 2.91 if robot.zone in [0, 3] else 5.09
+    target_theta = pi/2 if robot.zone in [0, 3] else 1.5*pi
+    if robot.zone in [0, 1]:
+        dy = 0.9
+        slot_y_0 = 2.65
+    else:
+        dy = -0.9
+        slot_y_0 = 5.65
 
     while 1:
         try:
-            log(robot, "Setting arms to default position...")
-            put_down(robot)
-            grab(robot)
-            
-            log(robot, "Moving starting token to slot.")
-            token_to_slot(robot, robot.zone)
-            for i in range(4):
-                zone = robot.zone if i < 2 else 3-robot.zone
-                
-                log(robot, "Taking token from corner %d" % (zone))
-                has_token = get_token_from_corner(robot, zone)
-                
-                if has_token:
-                    log(robot, "Got Token, Taking it to slot...")
-                    token_to_slot(robot, zone)
-                    log(robot, "Token in slot! Continuing...")
+            if option == 1:
+                put_down(robot)
+                grab(robot)
+
+                token_to_slot(robot, robot.zone)
+                for i in range(4):
+                    zone = robot.zone if i < 2 else 3-robot.zone
+
+                    has_token = get_token_from_corner(robot, zone)
+
+                    if has_token:
+                        token_to_slot(robot, zone)
+            elif option == 2:
+                for i in range(4):
+                    zone = robot.zone if i < 2 else 3-robot.zone
+
+                    slot_y = slot_y_0 + i*dy
+                    move_to_point(robot, slots_x, slot_y, target_theta)
+                    if has_token:
+                        token_to_slot_2(robot)
+                    else:
+                        print 'Have no token'
         except:
             print_exc()
             restart(robot)
