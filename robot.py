@@ -58,6 +58,8 @@ def main():
                     zone = robot.zone if i < 2 else 3-robot.zone
 
                     slot_y = slot_y_0 + i*dy
+                    has_token = get_token_from_corner(robot, zone)
+
                     move_to_point(robot, slots_x, slot_y, target_theta)
                     if has_token:
                         token_to_slot_2(robot)
