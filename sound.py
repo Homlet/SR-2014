@@ -3,8 +3,6 @@ from sr import OUTPUT
 from log import log, indented
 
 class Sound:
-    
-    @indented
     def __init__(self, robot, active):
         self.rduino = robot.ruggeduinos[0]
         self.set_pin = self.rduino.digital_write
@@ -42,8 +40,7 @@ class Sound:
         """Initialises the Pins on the ruggeduino for sound output"""
         for pin in self.data + [self.read]:
             self.rduino.pin_mode(pin, OUTPUT)
-
-    @indented    
+    
     def play(self, sound):
         """ Sends command to play sound. """
         if not self.enabled: #if sound is disabled.
