@@ -10,9 +10,6 @@ def move_straight(robot, dist):
     """
     Moves the robot dist metres forward and updates the tracker.
     """
-    if abs(dist) > 0.2:
-        dist *= 1.16
-
     journey = Journey(robot, distance=dist)
     journey.start()
     robot.position.move(dist)
@@ -59,3 +56,4 @@ def put_down(robot):
     sleep(0.3)
 
     open_arms(robot)
+    sleep(0.2)
