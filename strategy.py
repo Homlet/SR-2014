@@ -131,36 +131,55 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
             x1, y1 = marker_pos(m, robot.position)
             dx = x1 - x0
             dy = y1 - y0
+            DX = marker.world.x - m.world.x
             X = robot.position.x
             Y = robot.position.y
+            dist_to_target = hypot(x-X, y-Y)
             if dx < 0.1 and dy < 0.1:  # The robot is still
-                if m.dist <= hypot(x-X, y-Y):  # It's too close
-                    print 'Avoiding opponent'
+                if m.dist <= dist_to_target:  # It's too close
+                    # Turn 45 deg away from opp.
                     turn(robot, m.rot_y-pi/4)  # TO-DO: Turn towards the centre
                     # Maybe check whether we can go to this point
-                    move_straight(robot, hypot(0.5, m.dist))
-                    move_to_point(x, y, theta, False)
+                    # Find the point to go to get past the opp.
+                    move_straight(robot, hypot(0.5, m.dist))  # Use move_to_p.
+                    # This gets us where we wanted
+                    move_to_point(roboy, x, y, theta, False)
                     return True
                 else:
-                    print 'Ignoring opponent'
                     return False
             else:
-                d_theta = (5*pi/2 - atan2(dy, dx)) % 2*pi
+                opp_theta = (5*pi/2 - atan2(dy, dx)) % 2*pi
                 theta = robot.position.theta
                 # Is it going towars us?
-                if theta - pi/9 <= ((d_theta+pi) % (2*pi)) <= theta + pi/9:
-                    print 'Avoiding opponent'
-                    # We should move away from him, if possible
-                    return True
-                elif hypot(X-x1, Y-y1) <= hypot(x-X, y-Y):  # It's too close
-                    print 'Avoiding opponent'
-                    # move away from it, if possible
+                if theta - pi/9 <= ((opp_theta+pi) % (2*pi)) <= theta + pi/9:
+                    # Move in parallel
+                    turn(robot, opp_theta+pi-theta)  #may result in head-on co.
+                    if m.dist <= dist_to_target:
+                        move_straight(robot, m.world.y)  # How long?
+                        return True
+                    else:
+                        return False  # May cause trouble
+                        # Get to target point
+                elif hypot(X-x1, Y-y1) <= dist_to_target:  # It's too close
+                    if m.world.x >= 0.4:  # How close we'll get to it
+                                          # if we move forwards
+                        move_straight(robot, m.dist)  # How long?
+                        # This gets us where we wanted
+                        move_to_point(robot, x, y, theta, False)
+                        return True
+                    else:  # Let it pass
+                        camera_delay = 1.5
+                        d_left = 0.4 - m.world.x
+                        t_left = d_left / (DX/camera_delay)
+                        if t_left < 5:  # Don't wait too long
+                            sleep(t_left)
+                        return False
                     return True
                 else:
-                    print 'Ignoring opponent'
                     return False
 
         elif marker.info.code in range(40, 52):
+            return False
             if our_token(marker, robot.zone):
                 pass
                 # This should happen quite often
