@@ -16,7 +16,7 @@ FRONT_SWITCH = 11
 SCAN_POINTS = [(2, 2), (6, 2), (6, 6), (2, 6)]
 SLOT_POINTS = [(2.91, 3.1), (5.09, 3.1), (5.09, 4.9), (2.91, 4.9)]
 
-CRAWL_POWER = 45
+CRAWL_POWER = 40
 
 @indented
 def token_to_slot(robot, slot):
