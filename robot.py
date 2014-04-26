@@ -32,6 +32,7 @@ def main():
     while 1:
         try:
             log(robot, "Setting arms to default position...")
+            put_down(robot)
             move_till_touch(robot)
             
             log(robot, "Moving starting token to slot.")
