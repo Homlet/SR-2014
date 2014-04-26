@@ -12,7 +12,7 @@ from strategy import (get_token_from_corner, token_to_slot, move_to_point,
 from movements import put_down, grab, move_straight, turn
 from mechanics import (ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP,
     LEFT_MOTOR_SWITCH, RIGHT_MOTOR_SWITCH, raise_arms, lower_arms)
-from abc import ABC
+import abc
 
 
 USING_SOUND = False
@@ -29,10 +29,10 @@ def main():
     robot.sound.play('R2D2')
     robot.position = Tracker(robot.zone)
     set_pins(robot)
-    
-    dixie = ABC("dixie.abc")
+
+    dixie = abc.ABC("dixie.abc")
     dixie.play(robot, 1)
-    
+
     approx(robot)
     return
 
