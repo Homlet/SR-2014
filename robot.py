@@ -14,7 +14,7 @@ from mechanics import (ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP,
     LEFT_MOTOR_SWITCH, RIGHT_MOTOR_SWITCH, raise_arms, lower_arms)
 
 
-USING_SOUND = False
+USING_SOUND = True
 
 
 def main():
@@ -28,9 +28,6 @@ def main():
     robot.sound.play('R2D2')
     robot.position = Tracker(robot.zone)
     set_pins(robot)
-    
-    main_test(robot)
-    return
 
     while 1:
         try:

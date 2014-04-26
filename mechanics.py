@@ -20,6 +20,7 @@ ARMS_BACKWARDS_STOP = 9
 ARMS_POWER = 20
 DRIVE_POWER = 73
 
+
 class Journey:
     """
     Handles straight or rotational movement using threading.
@@ -36,7 +37,7 @@ class Journey:
         elif angle != 0:
             self.length = -angle * ROBOT_RADIUS
             log(robot, "Creating journey with angle=%.1f" % (angle))
-            approx = (50, 6.5)
+            approx = (55, 7.5)
         else:
             self.run = False
             approx = (0, 0)
