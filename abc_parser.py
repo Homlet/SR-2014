@@ -98,7 +98,7 @@ class ABC:
                                 i -= 1
 
                             # Add note to tune.
-                            exponent = octave + NOTES.index(note) / 12
+                            exponent = 2 + octave + NOTES.index(note) / 12
                             frequency = 440 * 2**exponent
                             duration = tune.unit * tune.tempo/60 * length
                             tune.data.append(Note(frequency, duration))
