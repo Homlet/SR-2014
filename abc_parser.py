@@ -13,7 +13,7 @@ class Note:
         self.duration = duration
 
     def play(self, robot):
-        robot.power.beep(self.frequency, self.duration)
+        robot.power.beep(int(self.frequency), self.duration)
         sleep(self.duration)
 
 
