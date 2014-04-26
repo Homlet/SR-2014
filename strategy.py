@@ -115,6 +115,7 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
                 else:
                     return False
             else:
+                print 'opponent moving'
                 opp_theta = (5*pi/2 - atan2(dy, dx)) % 2*pi
                 theta = robot.position.theta
                 # Is it going towars us?
