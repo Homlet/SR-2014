@@ -16,7 +16,9 @@ class Tune:
 
     def play(self, robot):
         log(robot, "Playing tune: " + self.title)
-        robot.power.beep(self.data)
+        for note in self.data:
+            robot.power.beep(self.data)
+            sleep(note[1])
 
 
 class ABC:
