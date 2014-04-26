@@ -29,6 +29,12 @@ def main():
     robot.sound.play('R2D2')
     robot.position = Tracker(robot.zone)
     set_pins(robot)
+    
+    dixie = ABC("dixie.abc")
+    dixie.play(robot, 1)
+    
+    main_test(robot)
+    return
 
     while 1:
         try:
