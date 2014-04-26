@@ -30,12 +30,6 @@ def main():
     robot.position = Tracker(robot.zone)
     set_pins(robot)
 
-    dixie = ABC("dixie.abc")
-    dixie.play(robot, 1)
-
-    approx(robot)
-    return
-
     while 1:
         try:
             log(robot, "Setting arms to default position...")
