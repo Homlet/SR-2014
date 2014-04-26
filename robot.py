@@ -119,4 +119,12 @@ def approx(robot):
                 move_straight(robot, dist*i)
                 sleep(5)
 
-main()
+def avoidance_test():
+    robot = Robot()
+    reset_log(robot)
+    robot.position = Tracker(robot.zone)
+    set_pins(robot)
+
+    move_to_point(robot, 2, 2, (pi/4)*5, True)
+
+avoidance_test()

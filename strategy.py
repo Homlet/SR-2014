@@ -182,8 +182,8 @@ def move_to_point(robot, x, y, target_theta, smart=True):
 
     turn(robot, angle)
     sleep(0.1)
-#    if not avoid_obstacles(robot, x, y, target_theta):
-    move_straight(robot, dist)
+    if smart and not avoid_obstacles(robot, x, y, target_theta):
+        move_straight(robot, dist)
 
     d_theta = target_theta - robot.position.theta
     if d_theta > pi:
