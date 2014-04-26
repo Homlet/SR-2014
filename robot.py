@@ -101,7 +101,7 @@ def approx(robot):
             for i in range(3):
                 for j in [1, -1]:
                     print 'turning %.2f' % phi
-                    turn(robot, phi)
+                    turn(robot, phi*j)
                     sleep(5)
     else:
         for dist in distances:
