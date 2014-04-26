@@ -1,7 +1,3 @@
-from string import ascii_uppercase
-from time import sleep
-
-
 NOTES = ["A", "A^", "B", "C", "C^", "D", "D^", "E", "F", "F^", "G", "G^"]
 
 
