@@ -131,7 +131,7 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
             x1, y1 = marker_pos(m, robot.position)
             dx = x1 - x0
             dy = y1 - y0
-            DX = marker.world.x - m.world.x
+            DX = marker.centre.world.x - m.world.centre.x
             X = robot.position.x
             Y = robot.position.y
             dist_to_target = hypot(x-X, y-Y)
@@ -157,13 +157,13 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
                     # Move in parallel
                     turn(robot, opp_theta+pi-theta)  #may result in head-on co.
                     if m.dist <= dist_to_target:
-                        move_straight(robot, m.world.y)  # How long?
+                        move_straight(robot, m.centre.world.y)  # How long?
                         return True
                     else:
                         return False  # May cause trouble
                         # Get to target point
                 elif hypot(X-x1, Y-y1) <= dist_to_target:  # It's too close
-                    if m.world.x >= 0.4:  # How close we'll get to it
+                    if m.centre.world.x >= 0.4:  # How close we'll get to it
                                           # if we move forwards
                         move_straight(robot, m.dist)  # How long?
                         # This gets us where we wanted
@@ -171,7 +171,7 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
                         return True
                     else:  # Let it pass
                         camera_delay = 1.5
-                        d_left = 0.4 - m.world.x
+                        d_left = 0.4 - m.centre.world.x
                         t_left = d_left / (DX/camera_delay)
                         if t_left < 5:  # Don't wait too long
                             sleep(t_left)
