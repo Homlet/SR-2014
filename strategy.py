@@ -152,7 +152,8 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
             else:
                 pass
                 # Do something?
-
+    else:
+        log(robot, 'Seen nothing')
 
 @indented
 def move_to_point(robot, x, y, target_theta, smart=True):
