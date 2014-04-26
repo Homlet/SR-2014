@@ -30,7 +30,7 @@ class Tune:
             note.play(robot)
 
 
-class ABCLoader:
+class ABC:
     def __init__(self, path):
         self.tunes = {}
         with open(path) as file:
