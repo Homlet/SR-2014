@@ -100,14 +100,15 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
             dist_to_target = hypot(x-X, y-Y)
             if dx < 0.1 and dy < 0.1:  # The robot is still
                 if m.dist <= dist_to_target:  # It's too close
+                # This works
                     log(robot, 'Robot still, too close.')
                     # Turn 45 deg away from opp.
                     log(robot, radians(m.rot_y)-pi/4)
                     turn(robot, radians(m.rot_y)-pi/4)  # TO-DO: Turn towards the centre
                     # Maybe check whether we can go to this point
                     # Find the point to go to get past the opp.
-                    move_straight(robot, .2)
-                    # move_straight(robot, hypot(0.5, m.dist))  # Use move_to_p.
+                    # move_straight(robot, .2)
+                    move_straight(robot, hypot(0.5, m.dist))  # Use move_to_p.
                     # This gets us where we wanted
                     # move_to_point(robot, x, y, theta, False)
                     return True
@@ -124,16 +125,19 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
                         move_straight(robot, m.centre.world.y)  # How long?
                         return True
                     else:
+                        print 'not avoiding'
                         return False  # May cause trouble
                         # Get to target point
                 elif hypot(X-x1, Y-y1) <= dist_to_target:  # It's too close
                     if m.centre.world.x >= 0.4:  # How close we'll get to it
                                           # if we move forwards
+                        print 'we can move past it'
                         move_straight(robot, m.dist)  # How long?
                         # This gets us where we wanted
                         move_to_point(robot, x, y, theta, False)
                         return True
                     else:  # Let it pass
+                        print 'waiting'
                         camera_delay = 1.5
                         d_left = 0.4 - m.centre.world.x
                         t_left = d_left / (DX/camera_delay)

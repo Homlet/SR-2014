@@ -126,7 +126,7 @@ def approx(robot):
 
 
 def avoidance_test(robot):
-    move_to_point(robot, 2, 2, robot.position.theta, True)
+    move_to_point(robot, 1, 1, robot.position.theta, True)
 
 
 main()
