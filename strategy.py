@@ -255,7 +255,7 @@ def move_till_touch(robot, time_limit=10):  # Experiment with limit default.
     beyond_time_limit = False
 
     log(robot, "Moving into marker...")
-    robot.sound.play('Heart')
+    robot.sound.play('DialUp')
 
     start = time()
     robot.motors[0].m0.power = CRAWL_POWER
