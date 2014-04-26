@@ -131,7 +131,7 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
             x1, y1 = marker_pos(m, robot.position)
             dx = x1 - x0
             dy = y1 - y0
-            DX = marker.centre.world.x - m.world.centre.x
+            DX = marker.centre.world.x - m.centre.world.x
             X = robot.position.x
             Y = robot.position.y
             dist_to_target = hypot(x-X, y-Y)
