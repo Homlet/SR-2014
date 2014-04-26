@@ -124,7 +124,7 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
                 if m.info.code in range(28, 32):
                     break
             else:
-                print 'Lost opponent\'s robot'
+                log(robot, 'Lost opponent\'s robot')
                 return
             # Works out direction of movement of that robot
             x0, y0 = marker_pos(marker, robot.position)
@@ -137,8 +137,9 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
             dist_to_target = hypot(x-X, y-Y)
             if dx < 0.1 and dy < 0.1:  # The robot is still
                 if m.dist <= dist_to_target:  # It's too close
-                    print 'Robot still, too close.'
+                    log(robot, 'Robot still, too close.')
                     # Turn 45 deg away from opp.
+                    log(robot, m.rot_y-pi/4)
                     turn(robot, m.rot_y-pi/4)  # TO-DO: Turn towards the centre
                     # Maybe check whether we can go to this point
                     # Find the point to go to get past the opp.
