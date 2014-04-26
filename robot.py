@@ -22,13 +22,14 @@ def main():
     Robot will use two corners on one side of the wall in the arena.
     It will try to put all 4 tokens into slots. This gives us 9 points.
     """
-
     option = 1
 
-
     robot = Robot()
-    robot.position = Tracker(robot.zone)
     reset_log(robot)
+    robot.sound = Sound(robot, USING_SOUND)
+    robot.sound.play('R2D2')
+    robot.position = Tracker(robot.zone)
+    set_pins(robot)
 
     slots_x = 2.91 if robot.zone in [0, 3] else 5.09
     target_theta = pi/2 if robot.zone in [0, 3] else 1.5*pi
