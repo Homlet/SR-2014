@@ -1,4 +1,4 @@
-from math import pi, sqrt, atan2, hypot
+from math import pi, sqrt, atan2, hypot, radians
 from time import time, sleep
 
 from sr import INPUT_PULLUP, MARKER_ARENA
@@ -102,8 +102,8 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
                 if m.dist <= dist_to_target:  # It's too close
                     log(robot, 'Robot still, too close.')
                     # Turn 45 deg away from opp.
-                    log(robot, m.rot_y-pi/4)
-                    turn(robot, m.rot_y-pi/4)  # TO-DO: Turn towards the centre
+                    log(robot, radians(m.rot_y)-pi/4)
+                    turn(robot, radians(m.rot_y)-pi/4)  # TO-DO: Turn towards the centre
                     # Maybe check whether we can go to this point
                     # Find the point to go to get past the opp.
                     move_straight(robot, .2)
