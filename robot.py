@@ -57,11 +57,9 @@ def restart(robot):
     print "\nERROR - Restarting...\n"
     for i in range(3):
         robot.power.led[i] = 1
-        robot.power.beep(523.25, 0.4)
         sleep(0.9)
     for i in range(3):
         robot.power.led[i] = 0
-    robot.power.beep(783.99, 0.7)
 
 
 def set_pins(robot):
@@ -82,7 +80,6 @@ def main_test(robot):
 		put_down(robot)
 		robot.power.led[1] = 0
 		sleep(2)
-		robot.power.beep(700, 0.5)
         print "Cycled!"
 
 def approx(robot):
