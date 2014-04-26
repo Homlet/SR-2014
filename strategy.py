@@ -144,7 +144,7 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
                     move_straight(robot, .2)
                     # move_straight(robot, hypot(0.5, m.dist))  # Use move_to_p.
                     # This gets us where we wanted
-                    move_to_point(roboy, x, y, theta, False)
+                    move_to_point(robot, x, y, theta, False)
                     return True
                 else:
                     return False
