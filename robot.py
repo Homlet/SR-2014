@@ -95,9 +95,10 @@ def approx(robot):
     if z == 0:
         for phi in angles:
             for i in range(3):
-                print 'turning %.2f' % phi
-                turn(robot, phi)
-                sleep(5)
+                for j in [1, -1]:
+                    print 'turning %.2f' % phi
+                    turn(robot, phi)
+                    sleep(5)
     else:
         for dist in distances:
             for i in [1, -1]:
