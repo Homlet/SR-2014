@@ -52,7 +52,30 @@ def token_to_slot(robot, slot):
     log(robot, "Moving away from marker.")
     move_straight(robot, -0.5)
     grab(robot)
-    
+
+
+@indented
+def token_to_slot_2(robot):
+    """
+    Assumes robot is near the slot with the token already.
+    """
+
+    markers = robot.see()
+    for marker in markers:
+        if marker.info.code in range(32, 40):
+            line_up_to_marker(robot, marker, 0.3)
+            sleep(0.2)
+            put_down(robot)
+            sleep(0.4)
+            move_straight(robot, -0.3)
+            break  # Return True?
+        elif marker.info.code in range(40, 52):
+            # This is unlikely to happen at the beginning
+            # of the competition/match.
+            pass  # Return False?
+            # Check if it's in a slot.
+                # If it's not our take it out?
+
 
 @indented
 def recalulate_position(robot):
