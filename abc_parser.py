@@ -7,16 +7,6 @@ from log import log
 NOTES = ["A", "A^", "B", "C", "C^", "D", "D^", "E", "F", "F^", "G", "G^"]
 
 
-class Note:
-    def __init__(self, frequency, duration):
-        self.frequency = frequency
-        self.duration = duration
-
-    def play(self, robot):
-        robot.power.beep(int(self.frequency), self.duration)
-        sleep(self.duration)
-
-
 class Tune:
     def __init__(self):
         self.title = "Untitled"
@@ -26,8 +16,7 @@ class Tune:
 
     def play(self, robot):
         log(robot, "Playing tune: " + self.title)
-        for note in self.data:
-            note.play(robot)
+        robot.power.beep([(int(n.frequency), n.duration) for n in self.data])
 
 
 class ABC:
@@ -99,11 +88,11 @@ class ABC:
 
                             # Add note to tune.
                             exponent = 2 + octave + NOTES.index(note) / 12
-                            frequency = 440 * 2**exponent
+                            frequency = int(440 * 2**exponent)
                             duration = tune.unit * tune.tempo/60 * length
-                            tune.data.append(Note(frequency, duration))
+                            tune.data.append((frequency, duration))
                             if repeat:
-                                buffer.append(Note(frequency, duration))
+                                buffer.append((frequency, duration))
                         i += 1
                 elif line[0] == "X":
                     reference = int("0" + line[2:].strip())
