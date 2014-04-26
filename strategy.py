@@ -78,43 +78,6 @@ def token_to_slot_2(robot):
 
 
 @indented
-def recalulate_position(robot):
-    """
-    Calculates the robot's position using nearby markers.
-    If there are not enough markers to gain an accurate result,
-    nothing is done.
-    Returns true if the recalculation was successful.
-    """
-    log(robot, "Recalculating position...")
-
-    markers = robot.see(res=RESOLUTION)
-    if markers:
-        positions = []
-        for marker in markers:
-            if marker.info.marker_type == MARKER_ARENA:
-                positions.append(position_from_wall(marker))
-        print(str(positions) + ' markers seen')
-        if len(positions) < 3:  # TODO: tweak.
-            log(robot, "Not enough markers seen.")
-            return False
-
-        means = []
-        for i in xrange(3):
-            means.append(sum([p[i] for p in positions]) / len(positions))
-            square_mean = sum([p[i]**2 for p in positions]) / len(positions)
-            if sqrt(square_mean - means[i]**2) > 0.5:  # TODO: tweak.
-                log(robot, "Position data too varied.")
-                return False
-
-        log(robot, "New position: x=%.1f, y=%.1f, theta=%.1f" % means)
-        robot.position.reset_to(means)
-        return True
-    else:
-        log(robot, "No markers seen.")
-        return False
-
-
-@indented
 def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
     markers = robot.see()
     for marker in markers:
