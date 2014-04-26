@@ -211,6 +211,7 @@ def move_to_point(robot, x, y, target_theta, smart=True):
         d_theta -= pi+pi
     elif d_theta < -pi:
         d_theta += pi+pi
+    print(d_theta)
     turn(robot, d_theta)
 
     log(robot, "done.")
