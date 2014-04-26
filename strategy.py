@@ -51,6 +51,7 @@ def token_to_slot(robot, slot):
         sleep(0.4)
     log(robot, "Moving away from marker.")
     move_straight(robot, -0.5)
+    grab(robot)
     
 
 @indented
