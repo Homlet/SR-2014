@@ -10,6 +10,9 @@ def move_straight(robot, dist):
     """
     Moves the robot dist metres forward and updates the tracker.
     """
+    if abs(dist) > 0.2:
+        dist *= 1.16
+
     journey = Journey(robot, distance=dist)
     journey.start()
     robot.position.move(dist)
@@ -20,9 +23,7 @@ def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
     """
     Turns the robot alpha RADIANS and updates the tracker.
     """
-    if abs(dist) > 0.2:
-        dist *= 1.16
-        
+
     journey = Journey(robot, angle=alpha)
     journey.start()
     robot.position.turn(alpha)
