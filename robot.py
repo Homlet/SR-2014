@@ -28,9 +28,6 @@ def main():
     robot.sound.play('R2D2')
     robot.position = Tracker(robot.zone)
     set_pins(robot)
-    
-    main_test(robot)
-    return
 
     while 1:
         try:
