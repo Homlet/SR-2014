@@ -116,7 +116,8 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
                     return False
             else:
                 print 'opponent moving'
-                opp_theta = (5*pi/2 - atan2(dy, dx)) % 2*pi
+                # opp_theta = (5*pi/2 - atan2(dy, dx)) % 2*pi
+                opp_theta = pi/6 - pi
                 theta = robot.position.theta
                 # Is it going towars us?
                 if theta - pi/9 <= ((opp_theta+pi) % (2*pi)) <= theta + pi/9:
