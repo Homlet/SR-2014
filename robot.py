@@ -56,7 +56,12 @@ def main():
                     if has_token:
                         token_to_slot(robot, zone)
             elif option == 2:
-                for i in range(4):
+                put_down(robot)
+                grab(robot)
+
+                move_to_point(robot, slots_x, slot_y_0, target_theta)
+                token_to_slot_2(robot)
+                for i in range(3):
                     zone = robot.zone if i < 2 else 3-robot.zone
 
                     slot_y = slot_y_0 + i*dy
