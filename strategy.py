@@ -298,13 +298,16 @@ def our_token(token_marker, zone):
 def roll_marker_twice(robot, option):
     if option == 1:
         raise_arms(robot, pos=70)
+        sleep(0.5)
         move_straight(robot, -0.1)
     elif option == 2:
-        raise_arms(robot, pos=70)
+        raise_arms(robot, pos=60)
+        sleep(0.5)
         retract_arms(robot, time_limit=0.8)
         sleep(0.2)
         open_arms(robot, pos=45)
-        raise_arms(robot, pos=60)
+        sleep(0.2)
+        raise_arms(robot, pos=50)
         extend_arms(robot)
     elif option == 3:
         pass
