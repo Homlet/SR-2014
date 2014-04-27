@@ -307,4 +307,3 @@ def roll_marker_twice(robot, option):
         raise_arms(robot, pos=60)
         extend_arms(robot)
     elif option == 3:
-
