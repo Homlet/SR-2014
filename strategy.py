@@ -7,7 +7,7 @@ from log import push_log, pop_log, log, indented
 from position import (directions_for_marker, directions_for_point,
     position_from_wall, marker_pos)
 from movements import move_straight, turn, grab, put_down
-from mechanics import raise_arms, lower_arms, extend_arms, retract_arms
+from mechanics import raise_arms, lower_arms, extend_arms, retract_arms, open_arms
 
 RESOLUTION = (1280, 960)
 
