@@ -7,7 +7,7 @@ from log import push_log, pop_log, log, indented
 from position import (directions_for_marker, directions_for_point,
     position_from_wall, marker_pos)
 from movements import move_straight, turn, grab, put_down
-
+from mechanics import raise_arms, lower_arms, extend_arms, retract_arms
 
 RESOLUTION = (1280, 960)
 
@@ -293,3 +293,17 @@ def move_till_touch(robot, time_limit=10):  # Experiment with limit default.
 
 def our_token(token_marker, zone):
     return token_marker.info.code in range(40 + zone, 49 + zone, 4)
+
+def roll_marker_twice(robot, option):
+    if option == 1:
+        raise_arms(robot, pos=70)
+        move_straight(robot, -0.1)
+    elif option == 2:
+        raise_arms(robot, pos=70)
+        retract_arms(robot, time_limit=0.8)
+        sleep(0.2)
+        open_arms(robot, pos=45)
+        raise_arms(robot, pos=60)
+        extend_arms(robot)
+    elif option == 3:
+
