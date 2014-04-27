@@ -33,6 +33,10 @@ def main():
     set_pins(robot)
 
     roll_marker_twice(robot, 1)
+    log(robot, "Done 1")
+    sleep(2)
+    roll_marker_twice(robot, 2)
+    log(robot, "Done 2")
     return
 
     slots_x = 2.91 if robot.zone in [0, 3] else 5.09
