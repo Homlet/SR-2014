@@ -15,7 +15,7 @@ from mechanics import (ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP,
     LEFT_MOTOR_SWITCH, RIGHT_MOTOR_SWITCH, raise_arms, lower_arms)
 
 
-USING_SOUND = False
+USING_SOUND = True
 
 
 def main():
@@ -23,7 +23,7 @@ def main():
     Robot will use two corners on one side of the wall in the arena.
     It will try to put all 4 tokens into slots. This gives us 9 points.
     """
-    option = 1
+    option = 2
 
     robot = Robot()
     reset_log(robot)
@@ -31,13 +31,6 @@ def main():
     robot.sound.play('R2D2')
     robot.position = Tracker(robot.zone)
     set_pins(robot)
-
-    roll_marker(robot, 1)
-    log(robot, "Done 1")
-    sleep(2)
-    roll_marker(robot, 2)
-    log(robot, "Done 2")
-    return
 
     slots_x = 2.91 if robot.zone in [0, 3] else 5.09
     target_theta = pi/2 if robot.zone in [0, 3] else 1.5*pi
@@ -63,6 +56,10 @@ def main():
                     if has_token:
                         token_to_slot(robot, zone)
             elif option == 2:
+                put_down(robot)
+                grab(robot)
+
+                token_to_slot_2(robot)
                 for i in range(4):
                     zone = robot.zone if i < 2 else 3-robot.zone
 
