@@ -203,10 +203,8 @@ def get_token_from_corner(robot, zone):
         theta = pi/2 * robot.zone
         log(robot, "Moving to corner of zone %d..." % (zone))
         move_to_point(robot, second_token_x, second_token_y, theta, False)
-        # Look for token here
-    else:
-        token_marker = look_for_token(robot, zone)
 
+    token_marker = look_for_token(robot, zone)
     if token_marker:
         line_up_to_marker(robot, token_marker)
         robot.sound.play('Heart')
