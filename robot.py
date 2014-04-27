@@ -59,12 +59,13 @@ def main():
                 put_down(robot)
                 grab(robot)
 
-                token_to_slot_2(robot)
                 for i in range(4):
                     zone = robot.zone if i < 2 else 3-robot.zone
+                    has_token = True
 
                     slot_y = slot_y_0 + i*dy
-                    has_token = get_token_from_corner(robot, zone)
+                    if i > 0: 
+                        has_token = get_token_from_corner(robot, zone)
 
                     move_to_point(robot, slots_x, slot_y, target_theta)
                     if has_token:
