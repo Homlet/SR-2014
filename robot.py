@@ -58,7 +58,8 @@ def main():
             elif option == 2:
                 put_down(robot)
                 grab(robot)
-                
+
+                token_to_slot_2(robot)
                 for i in range(4):
                     zone = robot.zone if i < 2 else 3-robot.zone
 
