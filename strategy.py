@@ -1,4 +1,4 @@
-from math import pi, sqrt, atan2, hypot
+from math import pi, sqrt, atan2, hypot, radians
 from time import time, sleep
 
 from sr import INPUT_PULLUP, MARKER_ARENA
@@ -7,7 +7,7 @@ from log import push_log, pop_log, log, indented
 from position import (directions_for_marker, directions_for_point,
     position_from_wall, marker_pos)
 from movements import move_straight, turn, grab, put_down
-
+from mechanics import raise_arms, lower_arms, extend_arms, retract_arms, open_arms
 
 RESOLUTION = (1280, 960)
 
@@ -78,43 +78,6 @@ def token_to_slot_2(robot):
 
 
 @indented
-def recalulate_position(robot):
-    """
-    Calculates the robot's position using nearby markers.
-    If there are not enough markers to gain an accurate result,
-    nothing is done.
-    Returns true if the recalculation was successful.
-    """
-    log(robot, "Recalculating position...")
-
-    markers = robot.see(res=RESOLUTION)
-    if markers:
-        positions = []
-        for marker in markers:
-            if marker.info.marker_type == MARKER_ARENA:
-                positions.append(position_from_wall(marker))
-        print(str(positions) + ' markers seen')
-        if len(positions) < 3:  # TODO: tweak.
-            log(robot, "Not enough markers seen.")
-            return False
-
-        means = []
-        for i in xrange(3):
-            means.append(sum([p[i] for p in positions]) / len(positions))
-            square_mean = sum([p[i]**2 for p in positions]) / len(positions)
-            if sqrt(square_mean - means[i]**2) > 0.5:  # TODO: tweak.
-                log(robot, "Position data too varied.")
-                return False
-
-        log(robot, "New position: x=%.1f, y=%.1f, theta=%.1f" % means)
-        robot.position.reset_to(means)
-        return True
-    else:
-        log(robot, "No markers seen.")
-        return False
-
-
-@indented
 def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
     markers = robot.see()
     for marker in markers:
@@ -124,53 +87,61 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
                 if m.info.code in range(28, 32):
                     break
             else:
-                print 'Lost opponent\'s robot'
+                log(robot, 'Lost opponent\'s robot')
                 return
             # Works out direction of movement of that robot
             x0, y0 = marker_pos(marker, robot.position)
             x1, y1 = marker_pos(m, robot.position)
             dx = x1 - x0
             dy = y1 - y0
-            DX = marker.world.x - m.world.x
+            DX = marker.centre.world.x - m.centre.world.x
             X = robot.position.x
             Y = robot.position.y
             dist_to_target = hypot(x-X, y-Y)
             if dx < 0.1 and dy < 0.1:  # The robot is still
                 if m.dist <= dist_to_target:  # It's too close
+                # This works
+                    log(robot, 'Robot still, too close.')
                     # Turn 45 deg away from opp.
-                    turn(robot, m.rot_y-pi/4)  # TO-DO: Turn towards the centre
+                    log(robot, radians(m.rot_y)-pi/4)
+                    turn(robot, radians(m.rot_y)-pi/4)  # TO-DO: Turn towards the centre
                     # Maybe check whether we can go to this point
                     # Find the point to go to get past the opp.
-                    move_straight(robot, .2)
-                    # move_straight(robot, hypot(0.5, m.dist))  # Use move_to_p.
+                    # move_straight(robot, .2)
+                    move_straight(robot, hypot(0.5, m.dist))  # Use move_to_p.
                     # This gets us where we wanted
-                    move_to_point(robot, x, y, theta, False)
+                    # move_to_point(robot, x, y, theta, False)
                     return True
                 else:
                     return False
             else:
-                opp_theta = (5*pi/2 - atan2(dy, dx)) % 2*pi
+                print 'opponent moving'
+                # opp_theta = (5*pi/2 - atan2(dy, dx)) % 2*pi
+                opp_theta = pi/6 - pi
                 theta = robot.position.theta
                 # Is it going towars us?
                 if theta - pi/9 <= ((opp_theta+pi) % (2*pi)) <= theta + pi/9:
                     # Move in parallel
                     turn(robot, opp_theta+pi-theta)  #may result in head-on co.
                     if m.dist <= dist_to_target:
-                        move_straight(robot, m.world.y)  # How long?
+                        move_straight(robot, m.centre.world.y)  # How long?
                         return True
                     else:
+                        print 'not avoiding'
                         return False  # May cause trouble
                         # Get to target point
                 elif hypot(X-x1, Y-y1) <= dist_to_target:  # It's too close
-                    if m.world.x >= 0.4:  # How close we'll get to it
+                    if m.centre.world.x >= 0.4:  # How close we'll get to it
                                           # if we move forwards
+                        print 'we can move past it'
                         move_straight(robot, m.dist)  # How long?
                         # This gets us where we wanted
                         move_to_point(robot, x, y, theta, False)
                         return True
                     else:  # Let it pass
+                        print 'waiting'
                         camera_delay = 1.5
-                        d_left = 0.4 - m.world.x
+                        d_left = 0.4 - m.centre.world.x
                         t_left = d_left / (DX/camera_delay)
                         if t_left < 5:  # Don't wait too long
                             sleep(t_left)
@@ -187,7 +158,8 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
             else:
                 pass
                 # Do something?
-
+    else:
+        log(robot, 'Seen nothing')
 
 @indented
 def move_to_point(robot, x, y, target_theta, smart=True):
@@ -206,10 +178,12 @@ def move_to_point(robot, x, y, target_theta, smart=True):
         move_straight(robot, dist)
 
     d_theta = target_theta - robot.position.theta
+    print ' ! %.2f ' % d_theta
     if d_theta > pi:
         d_theta -= pi+pi
     elif d_theta < -pi:
         d_theta += pi+pi
+    print(d_theta)
     turn(robot, d_theta)
 
     log(robot, "done.")
@@ -320,3 +294,21 @@ def move_till_touch(robot, time_limit=10):  # Experiment with limit default.
 
 def our_token(token_marker, zone):
     return token_marker.info.code in range(40 + zone, 49 + zone, 4)
+
+def roll_marker(robot, option):
+    if option == 1:
+        raise_arms(robot, pos=65)
+        sleep(0.4)
+        move_straight(robot, -0.1)
+    elif option == 2:
+        raise_arms(robot, pos=60)
+        sleep(1)
+        retract_arms(robot, time_limit=0.8)
+        sleep(0.7)
+        open_arms(robot, pos=45)
+        sleep(0.7)
+        raise_arms(robot, pos=50)
+        sleep(0.2)
+        extend_arms(robot)
+    elif option == 3:
+        pass

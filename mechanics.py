@@ -123,26 +123,27 @@ class Motor(Thread):
         self.motor.power = 0
 
 
-def open_arms(robot):
-    robot.servos[0][LEFT_ARM] = 50
-    robot.servos[0][RIGHT_ARM] = 50
+def open_arms(robot, pos = 50):
+    robot.servos[0][LEFT_ARM] = pos
+    robot.servos[0][RIGHT_ARM] = 100-pos
 
 
-def close_arms(robot):
+def close_arms(robot, pos = 95):
     pos = 95
     robot.servos[0][LEFT_ARM] = pos
     robot.servos[0][RIGHT_ARM] = 100 - pos
 
 
-def raise_arms(robot):
-    robot.servos[0][ARMS_LIFT] = 40
+def raise_arms(robot, pos = 40):
+    robot.servos[0][ARMS_LIFT] = pos
 
 
-def lower_arms(robot):
-    robot.servos[0][ARMS_LIFT] = 100
+def lower_arms(robot, pos = 100):
+    robot.servos[0][ARMS_LIFT] = pos
 
 
-def extend_arms(robot):
+def extend_arms(robot, time_limit = 4):
+    time_limit = min(time_limit, 3)
     hit_stop = False
     beyond_time_limit = False
 
@@ -150,11 +151,12 @@ def extend_arms(robot):
     robot.motors[1].m1.power = -ARMS_POWER
     while not (hit_stop or beyond_time_limit):
         hit_stop = not robot.ruggeduinos[0].digital_read(ARMS_FORWARDS_STOP)
-        beyond_time_limit = time() - start > 4  # Failsafe limit
+        beyond_time_limit = time() - start > time_limit  # Failsafe limit
     robot.motors[1].m1.power = 0
 
 
-def retract_arms(robot):
+def retract_arms(robot, time_limit = 4):
+    time_limit = min(time_limit, 3)
     hit_stop = False
     beyond_time_limit = False
 
@@ -162,6 +164,6 @@ def retract_arms(robot):
     robot.motors[1].m1.power = ARMS_POWER
     while not (hit_stop or beyond_time_limit):
         hit_stop = not robot.ruggeduinos[0].digital_read(ARMS_BACKWARDS_STOP)
-        beyond_time_limit = time() - start > 4  # Failsafe limit
+        beyond_time_limit = time() - start > time_limit  # Failsafe limit
     robot.motors[1].m1.power = 0
     

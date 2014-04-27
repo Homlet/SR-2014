@@ -4,7 +4,6 @@ from log import log, indented
 
 class Sound:
     def __init__(self, robot, active):
-        log(robot, "Initialisig Sound Controller...")
         self.rduino = robot.ruggeduinos[0]
         self.set_pin = self.rduino.digital_write
         self.data = [4,3,2]
@@ -13,7 +12,7 @@ class Sound:
         self.robot = robot
         self.enabled = active
         if not self.enabled: # if sound is disabled in constant of robot.py
-            log(robot, "Sound Disabled in Constant!")
+            log(robot, "Note: Sound Disabled in Constant!")
             return
         
         self.sounds = {
@@ -41,11 +40,11 @@ class Sound:
         """Initialises the Pins on the ruggeduino for sound output"""
         for pin in self.data + [self.read]:
             self.rduino.pin_mode(pin, OUTPUT)
-        
+    
     def play(self, sound):
         """ Sends command to play sound. """
         if not self.enabled: #if sound is disabled.
-            log(self.robot, "Sound is Disabled, Ignoring Request.")
+            log(self.robot, "Sound is Disabled, Ignoring Request for sound " + str(sound) + "!")
             return
         
         sound_data = self.sounds.get(sound)
