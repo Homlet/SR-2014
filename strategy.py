@@ -33,6 +33,10 @@ def token_to_slot(robot, slot):
     log(robot, "Scanning for slot markers...")
     robot.sound.play('Radar')
     markers = robot.see(res=RESOLUTION)
+    if not markers:
+        for i in range(3):
+            markers = robot.see(res=RESOLUTION)
+            if markers: break
     found_Marker = False
     for marker in markers:
         if marker.info.code in range(32, 40):
@@ -61,7 +65,12 @@ def token_to_slot_2(robot):
     Assumes robot is near the slot with the token already.
     """
 
-    markers = robot.see()
+    markers = robot.see(res=RESOLUTION)
+    if not markers:
+        for i in range(3):
+            markers = robot.see(res=RESOLUTION)
+            if markers:
+                break
     for marker in markers:
         if marker.info.code in range(32, 40):
             line_up_to_marker(robot, marker, 0.4)
@@ -76,6 +85,7 @@ def token_to_slot_2(robot):
             pass  # Return False?
             # Check if it's in a slot.
                 # If it's not our take it out?
+    put_down(robot)
 
 
 @indented
@@ -166,7 +176,7 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
         log(robot, 'Seen nothing')
 
 @indented
-def move_to_point(robot, x, y, target_theta, smart=True):
+def move_to_point(robot, x, y, target_theta=None, smart=False):
     """
     Given the robot's current tracked position, moves to point
     (x, y), where x and y are metres from the origin.
@@ -174,23 +184,23 @@ def move_to_point(robot, x, y, target_theta, smart=True):
     if not valid_point(x, y):
         log(robot, 'Cant go there')
         return False
-    log(robot, "Moving to point x=%.1f y=%.1f...%.1f " % (x, y, target_theta))
+    log(robot, "Moving to point x=%.1f y=%.1f" % (x, y))
     dist, angle = directions_for_point(robot, x, y)
     robot.sound.play('Valkyries')
     log(robot, "dist=%.1f angle=%.1f" % (dist, angle))
 
     turn(robot, angle)
-    if smart and not avoid_obstacles(robot, x, y, target_theta):
-        move_straight(robot, dist)
+    # if smart and not avoid_obstacles(robot, x, y, target_theta):
+    move_straight(robot, dist)
 
-    d_theta = target_theta - robot.position.theta
-    print ' ! %.2f ' % d_theta
-    if d_theta > pi:
-        d_theta -= pi+pi
-    elif d_theta < -pi:
-        d_theta += pi+pi
-    print(d_theta)
-    turn(robot, d_theta)
+    if target_theta is not None:
+        d_theta = target_theta - robot.position.theta
+        if d_theta > pi:
+            d_theta -= pi+pi
+        elif d_theta < -pi:
+            d_theta += pi+pi
+        print(d_theta)
+        turn(robot, d_theta)
 
     log(robot, "done.")
     robot.sound.stop()

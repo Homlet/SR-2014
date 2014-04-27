@@ -66,7 +66,7 @@ def main():
                     has_token = True
 
                     slot_y = slot_y_0 + i*dy
-                    if i > 0: 
+                    if i > 0:
                         has_token = get_token_from_corner(robot, zone)
 
                     move_to_point(robot, slots_x, slot_y, target_theta)
@@ -74,6 +74,20 @@ def main():
                         token_to_slot_2(robot)
                     else:
                         print 'Have no token'
+            elif option == 2:
+                put_down(robot)
+                grab(robot)
+                for i in range(4):
+                    zone = robot.zone if i < 2 else 3-robot.zone
+                    if i == 0:
+                        move_to_point(robot, slots_x, slot_y_0, target_theta)
+                        token_to_slot_2(robot)
+                    else:
+                        move_to_point(robot, 2, 2)
+                        get_token_from_corner(robot, zone)
+                        slot_y = slot_y_0 + dy*i
+                        move_to_point(robot, slots_x, slot_y, target_theta)
+                        token_to_slot_2(robot)
         except:
             print_exc()
             restart(robot)
