@@ -32,13 +32,6 @@ def main():
     robot.position = Tracker(robot.zone)
     set_pins(robot)
 
-    roll_marker(robot, 1)
-    log(robot, "Done 1")
-    sleep(2)
-    roll_marker(robot, 2)
-    log(robot, "Done 2")
-    return
-
     slots_x = 2.91 if robot.zone in [0, 3] else 5.09
     target_theta = pi/2 if robot.zone in [0, 3] else 1.5*pi
     if robot.zone in [0, 1]:
