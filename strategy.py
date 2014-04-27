@@ -295,19 +295,20 @@ def move_till_touch(robot, time_limit=10):  # Experiment with limit default.
 def our_token(token_marker, zone):
     return token_marker.info.code in range(40 + zone, 49 + zone, 4)
 
-def roll_marker_twice(robot, option):
+def roll_marker(robot, option):
     if option == 1:
         raise_arms(robot, pos=70)
-        sleep(0.5)
+        sleep(1.3)
         move_straight(robot, -0.1)
     elif option == 2:
         raise_arms(robot, pos=60)
-        sleep(0.5)
+        sleep(1)
         retract_arms(robot, time_limit=0.8)
-        sleep(0.2)
+        sleep(0.7)
         open_arms(robot, pos=45)
-        sleep(0.2)
+        sleep(0.7)
         raise_arms(robot, pos=50)
+        sleep(0.2)
         extend_arms(robot)
     elif option == 3:
         pass

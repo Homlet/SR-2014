@@ -9,7 +9,7 @@ from log import reset_log, log
 from tracker import Tracker
 from sound import Sound
 from strategy import (get_token_from_corner, token_to_slot, move_to_point,
-    move_till_touch, FRONT_SWITCH, token_to_slot_2, roll_marker_twice)
+    move_till_touch, FRONT_SWITCH, token_to_slot_2, roll_marker)
 from movements import put_down, grab, move_straight, turn
 from mechanics import (ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP,
     LEFT_MOTOR_SWITCH, RIGHT_MOTOR_SWITCH, raise_arms, lower_arms)
@@ -32,10 +32,10 @@ def main():
     robot.position = Tracker(robot.zone)
     set_pins(robot)
 
-    roll_marker_twice(robot, 1)
+    roll_marker(robot, 1)
     log(robot, "Done 1")
     sleep(2)
-    roll_marker_twice(robot, 2)
+    roll_marker(robot, 2)
     log(robot, "Done 2")
     return
 
