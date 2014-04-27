@@ -173,7 +173,6 @@ def move_to_point(robot, x, y, target_theta, smart=True):
     log(robot, "dist=%.1f angle=%.1f" % (dist, angle))
 
     turn(robot, angle)
-    sleep(0.1)
     if smart and not avoid_obstacles(robot, x, y, target_theta):
         move_straight(robot, dist)
 
@@ -235,7 +234,6 @@ def look_for_token(robot, zone):
                 robot.sound.stop()
                 return marker
         turn(robot)
-        sleep(0.2)
     else:
         robot.sound.stop()
         return None
@@ -252,9 +250,7 @@ def line_up_to_marker(robot, marker, dist=0.4):
     log(robot, "dist=%.2f, angle1=%.2f, angle2=%.2f" % (dist, angle1, angle2))
 
     turn(robot, angle1)
-    sleep(0.3)
     move_straight(robot, dist)
-    sleep(0.3)
     turn(robot, angle2)
 
     log(robot, "Lined up to Marker.")
