@@ -13,6 +13,7 @@ def move_straight(robot, dist):
     journey = Journey(robot, distance=dist)
     journey.start()
     robot.position.move(dist)
+    sleep(0.5)
 
 
 @indented
@@ -24,6 +25,7 @@ def turn(robot, alpha=0.524):  # 0.524 rad = 30 degrees
     journey = Journey(robot, angle=alpha)
     journey.start()
     robot.position.turn(alpha)
+    sleep(0.5)
 
 
 @indented
