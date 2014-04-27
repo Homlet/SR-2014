@@ -33,11 +33,11 @@ class Journey:
         if distance != 0:
             self.length = distance
             log(robot, "Creating journey with dist=%.1f" % (distance))
-            approx = (45, 6)
+            approx = (50, 7)
         elif angle != 0:
             self.length = -angle * ROBOT_RADIUS
             log(robot, "Creating journey with angle=%.1f" % (angle))
-            approx = (55, 7.5)
+            approx = (55, 7)
         else:
             self.run = False
             approx = (0, 0)
