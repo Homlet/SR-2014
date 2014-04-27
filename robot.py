@@ -59,7 +59,13 @@ def main():
                 put_down(robot)
                 grab(robot)
 
+<<<<<<< HEAD
                 for i in range(4):
+=======
+                move_to_point(robot, slots_x, slot_y_0, target_theta)
+                token_to_slot_2(robot)
+                for i in range(3):
+>>>>>>> 349a0cfc098ecd2a5ea249ffb3b0ce8b9bd10f59
                     zone = robot.zone if i < 2 else 3-robot.zone
                     has_token = True
 

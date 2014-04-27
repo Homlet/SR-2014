@@ -18,6 +18,7 @@ SLOT_POINTS = [(2.91, 3.1), (5.09, 3.1), (5.09, 4.9), (2.91, 4.9)]
 
 CRAWL_POWER = 40
 
+
 @indented
 def token_to_slot(robot, slot):
     """
@@ -80,6 +81,7 @@ def token_to_slot_2(robot):
 @indented
 def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
     markers = robot.see()
+    theta = robot.position.theta
     for marker in markers:
         if marker.info.code in range(28, 32):
             markers_ = robot.see()
@@ -108,9 +110,12 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
                     # Maybe check whether we can go to this point
                     # Find the point to go to get past the opp.
                     # move_straight(robot, .2)
-                    move_straight(robot, hypot(0.5, m.dist))  # Use move_to_p.
+                    dist = hypot(0.5, m.dist)
+                    dx_ = sin(theta) * dist
+                    dy_ = cos(theta) * dist
+                    # move_straight(robot, hypot(0.5, m.dist))  # Use move_to_p.
+                    move_to_point(robot, X+dx_, Y+dy_, theta, False)
                     # This gets us where we wanted
-                    # move_to_point(robot, x, y, theta, False)
                     return True
                 else:
                     return False
@@ -118,7 +123,6 @@ def avoid_obstacles(robot, x, y, theta):  # This will need more arguments
                 print 'opponent moving'
                 # opp_theta = (5*pi/2 - atan2(dy, dx)) % 2*pi
                 opp_theta = pi/6 - pi
-                theta = robot.position.theta
                 # Is it going towars us?
                 if theta - pi/9 <= ((opp_theta+pi) % (2*pi)) <= theta + pi/9:
                     # Move in parallel
@@ -167,6 +171,9 @@ def move_to_point(robot, x, y, target_theta, smart=True):
     Given the robot's current tracked position, moves to point
     (x, y), where x and y are metres from the origin.
     """
+    if not valid_point(x, y):
+        log(robot, 'Cant go there')
+        return False
     log(robot, "Moving to point x=%.1f y=%.1f...%.1f " % (x, y, target_theta))
     dist, angle = directions_for_point(robot, x, y)
     robot.sound.play('Valkyries')
@@ -187,6 +194,7 @@ def move_to_point(robot, x, y, target_theta, smart=True):
 
     log(robot, "done.")
     robot.sound.stop()
+    return True
 
 
 @indented
