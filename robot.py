@@ -15,7 +15,7 @@ from mechanics import (ARMS_FORWARDS_STOP, ARMS_BACKWARDS_STOP,
     LEFT_MOTOR_SWITCH, RIGHT_MOTOR_SWITCH, raise_arms, lower_arms)
 
 
-USING_SOUND = False
+USING_SOUND = True
 
 
 def main():
@@ -23,7 +23,7 @@ def main():
     Robot will use two corners on one side of the wall in the arena.
     It will try to put all 4 tokens into slots. This gives us 9 points.
     """
-    option = 1
+    option = 2
 
     robot = Robot()
     reset_log(robot)
