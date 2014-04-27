@@ -297,8 +297,8 @@ def our_token(token_marker, zone):
 
 def roll_marker(robot, option):
     if option == 1:
-        raise_arms(robot, pos=70)
-        sleep(1.3)
+        raise_arms(robot, pos=65)
+        sleep(0.4)
         move_straight(robot, -0.1)
     elif option == 2:
         raise_arms(robot, pos=60)
