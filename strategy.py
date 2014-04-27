@@ -213,15 +213,6 @@ def get_token_from_corner(robot, zone):
     Moves to specified corner, finds a marker and picks it up.
     """
     log(robot, "Attempting to get token from corner of zone %d..." % (zone))
-    if zone == robot.zone:
-        x_offset = 1.4
-        y_offset = 0.2 + 0.5
-        second_token_x = x_offset if zone in [0, 3] else 8 - x_offset
-        second_token_y = y_offset if zone in [0, 1] else 8 - y_offset
-        theta = pi/2 * robot.zone
-        log(robot, "Moving to corner of zone %d..." % (zone))
-        move_to_point(robot, second_token_x, second_token_y, theta, False)
-
     token_marker = look_for_token(robot, zone)
     if token_marker:
         line_up_to_marker(robot, token_marker)
@@ -244,9 +235,18 @@ def look_for_token(robot, zone):
     by turning through 90 degrees.
     """
 
-    zx, zy = SCAN_POINTS[zone]
-    target_theta = (1.5*pi + zone*pi/2) % (pi+pi)
-    move_to_point(robot, zx, zy, target_theta)
+    if zone == robot.zone:
+        x_offset = 1.4
+        y_offset = 0.2 + 0.5
+        second_token_x = x_offset if zone in [0, 3] else 8 - x_offset
+        second_token_y = y_offset if zone in [0, 1] else 8 - y_offset
+        theta = pi/2 * robot.zone
+        log(robot, "Moving to corner of zone %d..." % (zone))
+        move_to_point(robot, second_token_x, second_token_y, theta)
+    else:
+        zx, zy = SCAN_POINTS[zone]
+        target_theta = (1.5*pi + zone*pi/2) % (pi+pi)
+        move_to_point(robot, zx, zy, target_theta)
 
     log(robot, "Moved to corner of zone " + str(zone) + ".")
     robot.sound.play('Radar')
