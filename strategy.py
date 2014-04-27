@@ -5,7 +5,7 @@ from sr import INPUT_PULLUP, MARKER_ARENA
 
 from log import push_log, pop_log, log, indented
 from position import (directions_for_marker, directions_for_point,
-    position_from_wall, marker_pos)
+    position_from_wall, marker_pos, valid_point)
 from movements import move_straight, turn, grab, put_down
 from mechanics import raise_arms, lower_arms, extend_arms, retract_arms, open_arms
 
@@ -63,11 +63,11 @@ def token_to_slot_2(robot):
     markers = robot.see()
     for marker in markers:
         if marker.info.code in range(32, 40):
-            line_up_to_marker(robot, marker, 0.3)
+            line_up_to_marker(robot, marker, 0.4)
             sleep(0.2)
             put_down(robot)
             sleep(0.4)
-            move_straight(robot, -0.3)
+            move_straight(robot, -0.6)
             break  # Return True?
         elif marker.info.code in range(40, 52):
             # This is unlikely to happen at the beginning

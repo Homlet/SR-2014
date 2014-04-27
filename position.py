@@ -129,3 +129,9 @@ def directions_for_point(robot, x, y):
     if beta > pi:
         beta -= pi+pi
     return hypot(dx, dy), beta
+
+
+def valid_point(x, y):
+    arena = (0 <= x <= 8) and (0 <= y <= 8)
+    walls = (3.61 <= x <= 3.79) and (2.5 <= y <= 5.5)
+    return arena and not walls

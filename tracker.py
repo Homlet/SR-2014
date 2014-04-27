@@ -11,7 +11,6 @@ class Tracker():
     def __init__(self, zoneNumber):
         self.x, self.y, self.theta = position_from_zone(zoneNumber)
 
-    # Why use __repr__? Why not __str__?
     def __repr__(self):
         return 'Tracker({})'.format(
             ', '.join(map(repr, [self.x, self.y, self.theta])))
