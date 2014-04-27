@@ -61,6 +61,11 @@ def main():
                 for i in range(4):
                     zone = robot.zone if i < 2 else 3-robot.zone
                     if i == 0:
+                        move_to_point(robot, slots_x, slot_y_0+0.9, target_theta)
+                        token_to_slot_2(robot)
+                    elif i == 1:
+                        move_to_point(robot, 2, 2)
+                        get_token_from_corner(robot, zone)
                         move_to_point(robot, slots_x, slot_y_0, target_theta)
                         token_to_slot_2(robot)
                     else:
